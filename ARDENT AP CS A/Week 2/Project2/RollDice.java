@@ -15,5 +15,5 @@ public class RollDice
         System.out.println("Dice roll one is: " + d1);
         System.out.println("Dice roll one is: " + d2);
         
-        System.out.println("The total is: " + (d1 + d2));
+        System.out.println("The total of the two di is: " + (d1 + d2));
 }}
