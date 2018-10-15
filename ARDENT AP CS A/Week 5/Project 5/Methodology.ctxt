@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Methodology
+comment1.params=fTemp
+comment1.target=double\ FtoC(double)
+comment2.params=cTemp
+comment2.target=double\ CtoK(double)
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+numComments=4
