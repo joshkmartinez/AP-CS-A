@@ -1,0 +1,59 @@
+import java.util.Scanner;
+import java.lang.Math; 
+
+class Lesson_20_Activity{
+    public static void main(String[] args)
+     {
+      Scanner scan = new Scanner(System.in);
+      
+      double north = Double.MIN_VALUE;
+      double south = Double.MIN_VALUE;
+      double east = Double.MIN_VALUE;
+      double west = Double.MIN_VALUE;
+      
+      double x = 0;
+      double y = 0;
+      double z = 1;
+      
+      while(z != 0)
+      {
+        System.out.println("Please enter the latitude: ");
+        x = scan.nextDouble();
+        System.out.println("PLease enter the longitude: ");
+        y = scan.nextDouble();
+        System.out.println("Would you like to enter another location?");
+        z = scan.nextDouble();
+        {
+        if(!(x>90)&&!(x<-90))
+        
+          if(x >= north)
+            north = x;
+          else if(x <= south)
+            south = x;
+        else
+          System.out.println("Incorrect Latitude or Longitude");
+          
+          
+        if(!(x>180)&&!(x<-180))
+        
+          if (y >= east)
+            east = y;
+          else if( y <= west)
+            west = y;
+        else
+          System.out.println("Incorrect Latitude or Longitude");
+        }
+      }
+      
+      System.out.println("Farthest North: " + north);
+      System.out.println("Farthest South: " + south);
+      System.out.println("Farthest East: " + east);
+      System.out.println("Farthest West: " + west);
+/*
+ * Write your code here
+ * Copy and paste your entire program to Code Runner
+ * to complete the activity, from the first import statement
+ * to the last bracket.
+ */
+}
+}
