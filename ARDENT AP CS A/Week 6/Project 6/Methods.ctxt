@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Methods
+comment1.params=s
+comment1.target=void\ print(java.lang.String)
+comment2.params=miles
+comment2.target=double\ MilesToKm(double)
+comment3.params=parsecs
+comment3.target=double\ ParsecsToLightYears(double)
+comment4.params=cost\ taxPercent
+comment4.target=double\ salesTax(double,\ double)
+comment5.params=array\ multVal
+comment5.target=int[]\ multArray(int[],\ int)
+comment6.params=args
+comment6.target=void\ main(java.lang.String[])
+numComments=7
