@@ -1,11 +1,11 @@
 /**
  * Calendar Project
- * 
+ * by: Joshua Martinez
  */
 
 import java.util.Scanner;
 
-public class CalendarFramework
+public class Calendar
 {
     /**
      * Print Function - print with no newline
@@ -39,14 +39,14 @@ public class CalendarFramework
     private static void printMonthTitle( int year, int month )
     {
         String[] months = new String[]{"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
-        println( months[month-1] + " " + year); //month number to month name
+        println( "         " + months[month-1] + " " + year); //month number to month name
     }
     
     /**
      * Second Level Stub - printMonthBody
      * (includes dummy values)
      */
-    public static void printMonthBody( int year, int month )
+    private static void printMonthBody( int year, int month )
     {
         
         println("---------------------------\nSun Mon Tue Wed Thu Fri Sat");
@@ -89,7 +89,7 @@ public class CalendarFramework
         }
     }
     
-    public static int getStartDay( int year, int month )
+    private static int getStartDay( int year, int month )
     {
         //of the month
         int startDay = (getTotalNumberOfDays( year, month)%7);
@@ -140,7 +140,7 @@ public class CalendarFramework
         }
     }
     
-    public static boolean isLeapYear( int year )
+    private static boolean isLeapYear( int year )
     {
         boolean isIt = false;
         if (year % 400 == 0 )
@@ -166,7 +166,7 @@ public class CalendarFramework
     {
         Scanner input = new Scanner( System.in );
         
-        print( "Enter a complete year: " );
+        print( "\nEnter a complete year: " );
         int year = input.nextInt();
         
         print( "Enter a month: " );
