@@ -1,4 +1,4 @@
-# AP CS A Edhesive
+# AP CS A Online Edhesive Class
 for the online Edhesive class
 and  
 AP CS A (Fall 2018: P209B16 - AP Computer Science A (Java))
