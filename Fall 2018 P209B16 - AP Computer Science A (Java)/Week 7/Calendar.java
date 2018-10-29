@@ -62,7 +62,7 @@ public class Calendar
         while (dayOn <= getDaysInMonth(year, month))
         {
             
-            if (startIndex % 7 == 0)
+            if (startIndex % 7 == 0 && dayOn != 1)
             {
                 println("");
             }
@@ -92,35 +92,52 @@ public class Calendar
     private static int getStartDay( int year, int month )
     {
         //of the month
-        int startDay = (getTotalNumberOfDays( year, month)%7);
+        int day = ((getTotalNumberOfDays( year, month)+6)%7);
         //0 = sun
         //1 = mon
-        
-        return startDay; //return 1 - 7 for day of the week
+        day = ( day +7 )%7;
+        return day; //return 1 - 7 for day of the week
     }
     
     private static int getTotalNumberOfDays( int year, int month )
     {
+        //January 1st 2000 is a Saturday <- epoch date
         
-        int daysSince = 0;
-        //January 1st 1995 is a Sunday
-        //January 1st 2000 is a Saturday?
+        int days = 0;
+        int currentMonth =1;
+        int currentYear = 2000;
         
-        for (int i = year; i > 1995; i--) //need to acconut for years after 2000
+        if ( year >= 2000)
         {
-            daysSince += 365;
-            if (isLeapYear(i))
+            while (currentYear < year || currentMonth < month)
             {
-                daysSince++;
-            } 
-        }
-        for (int m = 1; m < month; m++)
+                days += getDaysInMonth (currentYear, currentMonth);
+                if(currentMonth<12)
+                {
+                    currentMonth++;
+                } else
+                {
+                    currentYear++;
+                    currentMonth=1;
+                }
+            }
+        } else if(year < 2000)
         {
-                daysSince += getDaysInMonth(year, m);
+            while (currentYear > year || currentMonth > month)
+            {
+                days -= getDaysInMonth(currentYear, currentMonth);
+                if(currentMonth>1)
+                    {
+                        currentMonth--;
+                    } else
+                    {
+                        currentYear--;
+                        currentMonth=12;
+                    }
+            }
         }
-        return daysSince;
-    }
-    
+        return days;
+}
     private static int getDaysInMonth( int year, int month )
     {
         if (isLeapYear(year) && month == 2)
@@ -166,7 +183,7 @@ public class Calendar
     {
         Scanner input = new Scanner( System.in );
         
-        print( "\nEnter a complete year: " );
+        print( "\n\nEnter a complete year: " );
         int year = input.nextInt();
         
         print( "Enter a month: " );
