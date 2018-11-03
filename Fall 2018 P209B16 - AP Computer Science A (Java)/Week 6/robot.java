@@ -33,6 +33,6 @@ public class robot
     
     public String getGreeting()
     {
-        return greetings[rand.nextInt(greetings.length)+1];
+        return greetings[rand.nextInt(greetings.length)];
     }
 }

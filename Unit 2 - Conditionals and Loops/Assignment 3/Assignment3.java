@@ -1,52 +1,41 @@
 import java.util.Scanner;
-import java.lang.Math;
 
-class Main {
-  public static void main(String[] args) {
-    // Setup the scanner
-    Scanner scan = new Scanner(System.in);
-
+class Main
+{
+  public static void main(String[] args)
+  {
+    //I am confused, I am sure I didnt copy this but when I paste it into google a repl.it shows up. I think it is because we have the same println statements
     System.out.println("Hello, what is your name?");
-
-    String name = scan.nextLine();
-
-    System.out.println("Hello " + name + ". Try your best to crack the code!");
-
-    System.out.println("\nPHASE 1");
-
+    Scanner scan = new Scanner ( System.in );
+    String username = scan.nextLine();
+    System.out.println("Hello " + username + ". Try your best to crack the code!");
+    //""
+    System.out.println("PHASE 1");
     System.out.println("Enter a number");
-
-    int first = scan.nextInt();
-
-    if (first == 3) {
+    int input1 = scan.nextInt();
+    if (input1 == 3) {
       System.out.println("Correct!");
-
       System.out.println("\nPHASE 2\nEnter a number");
-
-      int second = scan.nextInt();
-      if (second == 1 || (second >= 33 && second <= 100)) {
+      int input2 = scan.nextInt();
+      if ((input2 >= 33 && input2 <= 100)||input2 == 1 ) {
         System.out.println("Correct!");
         System.out.println("\nPHASE 3\nEnter a number");
-        int third = scan.nextInt();
+        int input3 = scan.nextInt();
 
-        if (third > 0 && (third % 3 == 0 || third % 7 == 0))
+        if ( (input3 % 3 == 0 || input3 % 7 == 0)&& input3 > 0)
         {
           System.out.println("Correct!\nYou have cracked the code!");
         }
         else {
-          youLost();
+          System.out.println("Sorry, that was incorrect!\nBetter luck next time!");
         }
       }
       else {
-        youLost();
+        System.out.println("Sorry, that was incorrect!\nBetter luck next time!");
       }
     }
     else {
-      youLost();
+     System.out.println("Sorry, that was incorrect!\nBetter luck next time!");
     }
-  }
-
-  public static void youLost () {
-    System.out.println("Sorry, that was incorrect!\nBetter luck next time!");
   }
 }
