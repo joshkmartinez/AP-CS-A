@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class testRobot
+public class TestRobot
 {
     public static void main (String[] args)
     {
@@ -11,11 +11,14 @@ public class testRobot
         System.out.println("What is your robots age?");
         int age = scan.nextInt();
         
+        String nothing = scan.nextLine(); // see stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
         System.out.println("What is your robots favorite color?");
-        String favcolor = scan.nextLine(); // <- its this line
+        String favcolor = scan.nextLine();
         
-        robot roboto = new robot(name,age,favcolor);
+        robot roboto = new robot(name, age, favcolor);
         
-        System.out.println(roboto.getName() + " says " + roboto.getGreeting());
+        System.out.println(roboto.getName() + " the robot says " + roboto.getGreeting() + " and feels " +roboto.getMood());
+        
+        roboto.rayGun();
     }
 }
