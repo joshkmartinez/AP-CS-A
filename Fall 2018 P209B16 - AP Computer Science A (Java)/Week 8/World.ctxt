@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=World
+comment1.params=size
+comment1.target=World(int)
+comment2.params=
+comment2.target=void\ displayWorld()
+comment3.params=
+comment3.target=void\ generation()
+comment4.params=world
+comment4.target=Cell[][]\ handleCornerCells(Cell[][])
+comment5.params=world
+comment5.target=Cell[][]\ handleEdges(Cell[][])
+comment6.params=world
+comment6.target=Cell[][]\ handleInnards(Cell[][])
+comment7.params=world\ row\ col
+comment7.target=boolean\ handleCell(Cell[][],\ int,\ int)
+numComments=8
