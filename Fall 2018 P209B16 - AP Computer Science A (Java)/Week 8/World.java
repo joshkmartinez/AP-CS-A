@@ -103,7 +103,7 @@ public class World
     }
     
     
-    private boolean handleCell(Cell[][] world, int row, int col)
+    private boolean handleCell(Cell[][] world, int row, int col, String type)
     {
         //handle all cells that are not edges nor corners
         Cell[][] tempWorld = new Cell[ worldSize ][ worldSize ];
