@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=PiggyBank
+comment1.params=
+comment1.target=PiggyBank()
+comment2.params=c
+comment2.target=void\ addCoin(Coin)
+comment3.params=
+comment3.target=int\ numCoins()
+comment4.params=
+comment4.target=double\ totalValue()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

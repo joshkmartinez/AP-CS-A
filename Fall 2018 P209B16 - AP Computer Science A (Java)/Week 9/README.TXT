@@ -1,0 +1,1 @@
+This is the better game of life

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Coin
+comment1.params=n\ y\ fv
+comment1.target=Coin(java.lang.String,\ int,\ double)
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment3.params=
+comment3.target=int\ getYear()
+comment4.params=
+comment4.target=double\ getFaceValue()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
