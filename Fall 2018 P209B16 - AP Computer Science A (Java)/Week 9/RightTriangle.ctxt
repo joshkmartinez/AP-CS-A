@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=RightTriangle
+comment1.params=sl\ a
+comment1.target=RightTriangle(double[],\ double[])
+numComments=2
