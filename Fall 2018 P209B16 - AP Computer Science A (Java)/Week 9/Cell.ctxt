@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=Cell
-comment1.params=a
-comment1.target=Cell(boolean)
-comment2.params=
-comment2.target=boolean\ alive()
-numComments=3

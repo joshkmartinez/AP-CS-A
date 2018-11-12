@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Human
+comment1.params=n\ h\ w
+comment1.target=Human(java.lang.String,\ double,\ double)
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment3.params=
+comment3.target=double\ getHeight()
+comment4.params=
+comment4.target=double\ getWeight()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

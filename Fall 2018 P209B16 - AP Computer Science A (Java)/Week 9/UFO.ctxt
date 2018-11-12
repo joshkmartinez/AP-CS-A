@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=UFO
+comment1.params=n\ c
+comment1.target=UFO(java.lang.String,\ java.lang.String)
+comment2.params=h
+comment2.target=void\ addHuman(Human)
+comment3.params=
+comment3.target=void\ purgeAll()
+comment4.params=i
+comment4.target=void\ purgeHuman(int)
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
