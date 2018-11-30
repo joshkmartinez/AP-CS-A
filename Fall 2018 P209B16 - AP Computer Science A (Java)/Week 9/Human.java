@@ -22,6 +22,6 @@ public class Human {
     }
 
     public String toString() {
-        return name + ": " + height + " ft tall, " + weight + " lbs \n";
+        return name + ": " + height + " meters tall, " + weight + " kilograms \n";
     }
 }

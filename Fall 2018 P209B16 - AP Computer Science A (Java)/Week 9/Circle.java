@@ -1,9 +1,15 @@
 public class Circle {
     private double radius;
-    private double pi = 3.1415;
+    public static final double pi = 3.1415;
 
+    
+    //Overloading constructor
     public Circle(double r) {
         radius = r;
+    }
+    
+    public Circle() {
+        radius = 1;
     }
 
     public double getArea() {
