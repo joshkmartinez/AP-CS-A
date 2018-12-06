@@ -1,83 +1,117 @@
+//import java.util.*;
+import java.util.ArrayList;
 import java.util.Scanner;
-class Main {
-  public static void main(String[] args) {
-    Scanner scan = new Scanner(System.in);
-    String[] names1 = new String[10000];
-    String[] names2 = new String[10000];
-    int mergep1 = 0;
-    int mergep2 = 0;
-    int fakeboolean = 0;// hehee
-    // need to check alphebetical Order
-    System.out.println("Enter the values for the first array, up to 10000 values, enter 'End' to quit");
-    for (int i = 0; i < names1.length; i++) {
-      String input = scan.nextLine();
-      names1[i] = (input.substring(0, 1).toUpperCase()) + (input.substring(1).toLowerCase()); // puts title case on name
-      if (names1[i].equals("End")) {
-        mergep1 = i;
-        break;
-      }
-    }
-    for (int i = 0; i < mergep1 - 1; i++)
-      if ((names1[i].compareTo(names1[i + 1]) > 0)) {
-        fakeboolean = 1;
-    }
-    System.out.println("Enter the values for the second array, up to 10000 values, enter 'End' to quit");
-    for (int i = 0; i < names2.length; i++) {
-      String input = scan.nextLine();
-      names2[i] = (input.substring(0, 1).toUpperCase()) + (input.substring(1).toLowerCase());
-      if (names2[i].equals("End")) {
-        mergep2 = i;
-        break;
-      }
-    }
-    for (int i = 0; i < mergep2 - 1; i++)
-      if ((names2[i].compareTo(names2[i + 1]) > 0)) {
-        fakeboolean = 1;
-      }
 
-    if (fakeboolean == 1) {
-      System.out.println("First Array");
-      for (int i = 0; i < mergep1; i++) {
-        System.out.print(names1[i] + " ");
-      }
-      System.out.println();
-      System.out.println("Second Array");
-      for (int i = 0; i < mergep2; i++) {
-        System.out.print(names2[i] + " ");
-      }
-      System.out.println();
-      System.out.println("Error: Arrays not in correct order");
-    }
-    // merge names
-    else if (fakeboolean == 0) {
-      int index1 = 0;
-      int index2 = 0;
-      int index3 = 0;
-      String[] merged = new String[20000];
-      int mergedEnd = (mergep1 + mergep2) - 1;
-      while (index1 != mergep1 || index2 != mergep2) {
-        if ((names2[index2].equals("End"))
-            || !(names1[index1].equals("End")) && (names1[index1].compareTo(names2[index2]) < 0)) {
-          merged[index3] = names1[index1];
-          index1++;
-          index3++;
-        } else {
-          merged[index3] = names2[index2];
-          index2++;
-          index3++;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int a1 = 0; //array length
+        int a2 = 0;
+        System.out.println("Enter the values for the first array, up to 10000 values, enter 'End' to quit");
+        String[] array1 = new String[10000];
+        for (int i = 0; i < array1.length; i++) {
+            String x = scan.nextLine();
+            if (x.equals("End")) {
+                break;
+            } else {
+                array1[i] = (x.substring(0, 1).toUpperCase()) + (x.substring(1).toLowerCase());
+                a1++;
+            }
         }
-      }
-      System.out.println("First Array");
-      for (int i = 0; i < mergep1; i++) {
-        System.out.print(names1[i] + " ");
-      }
-      System.out.println("\nSecond Array");
-      for (int i = 0; i < mergep2; i++) {
-        System.out.print(names2[i] + " ");
-      }
-      System.out.println("\nMerged Array");
-      for (int i = 0; i <= mergedEnd; i++)
-        System.out.print(merged[i] + " ");
+
+        System.out.println("Enter the values for the second array, up to 10000 values, enter 'End' to quit");
+        String[] array2 = new String[10000];
+        for (int i = 0; i < array2.length; i++) {
+            String x = scan.nextLine();
+            if (x.equals("End")) {
+                break;
+            } else {
+                a2++;
+                array2[i] = (x.substring(0, 1).toUpperCase()) + (x.substring(1).toLowerCase());
+            }
+        }
+
+        // System.out.println(Arrays.toString(array1));
+        // System.out.println(Arrays.toString(array2));
+        System.out.println("First Array");
+        for (int i = 0; i < array1.length; i++) {
+            if (array1[i] != null) {
+                System.out.print(array1[i] + " ");
+            }
+        }
+        System.out.println("\nSecond Array");
+        for (int i = 0; i < array2.length; i++) {
+            if (array2[i] != null) {
+                System.out.print(array2[i] + " ");
+            }
+        }
+
+        // test order
+        boolean isWrong = false;
+        for(int i = 0; i < a1 - 1; i++)
+        if((array1[i].compareTo (array1[i+1] ) > 0))
+          isWrong = true;
+        for(int i = 0; i < a2 - 1; i++)
+        if((array2[i].compareTo (array2[i+1] ) > 0))
+          isWrong = true;
+        
+        
+        String[] testalpha1 = array1;
+        String[] testalpha2 = array2;
+        for (int i = 0; i < testalpha1.length; i++) {
+            if (testalpha1[i] != null) {
+                for (int j = 1; j < testalpha1.length; j++) {
+                    if (testalpha1[j] != null && testalpha1[j - 1].compareTo(testalpha1[j]) > 0) {
+                        String temp = testalpha1[j - 1];
+                        testalpha1[j - 1] = testalpha1[j];
+                        testalpha1[j] = temp;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < testalpha2.length; i++) {
+            if (testalpha2[i] != null) {
+                for (int j = 1; j < testalpha2.length; j++) {
+                    if (testalpha2[j] != null && testalpha2[j - 1].compareTo(testalpha2[j]) > 0) {
+                        String temp = testalpha2[j - 1];
+                        testalpha2[j - 1] = testalpha2[j];
+                        testalpha2[j] = temp;
+                    }
+                }
+            }
+        }
+        
+        String[] combined = new String[a1+a2];
+        for (int i = 0; i < array1.length; i++) {
+            if (array1[i] != null && array1[i].length() > 0) {
+            combined[i]=array1[i];}}
+            
+            for (int i = 0; i < array2.length; i++) {
+            if (array2[i] != null && array2[i].length() > 0) {
+            combined[i+a1]=array2[i];}}
+        
+            for (int i = 0; i < combined.length; i++) {
+            if (combined[i] != null) {
+                for (int j = 1; j < combined.length; j++) {
+                    if (combined[j] != null && combined[j - 1].compareTo(combined[j]) > 0) {
+                        String temp = combined[j - 1];
+                        combined[j - 1] = combined[j];
+                        combined[j] = temp;
+                    }
+                }
+            }
+        }
+            
+        if (isWrong) {
+            System.out.println("\nError: Arrays not in correct order");
+        } else {
+            System.out.println("\nMerged Array");
+            for (String i : combined)
+            {
+                System.out.print(i + " ");
+            }
+            
+        }
     }
-  }
 }
