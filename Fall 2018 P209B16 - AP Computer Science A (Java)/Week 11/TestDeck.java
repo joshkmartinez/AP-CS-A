@@ -7,8 +7,8 @@ public class TestDeck
         int[] values = {2,3,4,5,6,7,8,9,10,10,10,10,11};
         Deck d = new Deck(ranks, suits, values);
         System.out.println(d);
-        System.out.println("Card dealt: " + d.deal());
-        System.out.println(d);
+        System.out.println("NEW:");
+        //System.out.println(d);
         d.shuffle();
         
         System.out.println(d);

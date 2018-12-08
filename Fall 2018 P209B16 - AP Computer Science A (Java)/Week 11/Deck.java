@@ -29,24 +29,43 @@ public class Deck{
         ArrayList<Card> h2 = new ArrayList<Card>((int)(cards.size()/2));
         ArrayList<Card> combined = new ArrayList<Card>();
         
+        int n = 0 ;
         //make half 1
-        for (int i = 0; i < h1.size(); i++)
+        for (int i = 0; i < (int)(cards.size()/2); i++)
         {
             h1.add(cards.get(i));
+            n++;
         }
         
         //make half 2
-        for (int i = h1.size(); i < cards.size(); i++)
+        for (int i = n; i < cards.size(); i++)
         {
             h2.add(cards.get(i));
         }
         
         //combine halfs
+        
         for ( int i = 0; i < h1.size(); i++ )
         {
+            //add first card
             combined.add(h1.get(i));
+            //add second
+            System.out.println("flipped 2 cards");
             combined.add(h2.get(i));
         }
+        
+        cards=combined;
+    }
+    
+    public void randomShuffle()
+    {
+        ArrayList<Card> cardsCopy = new ArrayList<Card>(cards.size());
+        for ( Card c : cards)
+        {
+            cardsCopy.add(c);
+        }
+        ArrayList<Card> random = new ArrayList<Card>(cards.size());
+        
     }
     
     public Card deal()
