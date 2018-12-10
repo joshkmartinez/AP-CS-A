@@ -59,12 +59,23 @@ public class Deck{
     
     public void randomShuffle()
     {
+        //fisher yates shuffle
         ArrayList<Card> cardsCopy = new ArrayList<Card>(cards.size());
         for ( Card c : cards)
         {
             cardsCopy.add(c);
         }
         ArrayList<Card> random = new ArrayList<Card>(cards.size());
+        
+        Random rand = new Random();
+        while(cardsCopy.size()!=0)
+        {
+            int x = rand.nextInt(cardsCopy.size());
+            random.add(cardsCopy.get(x));
+            cardsCopy.remove(x);
+        }
+        
+        cards=random;
         
     }
     

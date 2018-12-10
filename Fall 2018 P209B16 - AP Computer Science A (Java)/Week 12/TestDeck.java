@@ -9,7 +9,9 @@ public class TestDeck
         System.out.println(d);
         System.out.println("NEW:");
         //System.out.println(d);
-        d.randomShuffle();
+        d.perfectShuffle();
+        d.fishShuffle();
+        d.swapShuffle();
         
         System.out.println(d);
     }
