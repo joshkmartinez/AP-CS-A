@@ -96,6 +96,16 @@ public class Deck {
         }
         cards=random;
     }
+    
+    public void riffleShuffle() {
+        /*
+         * 
+         */
+        ArrayList<Card> random = cards;
+        Random rand = new Random();
+        
+        cards=random;
+    }
 
     public Card deal() {
         if (cards.size() > 0) {
