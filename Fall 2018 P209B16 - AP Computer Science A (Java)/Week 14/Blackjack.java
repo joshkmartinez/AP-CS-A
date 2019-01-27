@@ -9,6 +9,7 @@ public class Blackjack{
         Deck d = new Deck(ranks, suits, values);
         //shuffle cards
         d.swapShuffle();
+        d.fishShuffle();
         
         //remove cards from deck, deal to player hand and computer hand
         Hand playerHand = new Hand(d.deal(),d.deal());
@@ -20,7 +21,7 @@ public class Blackjack{
         System.out.println(playerHand);
         
         //comp hand
-        System.out.println("comp hand\n"+compHand);
+        //System.out.println("comp hand\n"+compHand);
         
         //do while !stand
         boolean stand = false;
@@ -73,16 +74,24 @@ public class Blackjack{
             }
             //repeat until stand or until bust
         }
-        System.out.println("The computer's turn is finished.");
+        System.out.println("The computer has finished its turn.");
+        System.out.println("The computer has the following cards:\n"+compHand);
         //determine winner by score or if bust
-        if(playerHand.isBust())
+        if (playerHand.isBust()&&compHand.isBust())
         {
-            System.out.println("Sorry, you lose.");
+            System.out.println("Both you can the computer have bust. It is a tie!");
+        }
+        else if(playerHand.isBust())
+        {
+            System.out.println("Sorry, your hand bust. You lose.");
         } else if(compHand.isBust())
         {
             System.out.println("The computer has bust! You win!");
         }else if(playerHand.getTotal()==21&&compHand.getTotal()==21) {
-            System.out.println("Its a tie!");
+            System.out.println("Both the you and the computer got a blackjack! It is a tie!");
+        }
+        else if (playerHand.getTotal()==compHand.getTotal()){
+            System.out.println("It is a tie!");
         }
         else
         {
@@ -95,6 +104,7 @@ public class Blackjack{
             }
             
         }
-        
+        System.out.println("Your hand had a score of: "+playerHand.getTotal());
+        System.out.println("The computers hand had a score of: "+compHand.getTotal());
     }
 }

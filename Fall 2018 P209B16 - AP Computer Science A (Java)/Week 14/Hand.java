@@ -8,7 +8,6 @@ public class Hand {
     {
         Hand.add(c1);
         Hand.add(c2);
-        System.out.println("2 cards in" + c1 +"   "+c2);
         total = c1.getValue() + c1.getValue();
     }
     
@@ -21,7 +20,7 @@ public class Hand {
     }
     
     public int getTotal(){
-        int v = 0;
+        int v = this.total;
         //compute player score: if has ace and over 21, make *one* ace worth 1
         //change isBust
         while(v>21){
@@ -29,13 +28,10 @@ public class Hand {
                     if(c.getValue()==11){
                         c.changeValue(1);
                         break;
-                    } else {
-                        break;
                     }
-                    
             }
         }
-        
+        v=0;
         for (Card c: Hand)
         {
             v+=c.getValue();
@@ -43,6 +39,7 @@ public class Hand {
         if (v>21){
             this.isBust=true;
         }
+        this.total = v;
         return v;
     }
     
