@@ -10,7 +10,6 @@ comment4.params=
 comment4.target=void\ swapShuffle()
 comment5.params=
 comment5.target=Card\ deal()
-comment5.text=\n\ \ \ \ public\ void\ riffleShuffle()\ {\n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ ArrayList<Card>\ random\ \=\ cards;\n\ \ \ \ \ \ \ \ Random\ rand\ \=\ new\ Random();\n\ \ \ \ \ \ \ \ \n\ \ \ \ \ \ \ \ cards\=random;\n\ \ \ \ }\n
 comment6.params=
 comment6.target=java.lang.String\ toString()
 numComments=7

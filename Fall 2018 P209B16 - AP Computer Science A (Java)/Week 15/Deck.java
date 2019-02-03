@@ -46,7 +46,6 @@ public class Deck {
             // add first card
             combined.add(h1.get(i));
             // add second
-            System.out.println("flipped 2 cards");
             combined.add(h2.get(i));
         }
 
@@ -96,15 +95,7 @@ public class Deck {
         }
         cards=random;
     }
-    /*
-    public void riffleShuffle() {
-        
-        ArrayList<Card> random = cards;
-        Random rand = new Random();
-        
-        cards=random;
-    }
-    */
+
     public Card deal() {
         if (cards.size() > 0) {
             Random rand = new Random();

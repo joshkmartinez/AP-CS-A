@@ -1,9 +1,9 @@
 
 import java.util.ArrayList;
 public class Hand {
-    public int total = 0;
-    public ArrayList<Card> Hand = new ArrayList<Card>();
-    public boolean isBust = false;
+    private int total = 0;
+    private ArrayList<Card> Hand = new ArrayList<Card>();
+    private boolean isBust = false;
     public Hand(Card c1, Card c2)
     {
         Hand.add(c1);
@@ -45,7 +45,7 @@ public class Hand {
     
     public boolean isBust()
     {
-        int i =0;
+        int i = 0;
         for (Card c: Hand)
         {
             i+=c.getValue();
@@ -71,6 +71,14 @@ public class Hand {
             }
         }
         return a;
+    }
+    
+    public Card getCard(int i){
+        return Hand.get(i);
+    }
+    
+    public ArrayList<Card> getHand(){
+        return Hand;
     }
     
     public String toString(){
