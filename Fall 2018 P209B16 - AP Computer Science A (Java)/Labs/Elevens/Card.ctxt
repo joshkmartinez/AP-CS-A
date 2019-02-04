@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Card
+comment0.text=\n\ Card.java\n\n\ <code>Card</code>\ represents\ a\ playing\ card.\n
+comment1.params=cardRank\ cardSuit\ cardPointValue
+comment1.target=Card(java.lang.String,\ java.lang.String,\ int)
+comment1.text=\n\ Creates\ a\ new\ <code>Card</code>\ instance.\n\n\ @param\ cardRank\ \ a\ <code>String</code>\ value\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ containing\ the\ rank\ of\ the\ card\n\ @param\ cardSuit\ \ a\ <code>String</code>\ value\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ containing\ the\ suit\ of\ the\ card\n\ @param\ cardPointValue\ an\ <code>int</code>\ value\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ containing\ the\ point\ value\ of\ the\ card\n
+comment2.params=
+comment2.target=java.lang.String\ suit()
+comment2.text=\n\ Accesses\ this\ <code>Card's</code>\ suit.\n\ @return\ this\ <code>Card's</code>\ suit.\n
+comment3.params=
+comment3.target=java.lang.String\ rank()
+comment3.text=\n\ Accesses\ this\ <code>Card's</code>\ rank.\n\ @return\ this\ <code>Card's</code>\ rank.\n
+comment4.params=
+comment4.target=int\ pointValue()
+comment4.text=\n\ Accesses\ this\ <code>Card's</code>\ point\ value.\n\ @return\ this\ <code>Card's</code>\ point\ value.\n
+comment5.params=otherCard
+comment5.target=boolean\ matches(Card)
+comment5.text=\ Compare\ this\ card\ with\ the\ argument.\n\ @param\ otherCard\ the\ other\ card\ to\ compare\ to\ this\n\ @return\ true\ if\ the\ rank,\ suit,\ and\ point\ value\ of\ this\ card\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ are\ equal\ to\ those\ of\ the\ argument;\n\ \ \ \ \ \ \ \ \ false\ otherwise.\n
+comment6.params=
+comment6.target=java.lang.String\ toString()
+comment6.text=\n\ Converts\ the\ rank,\ suit,\ and\ point\ value\ into\ a\ string\ in\ the\ format\n\ \ \ \ \ "[Rank]\ of\ [Suit]\ (point\ value\ \=\ [PointValue])".\n\ This\ provides\ a\ useful\ way\ of\ printing\ the\ contents\n\ of\ a\ <code>Deck</code>\ in\ an\ easily\ readable\ format\ or\ performing\n\ other\ similar\ functions.\n\n\ @return\ a\ <code>String</code>\ containing\ the\ rank,\ suit,\n\ \ \ \ \ \ \ \ \ and\ point\ value\ of\ the\ card.\n
+numComments=7
