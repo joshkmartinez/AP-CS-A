@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="81bb0803-a067-4269-b752-dd7c491bc60b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Fall 2018 P209B16 - AP Computer Science A (Java)/Labs/Elevens(2).jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/T1_L3_Template.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/t1_lesson03_template.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/1a/T1_L1_Template copy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/1a/lesson1a.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/1a/lesson1a.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/Lesson1/Lesson_1_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/Lesson1/Lesson_1_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/Lesson1/Lesson_1_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/Lesson1/Lesson_1_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/Lesson1/Lesson_1_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 1 - Output/Lesson1/Lesson_1_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 10 - Roundoff Error/FastStartQuiz.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 10 - Roundoff Error/FastStartQuiz.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 10 - Roundoff Error/Lesson_10_Activity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 10 - Roundoff Error/Lesson_10_Activity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 10 - Roundoff Error/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 10 - Roundoff Error/TimeConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 2 - Escape Character/Lesson_2_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 2 - Escape Character/Lesson_2_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 2 - Escape Character/Lesson_2_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 2 - Escape Character/Lesson_2_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 2 - Escape Character/Lesson_2_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 2 - Escape Character/Lesson_2_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 4 - Data Types/Lesson_4_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 4 - Data Types/Lesson_4_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 4 - Data Types/Lesson_4_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 4 - Data Types/Lesson_4_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 4 - Data Types/T1_L4_Template.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/5 activity 1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/5 activity 2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/5 activity 3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/5 activity 4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/Lesson_5_Activity_Four.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/Lesson_5_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/Lesson_5_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 5 - Number Calculations/Lesson_5_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 6 - Numeric Casts/6-1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 6 - Numeric Casts/6-2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 6 - Numeric Casts/Lesson_6_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 6 - Numeric Casts/Lesson_6_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 6 - Numeric Casts/Lesson_6_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 6 - Numeric Casts/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 6 - Numeric Casts/movieratings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 7 - Modular Division/7-1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 7 - Modular Division/7-2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 7 - Modular Division/Lesson_7_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 9 - Math Functions/9-1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 9 - Math Functions/9-2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 9 - Math Functions/9-3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 9 - Math Functions/Lesson_9_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 9 - Math Functions/Lesson_9_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 1 - Introduction to Java/Lesson 9 - Math Functions/Lesson_9_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Assignment 3/Assignment3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson11CodingActivities.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_Four.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_Four.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/Lesson_11_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 11 - Simple Ifs/lesson1a.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson12CodingActivities.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_Four.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_Four.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 12 - Ifs Making Decisions/Lesson_12_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson13CodingActivities.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Five.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Five.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Four.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Four.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Six.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Six.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 13 - Else/Lesson_13_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 14 - Booleans and Truth Tables/Lesson_14_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 14 - Booleans and Truth Tables/Lesson_14_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 14 - Booleans and Truth Tables/Lesson_14_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 14 - Booleans and Truth Tables/Lesson_14_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 14 - Booleans and Truth Tables/Lesson_14_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 14 - Booleans and Truth Tables/Lesson_14_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 17 - While Loops/Lesson_17_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 17 - While Loops/Lesson_17_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 17 - While Loops/Lesson_17_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 17 - While Loops/Lesson_17_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 19 - More Loops/T1_L19_Template.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 20 - Flag Variables/Lesson_20_Activity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 2 - Conditionals and Loops/Lesson 20 - Flag Variables/Lesson_20_Activity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 4 - Alien Message Board/A4_alienmessageboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 4 - Alien Message Board/Assignment4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 4 - Alien Message Board/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 4 - Alien Message Board/untitled" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/Main.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/README.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/Main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/allclasses-frame.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/allclasses-noframe.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/constant-values.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/logfile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/package-frame.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/package-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/package.bluej" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 6 - Names Merge/Main$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 6 - Names Merge/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 6 - Names Merge/Main.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 6 - Names Merge/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 6 - Names Merge/README.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Assignment 6 - Names Merge/package.bluej" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 22 - String Functions/22-1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 22 - String Functions/Lesson_22_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 22 - String Functions/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_One.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_Three.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_Two.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/Lesson_24_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/README.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 24 - The For Loop/Lesson 24 Activities/package.bluej" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 29 - Arrays of Strings - Accessing Methods/Lesson29CodingActivities.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 29 - Arrays of Strings - Accessing Methods/Lesson_29_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 29 - Arrays of Strings - Accessing Methods/Lesson_29_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 29 - Arrays of Strings - Accessing Methods/Lesson_29_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 29 - Arrays of Strings - Accessing Methods/Lesson_29_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 29 - Arrays of Strings - Accessing Methods/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 30 - Processing Arrays of Strings/Lesson30CodingActivity.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 30 - Processing Arrays of Strings/Lesson_30_Activity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 30 - Processing Arrays of Strings/Lesson_30_Activity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 3 - Strings and One Dimensional Arrays/Lesson 30 1:2 - Binary &amp; Octal/Lesson_1011_Activity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Five.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Five.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Five.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_One.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Six.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Six.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Six.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Three.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Two.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/Lesson_34_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/README.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/ Lesson 34 - Return Methods/package.bluej" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Assignment 7 - Methods Sampler Platter/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Assignment 7 - Methods Sampler Platter/Main.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Assignment 7 - Methods Sampler Platter/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Assignment 7 - Methods Sampler Platter/README.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Assignment 7 - Methods Sampler Platter/package.bluej" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson32CodingActivities.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson_32_Activity_Four.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson_32_Activity_Four.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson_32_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson_32_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson_32_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson_32_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 32 - Parameters/Lesson_32_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Five.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Five.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Five.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Four.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Four.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Four.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_One.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_One.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_One.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Three.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Three.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Three.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Two.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Two.ctxt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/Lesson_33_Activity_Two.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/README.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 33 - Parameters - Primitive vs. Class/package.bluej" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 35 - Overloaded Methods/Lesson35CodingActivity.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 4 - Methods/Lesson 35 - Overloaded Methods/Lesson_35_Activity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/.idea/markdown-navigator/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/Unit 5 - User-Defined Classes.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/out/production/Unit 5 - User-Defined Classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/ Lesson 1 - ArrayList/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/.idea/markdown-navigator/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/Unit 5 - User-Defined Classes.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/out/production/Unit 5 - User-Defined Classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit 5 - User-Defined Classes/Lesson 2 - The For-Each Loop/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Welcome/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Welcome/Welcome.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Welcome/Welcome.java" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>check</find>
+      <find>--</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Dashboard.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="720" />
+    <option name="y" value="23" />
+    <option name="width" value="720" />
+    <option name="height" value="839" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Assignment 1 - Dashboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Assignment 1 - Dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Assignment 1 - Dashboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Assignment 1 - Dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549417757314" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="student_dashboard_runner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="student_dashboard_runner" />
+      <module name="Assignment 1 - Dashboard" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.student_dashboard_runner" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="81bb0803-a067-4269-b752-dd7c491bc60b" name="Default Changelist" comment="" />
+      <created>1549413852764</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1549413852764</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-1" y="23" width="1440" height="839" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1881259" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" weight="0.32931727" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33333334" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32931727" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32931727" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.6947791" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32931727" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../.." />
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="234" column="18" selection-start-line="234" selection-start-column="18" selection-end-line="234" selection-end-column="18" />
+          <folding>
+            <element signature="e#10065#10066#0" expanded="true" />
+            <element signature="e#10148#10149#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dashboard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="33" lean-forward="true" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#563#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/student_dashboard_runner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
