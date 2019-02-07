@@ -1,0 +1,217 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Solution to Exercise 2, Chapter 13</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2>Solution for Programming Exercise 13.2</h2>
+<hr class="break">
+<p>
+<span class="start"><big>T</big>his page contains</span> a sample solution to
+           one of the exercises from <a href="../index.html">Introduction to Programming Using Java</a>.</p>
+<hr>
+<h3 class="exercise">Exercise 13.2:</h3>
+<p>The <span class="classname">StopWatchLabel</span>
+component from <a href="../c13/s3.html#GUI2.3.1">Subsection&nbsp;13.3.1</a> displays the text "Timing..."
+when the stopwatch is running. It would be nice if it displayed the elapsed
+time since the stopwatch was started. For that, you need to create an
+<span class="classname">AnimationTimer</span>. (See <a href="../c6/s3.html#GUI1.3.5">Subsection&nbsp;6.3.5</a>.)
+Add an <span class="classname">AnimationTimer</span> to the original source code, 
+<span class="sourceref"><a href="../source/chapter13/StopWatchLabel.java">StopWatchLabel.java</a></span>, to drive the display of the elapsed time in
+seconds.</p>
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>Discussion</b></big>
+</div>
+<hr>
+<p>This one is really too easy!  As suggested, I added an
+<span class="classname">AnimationTimer</span>, named <span class="code">timer</span>, as an
+instance variable.  (I also changed some of the occurrences of the word "timer"
+in the original program to "stopwatch" to try to avoid some confusion:
+the stopwatch is a kind of timer, and we are using another kind of timer to
+implement it.)  When the stopwatch starts running, it is necessary to call
+<span class="code">timer.start()</span> to start the animatino timer running, and when the
+stopwatch stops running, <span class="code">timer.stop() must be called.</span>
+The only other thing that is needed is to create the <span class="classname">AnimationTimer</span>
+object. Since <span class="classname">AnimationTimer</span> is an abstract class,
+we need a subclass, and we need to provide a definition for the abstract method
+<span class="code">handle()</span>.  That method, which will be called 60 times per second,
+can update the label to show the elapsed time.  Using an anonymous class,</p>
+
+
+<pre>timer = new AnimationTimer() {
+    public void handle(long now) {
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        String text = String.format(
+                 "%3.1f seconds elapsed", elapsedTime/1000.0);
+        setText(text);
+    }
+};</pre>
+
+
+<p>In the program, I don't create the animation timer until the first time
+the stopwatch is started.  Note that when the stopwatch is stopped, the program
+displays the time with three digits after the decimal point.  While it's running,
+it doesn't make sense to be that accurate, since the display is only updated
+60 times per second.  So, I only use one digit after the decimal point when
+the stopwatch is running.</p>
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>The Solution</b></big>
+</div>
+<hr>
+
+<p>
+<b>The timer component, with changes from the original shown in red:</b>
+</p>
+
+<pre class="exercisecode">
+
+import javafx.scene.control.Label;
+import javafx.animation.AnimationTimer;
+
+/**
+ * A custom component that acts as a simple stopwatch.  When the user clicks
+ * on it, this component starts timing.  When the user clicks again,
+ * it displays the time between the two clicks.  Clicking a third time
+ * starts another timer, etc.  While it is timing, the label just
+ * displays the number of seconds that have passed since the stop
+ * watch was started.
+ */
+public class StopWatchLabel2 extends Label {
+
+    private long startTime;   // Start time of timer.
+                              //   (Time is measured in milliseconds.)
+
+    private boolean running;  // True when the timer is running.
+    
+    <span class="newcode">private AnimationTimer timer;  // Used to update the timer to show
+                                   // the number of seconds that have passed.</span>
+
+    /**
+     * Constructor sets initial text on the label to
+     * "Click to start timer." and sets up a mouse event
+     * handler so the label can respond to clicks.
+     */
+    public StopWatchLabel2() {
+        super("  Click to start timer.  ");
+        setOnMousePressed( e -&gt; setRunning( !running ) );
+    }
+
+
+    /**
+     * Tells whether the timer is currently running.
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+
+    /**
+     * Sets the stop watch to be running or stopped, and changes the text that
+     * is shown on the label.  (This method should be called on the JavaFX
+     * application thread.)
+     * @param running says whether the stopwatch should be running; if this
+     *    is equal to the current state, nothing is done.
+     */
+    public void setRunning( boolean running ) {
+        if (this.running == running)
+            return;
+        this.running = running;
+        if (running == true) {
+                // Record the time and start the stopwatch.
+            startTime = System.currentTimeMillis();
+            <span class="newcode">if (timer == null) {
+                timer = new AnimationTimer() {
+                    public void handle(long now) {
+                        long elapsedTime = System.currentTimeMillis() - startTime;
+                        String text = String.format(
+                                 "%3.1f seconds elapsed", elapsedTime/1000.0);
+                        setText(text);
+                    }
+                };
+            }
+            setText("   0.0 seconds elapsed");
+            timer.start();</span>
+        }
+        else {
+                // Stop the stopwatch.  Compute the elapsed time since the
+                // stopwatch was started and display it.
+            running = false;
+            <span class="newcode">timer.stop();</span>
+            long endTime = System.currentTimeMillis();
+            double seconds = (endTime - startTime) / 1000.0;
+            setText( String.format("Time: %1.3f seconds", seconds) );
+        }
+    }
+
+} // end StopWatchLabel
+
+</pre>
+
+<p>
+<b>The code for the program that tests the component:</b>
+</p>
+
+<pre class="exercisecode">
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
+import javafx.geometry.Pos;
+
+/**
+ * Shows a StopWatchLabel2.  The user can click to start a timer
+ * and click again to stop it.  The elapsed time is displayed.
+ */
+public class TestStopWatch2 extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+    //------------------------------------------------------------
+    
+    public void start(Stage stage) {
+        
+        StopWatchLabel2 stopWatch = new StopWatchLabel2();
+        stopWatch.setStyle("-fx-font: bold 30pt serif; -fx-background-color:#ffffee;"
+                + "-fx-border-color:#008; -fx-border-width:3px; -fx-padding:20px;"
+                + "-fx-text-fill: #008");
+        stopWatch.setMaxSize(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
+        stopWatch.setAlignment(Pos.CENTER);
+        
+        stage.setScene( new Scene(new StackPane(stopWatch)) );
+        stage.setTitle("StopWatchLabel Demo");
+        stage.show();
+        
+    }
+    
+}
+</pre>
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

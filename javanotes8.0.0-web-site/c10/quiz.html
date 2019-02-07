@@ -1,0 +1,165 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Quiz on Chapter 10</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="quiz_answers.html">Quiz Answers</a> | <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2 class="quiz_title">Quiz on Chapter 10</h2>
+<p>
+<span class="start"><big>T</big>his page contains</span> questions on Chapter 10 of
+           <a href="../index.html"><i>Introduction to Programming Using Java</i></a>.
+           You should be able to answer these questions after studying that chapter.
+           Sample answers to these questions can be found <a href="quiz_answers.html">here</a>.</p>
+<div class="quiz-question">
+<p class="question">Question&nbsp;1:</p>
+<p>What is meant by <i>generic
+programming</i> and what is the alternative?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;2:</p>
+<p>Why can't you make an object of type <span class="classname">LinkedList&lt;int&gt;</span>?
+What should you do instead?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;3:</p>
+<p>What is an <i>iterator</i>
+and why are iterators necessary for generic programming?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;4:</p>
+<p>Suppose that
+<span class="code">integers</span> is a variable of type <span class="classname">Collection&lt;Integer&gt;</span>.
+Write a code segment that uses an iterator to compute the sum of all the integer values in 
+the collection.  Write a second code segment that does the same thing using a
+for-each loop.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;5:</p>
+<p>Interfaces such as
+<span class="classname">List</span>, <span class="classname">Set</span>, and <span class="classname">Map</span> 
+define <i>abstract data types.</i> Explain what this means.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;6:</p>
+<p>What is the fundamental
+property that distinguishes <span class="classname">Sets</span> from other types of
+<span class="classname">Collections</span>?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;7:</p>
+<p>What is the essential
+difference in functionality between a <span class="classname">TreeMap</span> and a
+<span class="classname">HashMap</span>?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;8:</p>
+<p>Explain what is meant by a <i>hash code.</i>
+</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;9:</p>
+<p>Modify the following
+<span class="classname">Date</span> class so that it implements the interface <span class="classname">Comparable&lt;Date&gt;</span>.
+The ordering on objects of type <span class="classname">Date</span> should be the natural,
+chronological ordering.</p>
+
+<pre>class Date {
+   int month;  // Month number in range 1 to 12.
+   int day;    // Day number in range 1 to 31.
+   int year;   // Year number.
+   Date(int m, int d, int y) { 
+      month = m;
+      day = d;
+      year = y;
+   }
+}</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;10:</p>
+<p>Suppose that
+<span class="code">syllabus</span> is a variable of type <span class="classname">TreeMap&lt;Date,String&gt;</span>,
+where <span class="classname">Date</span> is the class from the preceding exercise.
+Write a code segment that will write
+out the value string for every key that is in the month of December, 2018.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;11:</p>
+<p>Write a generic class <span class="classname">Stack&lt;T&gt;</span> that can be
+used to represent stacks of objects of type <span class="classname">T</span>.  The class
+should include methods <span class="code">push()</span>, <span class="code">pop()</span>, and
+<span class="code">isEmpty()</span>.  Inside the class, use an <span class="classname">ArrayList</span>
+to hold the items on the stack.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;12:</p>
+<p>Write a generic method, using a generic type parameter <span class="code">&lt;T&gt;</span>,
+that replaces every occurrence in an <span class="classname">ArrayList&lt;T&gt;</span> of a specified item
+with a specified replacement item.  The list and the two items are parameters to the method.
+Both items are of type <span class="classname">T</span>.
+Take into account the fact that the item that is being replaced might be <span class="code">null</span>.
+For a non-null item, use <span class="code">equals()</span> to do the comparison.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;13:</p>
+<p>Suppose that <span class="code">words</span> is an array of <span class="classname">Strings</span>.
+Explain what is done by the following code:</p>
+
+<pre>long n = Arrays.stream(words)
+               .filter( w -&gt; (w != null) )
+               .map( w -&gt; w.toLowerCase() )
+               .distinct()
+               .count();</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;14:</p>
+<p>Use the stream API to print all the even integers from 2 to 20.
+Start with <span class="code">IntStream.range</span> and apply a
+<span class="code">filter</span> operation.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;15:</p>
+<p>Write a generic method <span class="code">countIf(c,t)</span> with
+type parameter <span class="code">&lt;T&gt;</span>, where the first parameter,
+<span class="code">c</span>, is of type <span class="atype">Collection&lt;T&gt;</span>,
+and the second parameter, <span class="code">p</span>, is of type
+<span class="atype">Predicate&lt;T&gt;</span>.  The method should return
+the number of items in the collection for which the predicate
+is true.  Give two versions, one using a loop and the other
+using the stream API.</p>
+
+</div>
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="quiz_answers.html">Quiz Answers</a> | <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

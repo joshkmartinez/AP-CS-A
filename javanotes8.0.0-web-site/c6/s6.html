@@ -1,0 +1,711 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Section 6.6 -- Complete Programs</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="s5.html">Previous Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<table class="subsections" vspace="8" hspace="8" cellpadding="5" border="2" align="right">
+<tr>
+<td>
+<div align="center">
+<b>Subsections</b>
+<hr>
+<small><a href="#GUI1.6.1">A Little Card Game</a>
+<br>
+<a href="#GUI1.6.2">Menus and Menubars</a>
+<br>
+<a href="#GUI1.6.3">Scene and Stage</a>
+<br>
+<a href="#GUI1.6.4">Creating Jar Files</a>
+<br>
+</small>
+</div>
+</td>
+</tr>
+</table>
+<div class="content">
+<h3 class="section_title">Section 6.6</h3>
+<h2 class="section_title">Complete Programs</h2>
+<hr class="break">
+
+
+<p>
+<span class="start"><big>I</big>n this chapter, we have</span> covered many of the
+basic aspects of GUI programming.  There is still a lot more to learn,
+and we will return to the topic in <a href="../c13/index.html">Chapter&nbsp;13</a>.  But you
+already know enough to write some interesting programs.  In this
+section, we look at two complete programs that use what you have
+learned about GUI programming in this chapter, as well as what you
+learned about programming in general in earlier chapters.  Along
+the way, we will also encounter a few new ideas.</p>
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.6.1">6.6.1&nbsp;&nbsp;A Little Card Game</a>
+</h3>
+   
+
+
+<p>The first program that we will consider is a GUI version 
+of the command-line card game <span class="sourceref"><a href="../source/chapter5/HighLow.java">HighLow.java</a></span>
+from <a href="../c5/s4.html#OOP.4.3">Subsection&nbsp;5.4.3</a>.  In the new version,
+<span class="sourceref"><a href="../source/chapter6/HighLowGUI.java">HighLowGUI.java</a></span>, you look at a playing card and try to
+predict whether the next card will be higher or lower in value. (Aces have the
+lowest value in this game.)  In this GUI version of the program, 
+you click on a button to make your
+prediction. If you predict wrong, you lose. If you make three correct
+predictions, you win.  After completing a game, you can click "New Game"
+to start another game. Here is
+what the program looks like in the middle of a game:</p>
+
+
+<p align="center">
+<img src="high-low-gui.png" width="334" height="205" alt="GUI version of the HighLow card game"></p>
+
+
+
+<p>The complete source code for the program can be found in the file
+<span class="sourceref"><a href="../source/chapter6/HighLowGUI.java">HighLowGUI.java</a></span>.  I encourage you to compile and run it.
+Note that the program also requires <span class="sourceref"><a href="../source/chapter6/Card.java">Card.java</a></span>, <span class="sourceref"><a href="../source/chapter6/Deck.java">Deck.java</a></span>, 
+and <span class="sourceref"><a href="../source/chapter6/Hand.java">Hand.java</a></span>, from <a href="../c5/s4.html">Section&nbsp;5.4</a>,
+since they define classes that are used in the program. And it requires
+the file of card images, <span class="sourceref"><a href="../source/chapter6/cards.png">cards.png</a></span>, that was used
+in <span class="sourceref"><a href="../source/chapter6/RandomCards.java">RandomCards.java</a></span> from <a href="../c6/s2.html#GUI1.2.4">Subsection&nbsp;6.2.4</a>.</p>
+   
+
+<p>The layout of the program should be easy to guess:
+<span class="code">HighLowGUI</span> uses a <span class="classname">BorderPane</span> as the root
+of the scene graph.  The center position is occupied by a <span class="classname">Canvas</span>
+on which the cards and a message are drawn.  The bottom position contains an
+<span class="classname">HBox</span> that in turn contains three <span class="classname">Buttons</span>.
+In order to make the buttons fill the <span class="classname">HBox</span>, I set them
+all to have the same width, as discussed in <a href="../c6/s5.html#GUI1.5.3">Subsection&nbsp;6.5.3</a>.
+You can see all this in the <span class="code">start()</span> method from the program:</p>
+   
+
+<pre>public void start(Stage stage) {
+
+    cardImages = new Image("cards.png");     // Load card images.
+    board = new Canvas(4*99 + 20, 123 + 80); // Space for 4 cards.
+    
+    Button higher = new Button("Higher");    // Create the buttons, and
+    higher.setOnAction( e -&gt; doHigher() );   //    install event handlers.
+    Button lower = new Button("Lower");
+    lower.setOnAction( e -&gt; doLower() );
+    Button newGame = new Button("New Game");
+    newGame.setOnAction( e -&gt; doNewGame() );
+
+    HBox buttonBar = new HBox( higher, lower, newGame );
+            
+    higher.setPrefWidth(board.getWidth()/3.0);  // Make each button fill
+    lower.setPrefWidth(board.getWidth()/3.0);   //     1/3 of the width.
+    newGame.setPrefWidth(board.getWidth()/3.0);
+            
+    BorderPane root = new BorderPane();  // Create the scene graph root node.
+    root.setCenter(board);
+    root.setBottom(buttonBar);
+
+    doNewGame();  // set up for the first game
+
+    Scene scene = new Scene(root);  // Finish setting up the scene and stage.
+    stage.setScene(scene);
+    stage.setTitle("High/Low Game");
+    stage.setResizable(false);
+    stage.show();
+    
+}  // end start()</pre>
+   
+   
+
+<p>Note that the event handlers call methods such as
+<span class="code">doNewGame()</span> that are defined elsewhere in the program.
+The programming of those methods
+is a nice example of thinking in terms of a state machine.  (See <a href="../c6/s3.html#GUI1.3.6">Subsection&nbsp;6.3.6</a>.)
+It is important to think in terms of the states that the game can be in, how the
+state can change, and how the response to events can depend on the state. The
+approach that produced the original, text-oriented game in 
+<a href="../c5/s4.html#OOP.4.3">Subsection&nbsp;5.4.3</a> is not appropriate here. Trying to think about
+the game in terms of a process that goes step-by-step from beginning to end is
+more likely to confuse you than to help you.</p>
+
+
+<p>The state of the game includes the cards and the message. The cards are
+stored in an object of type <span class="classname">Hand</span>. 
+The message is a <span class="classname">String</span>.
+These values are stored in instance variables. There is also another, less
+obvious aspect of the state: Sometimes a game is in progress, and the user is
+supposed to make a prediction about the next card. Sometimes we are between
+games, and the user is supposed to click the "New Game" button. It's a good
+idea to keep track of this basic difference in state. The program uses a
+boolean instance variable named <span class="code">gameInProgress</span> for this purpose.</p>
+
+
+<p>The state of the game can change whenever the user clicks on a button. The
+program has three methods to respond to button clicks:
+<span class="code">doHigher()</span>, <span class="code">doLower()</span>, and <span class="code">newGame()</span>. 
+It's in these three event-handling methods that the action of the game takes place.</p>
+
+
+<p>We don't want to let the user start a new game if a game is currently in
+progress. That would be cheating. So, the response in the <span class="code">newGame()</span>
+method is different depending on whether the state variable
+<span class="code">gameInProgress</span> is true or false. If a game is in progress, the
+<span class="code">message</span> instance variable should be set to be an error message. If a
+game is not in progress, then all the state variables should be set to
+appropriate values for the beginning of a new game. In any case, the board must
+be redrawn so that the user can see that the state has changed. The complete
+<span class="code">newGame()</span> method is as follows:</p>
+
+
+<pre>/**
+ * Called by the start() method, and called by an event handler if
+ * the user clicks the "New Game" button.  Start a new game.
+ */
+private void doNewGame() {
+    if (gameInProgress) {
+            // If the current game is not over, it is an error to try
+            // to start a new game.
+        message = "You still have to finish this game!";
+        drawBoard();
+        return;
+    }
+    deck = new Deck();   // Create the deck and hand to use for this game.
+    hand = new Hand();
+    deck.shuffle();
+    hand.addCard( deck.dealCard() );  // Deal the first card into the hand.
+    message = "Is the next card higher or lower?";
+    gameInProgress = true;
+    drawBoard();
+} // end doNewGame()</pre>
+
+
+<p>The <span class="code">doHigher()</span> and <span class="code">doLower()</span> methods are almost identical
+to each other (and could probably have been combined into one method with a
+parameter, if I were more clever). Let's look at the <span class="code">doHigher()</span>
+routine. This is called when the user clicks the "Higher" button. This only
+makes sense if a game is in progress, so the first thing <span class="code">doHigher()</span>
+should do is check the value of the state variable <span class="code">gameInProgress</span>. If
+the value is <span class="code">false</span>, then <span class="code">doHigher()</span> should just set up an
+error message. If a game is in progress, a new card should be added to the hand
+and the user's prediction should be tested. The user might win or lose at this
+time. If so, the value of the state variable <span class="code">gameInProgress</span> must be
+set to <span class="code">false</span> because the game is over. In any case, the board is
+redrawn to show the new state. Here is the <span class="code">doHigher()</span> method:</p>
+
+
+<pre>/**
+ * Called by an event handler when user clicks "Higher" button.
+ * Check the user's prediction.  Game ends if user guessed
+ * wrong or if the user has made three correct predictions.
+ */
+private void doHigher() {
+    if (gameInProgress == false) {
+            // If the game has ended, it was an error to click "Higher",
+            // So set up an error message and abort processing.
+        message = "Click \"New Game\" to start a new game!";
+        drawBoard();
+        return;
+    }
+    hand.addCard( deck.dealCard() );     // Deal a card to the hand.
+    int cardCt = hand.getCardCount();
+    Card thisCard = hand.getCard( cardCt - 1 );  // Card just dealt.
+    Card prevCard = hand.getCard( cardCt - 2 );  // The previous card.
+    if ( thisCard.getValue() &lt; prevCard.getValue() ) {
+        gameInProgress = false;
+        message = "Too bad! You lose.";
+    }
+    else if ( thisCard.getValue() == prevCard.getValue() ) {
+        gameInProgress = false;
+        message = "Too bad!  You lose on ties.";
+    }
+    else if ( cardCt == 4) {
+        gameInProgress = false;
+        message = "You win!  You made three correct guesses.";
+    }
+    else {
+        message = "Got it right!  Try for " + cardCt + ".";
+    }
+    drawBoard();
+} // end doHigher()</pre>
+
+
+<p>The <span class="code">drawBoard()</span> method, which is responsible for drawing the content
+of the canvas, uses the values in the state variables to decide what to show. It displays the
+string stored in the <span class="code">message</span> variable. It draws each of the cards in
+the <span class="code">hand</span>. There is one little tricky bit: If a game is in progress, it
+draws an extra face-down card, which is not in the hand, to represent the next
+card in the deck.  The technique for drawing the individual cards was
+explained in <a href="../c6/s2.html">Section&nbsp;6.2</a>.  See the <span class="sourceref"><a href="../source/chapter6/HighLowGUI.java">source code</a></span>
+for the method definition.</p>
+
+
+
+   
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.6.2">6.6.2&nbsp;&nbsp;Menus and Menubars</a>
+</h3>
+
+
+<p>Our second example program, "MosaicDraw," is a kind of drawing program.  
+The source code for the program is in the file <span class="sourceref"><a href="../source/chapter6/MosaicDraw.java">MosaicDraw.java</a></span>.
+The program also requires <span class="sourceref"><a href="../source/chapter6/MosaicCanvas.java">MosaicCanvas.java</a></span>.  Here is a half-size
+screenshot showing a sample drawing made with the program:</p>
+   
+
+<p align="center">
+<img src="mosaic-draw.png" width="300" height="328" alt="a face drawn with MosaicDraw"></p>
+
+
+<p>As the user clicks-and-drags the
+mouse in the large drawing area of this program, it leaves a trail of little colored
+squares. There is some random variation in the color of the squares.  (This is meant
+to make the picture look a little more like a real mosaic, which is a picture made out of 
+small colored stones in which there would be some natural color variation.)  The program has
+one feature that we have not encountered before:
+There is a menu bar above the drawing area.  The "Control" menu contains
+commands for filling and clearing the drawing area, along with a few options that affect
+the appearance of the picture.  The "Color" menu lets the user select the color that will
+be used when the user draws.  The "Tools" menu affects the behavior of the mouse.
+Using the default "Draw" tool, the mouse leaves a trail of single squares.  Using the
+"Draw&nbsp;3x3" tool, the mouse leaves a swatch of colored squares that is three squares wide.
+There are also "Erase" tools, which let the user set squares back to their default
+black color.</p>
+   
+
+<p>The drawing area of the program is a panel that belongs to the <span class="classname">MosaicCanvas</span>
+class, a subclass of <span class="classname">Canvas</span> that is defined in <span class="sourceref"><a href="../source/chapter6/MosaicCanvas.java">MosaicCanvas.java</a></span>.
+<span class="classname">MosaicCanvas</span> is a highly reusable class for representing mosaics of colored
+rectangles.  It was also used behind the scenes in the sample program in <a href="../c4/s7.html#subroutines.6.3">Subsection&nbsp;4.7.3</a>.
+The <span class="classname">MosaicCanvas</span> class
+does not directly support drawing on the mosaic, but it does support setting
+the color of each individual square.  The MosaicDraw program installs mouse handlers on
+the canvas.  The handlers respond to <span class="code">MousePressed</span> and <span class="code">MouseDragged</span> events on the
+canvas by applying the currently selected tool to the canvas at the square
+that contains the mouse position.  This is a nice example of
+applying event listeners to an object to do something that was not programmed into the object
+itself.</p>
+   
+
+<p>I urge you to study <span class="sourceref"><a href="../source/chapter6/MosaicDraw.java">MosaicDraw.java</a></span>.  I will not be discussing all aspects
+of the code here, but you should be able to understand it all after reading this section. As for
+<span class="sourceref"><a href="../source/chapter6/MosaicCanvas.java">MosaicCanvas.java</a></span>, it uses some techniques that you would not understand at this
+point, but I encourage you to at least read the comments in that file to learn about the API
+for <span class="classname">MosaicCanvas</span>.</p>
+
+
+<hr class="break">
+  
+
+<p>MosaicDraw is the first example that we have seen that uses a menu bar.  Fortunately,
+menus are very easy to use in JavaFX.  The items in a menu are represented by objects belonging
+to class <span class="classname">MenuItem</span> or to one of its subclasses.
+(<span class="classname">MenuItem</span> and other menu-related classes are in package <span class="code">javafx.scene.control</span>.)
+Menu items are used in almost exactly the
+same way as buttons.  In particular, a <span class="classname">MenuItem</span> can be created using
+a constructor that specifies the text of the menu item, such as:</p>
+   
+
+<pre>MenuItem fillCommand = new MenuItem("Fill");</pre>
+
+
+<p>Menu items, like buttons, can have a graphic as well as text, and there is a second
+constructor that allows you to specify both text and graphic.
+When the user selects a <span class="classname">MenuItem</span> from a menu, an <span class="classname">ActionEvent</span>
+is generated.  Just as for a button, you can add an action event listener to the menu item using its
+<span class="code">setOnAction(handler)</span> method.  A menu item has a <span class="code">setDisable(disabled)</span> method
+that can be used to enable and disable the item.  And it has a <span class="code">setText()</span> method for
+changing the text that is displayed in the item.</p>
+   
+
+<p>The main difference between a menu item and a button, of course, is that a menu
+item is meant to appear in a menu.  (Actually, a menu item is a <span class="classname">Node</span>
+that can appear anywhere in a scene graph, but the usual place for it is in a menu.)
+A menu in JavaFX is
+represented by the class <span class="classname">Menu</span>.  (In fact, <span class="classname">Menu</span>
+is actually a subclass of <span class="classname">MenuItem</span>, which means that you can
+add a menu as an item in another menu.  The menu that you add becomes a submenu of the
+menu that you add it to.)  A <span class="classname">Menu</span> has a name,
+which is specified in the constructor.  It has an instance method <span class="code">getItems()</span>
+that returns a list of menu items contained in the menu.  To add items to the
+menu, you need to add them to that list:</p>
+
+
+<pre>Menu sampleMenu = new Menu("Sample");
+sampleMenu.getItems().add( menuItem );  // Add one menu item to the menu.
+sampleMenu.getItems().addAll( item1, item2, item3 );  // Add multiple items.</pre>
+  
+
+<p>Once a menu has been created, it can be added to a menu bar.  A menu bar is represented
+by the class <span class="classname">MenuBar</span>.  A menu bar is just a container for menus.
+It does not have a name.  The <span class="classname">MenuBar</span> constructor can be called
+with no parameters, or it can have a parameter list containing <span class="classname">Menus</span>
+to be added to the menu bar.  The instance method <span class="code">getMenus()</span>
+returns a list of menus, with methods <span class="code">add()</span> and <span class="code">addAll()</span>
+for adding menus to the menu bar.  For example,
+the <span class="code">MosaicDraw</span> program uses three menus, <span class="code">controlMenu</span>, <span class="code">colorMenu</span>,
+and <span class="code">toolMenu</span>.  We could create a menu bar and add the menus to it with
+the statements:</p>
+   
+
+<pre>MenuBar menuBar = new MenuBar();
+menuBar.getMenus().addAll(controlMenu, colorMenu, toolMenu);</pre>
+
+
+<p>Or we could list the menus in the menu bar constructor:</p>
+
+
+<pre>MenuBar menuBar = new MenuBar(controlMenu, colorMenu, toolMenu);</pre>
+
+
+<p>The final step in using menus is to add the menu bar to the program's
+scene graph.  The menu bar could actually appear anywhere, but typically,
+it should be at the top of the window.  A program that has a menu bar
+will usually use a <span class="classname">BorderPane</span> as the root of
+its scene graph, and it will add the menu bar as the top component
+in that root pane.  The rest of the GUI for the program can be placed
+in the other four positions of the border pane.</p>
+     
+
+<p>So using menus generally follows the same pattern:  Create a menu bar.  Create menus
+and add them to the menu bar.  Create menu items and add them to the menus (and set up
+listening to handle action events from the menu items).  Place the menu bar at the
+top of a <span class="classname">BorderPane</span>, which is the root of the scene graph.</p>
+   
+
+<hr class="break">
+   
+
+<p>There are other kinds of menu items, defined by subclasses of <span class="classname">MenuItem</span>,
+that can be added to menus.  A very simple example is <span class="classname">SeparatorMenuItem</span>,
+which appears in a menu as a line between other menu items.  To add a separator to
+a <span class="classname">Menu</span>, <span class="code">menu</span>, you just need to say</p>
+
+
+<pre>menu.getItems().add( new SeparatorMenuItem() );</pre>
+
+
+<p>Much more interesting are the subclasses <span class="classname">CheckMenuItem</span>
+and <span class="classname">RadioMenuItem</span>.</p>
+
+
+<p>A <span class="classname">CheckMenuItem</span> represents a menu item that can be in one 
+of two states, selected or not selected. The state is changed when the user
+selects the item from the menu that contains it.
+A <span class="classname">CheckMenuItem</span> has the same functionality and is used in
+the same way as a <span class="classname">CheckBox</span> (see <a href="../c6/s4.html#GUI1.4.3">Subsection&nbsp;6.4.3</a>).
+Three <span class="classname">CheckMenuItems</span> are used in the "Control" menu
+of the MosaicDraw program.  One is used to turn the random color variation of
+the squares on and off.  Another turns a symmetry feature on and off; when symmetry is
+turned on, the user's drawing is reflected horizontally and vertically to produce
+a symmetric pattern.  And the third <span class="classname">CheckMenuItem</span> shows and hides
+"grouting" in the mosaic (grouting consists of gray lines drawn around each
+of the little squares in the mosaic).  The <span class="classname">CheckMenuItem</span> that corresponds to the
+"Use Randomness" option in the "Control" menu could be set up with the statements:</p>
+       
+
+<pre>useRandomness = new CheckMenuItem("Use Randomness");
+useRandomness.setSelected(true);  // Randomness is initially turned on.
+controlMenu.getMenus().add(useRandomness);   // Add menu item to the menu.</pre>
+
+
+<p>No <span class="classname">ActionEvent</span> handler is added to <span class="code">useRandomness</span>;
+the program simply checks its state by calling <span class="code">useRandomness.isSelected()</span>
+whenever it is coloring a square, to decide whether to
+add some random variation to the color.  On the other hand, when the user selects the
+"Use&nbsp;Grouting" check box from the menu, the canvas must immediately be redrawn to
+reflect the new state.  A handler is added to the <span class="classname">CheckMenuItem</span>
+to take care of that by calling an appropriate method:</p>
+
+
+<pre>useGrouting.setOnAction( e -&gt; doUseGrouting(useGrouting.isSelected()) );</pre>
+
+
+<hr class="break">
+   
+
+<p>The "Color" and "Tools" menus contain items of type <span class="classname">RadioMenuItem</span>,
+which are used in the same way as the <span class="classname">RadioButtons</span> that were
+discussed in <a href="../c6/s4.html#GUI1.4.3">Subsection&nbsp;6.4.3</a>:  A <span class="classname">RadioMenuItem</span>,
+like a check box, can be either selected or unselected, but when several 
+<span class="classname">RadioMenuItems</span> are added to a <span class="classname">ToggleGroup</span>,
+then at most one of the group members can be selected.  In the program, the user
+selects the tool that they want to use from the "Tools" menu.  Only one
+tool can be selected at a time, so it makes sense to use <span class="classname">RadioMenuItems</span>
+to represent the available tools, and to put all of those items into the same
+<span class="classname">ToggleGroup</span>.  The currently selected option in the "Tools" menu will be
+marked as selected; when the user chooses a new tool, the mark is moved.  This gives the
+user some visible feedback about which tool is currently selected for use.
+Furthermore, the <span class="classname">ToggleGroup</span> has an observable property
+representing the currently selected option (see <a href="../c6/s3.html#GUI1.3.7">Subsection&nbsp;6.3.7</a>).  The program
+adds a listener to that property with an event handler that will be
+called whenever the user selects a new tool.  Here is the code that creates the
+"Tools" menu:</p>
+
+
+<pre>Menu toolMenu = new Menu("Tools");
+ToggleGroup toolGroup = new ToggleGroup();
+toolGroup.selectedToggleProperty().addListener( 
+                 e -&gt; doToolChoice(toolGroup.getSelectedToggle()) );
+addRadioMenuItem(toolMenu,"Draw",toolGroup, true);
+addRadioMenuItem(toolMenu,"Erase",toolGroup, false);
+addRadioMenuItem(toolMenu,"Draw 3x3",toolGroup, false);
+addRadioMenuItem(toolMenu,"Erase 3x3",toolGroup, false);</pre>
+
+
+<p>The <span class="code">addRadioMenuItem</span> method that is used in this code
+is a utility method that is defined elsewhere in the program:</p>
+
+
+<pre>/**
+ * Utility method to create a radio menu item, add it 
+ * to a ToggleGroup, and add it to a menu.
+ */
+private void addRadioMenuItem(Menu menu, String command, 
+                                   ToggleGroup group, boolean selected) {
+    RadioMenuItem menuItem = new RadioMenuItem(command);
+    menuItem.setToggleGroup(group);
+    menu.getItems().add(menuItem);
+    if (selected) {
+        menuItem.setSelected(true);
+    }
+}</pre>
+
+
+<p>The complete code for creating the menu bar in <span class="code">MosaicDraw</span> can
+be found in a method <span class="code">createMenuBar()</span>.  Again, I encourage you
+to study the <span class="sourceref"><a href="../source/chapter6/MosaicDraw.java">source code</a></span>.</p>
+
+
+   
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.6.3">6.6.3&nbsp;&nbsp;Scene and Stage</a>
+</h3>
+   
+
+<p>Before ending this brief introduction to GUI programming,
+we look at two fundamental classes in a little more detail:
+<span class="classname">Scene</span>, from package <span class="code">javafx.scene</span>,
+and <span class="classname">Stage</span>, from package <span class="code">javafx.stage</span>.</p>
+
+
+<p>A <span class="classname">Scene</span> represents the content area of a window
+(that is, not including the window's border and title bar),
+and it serves as a holder for the root of the scene graph.
+The <span class="classname">Scene</span> class has several constructors, but they
+all require the root of the scene graph as one of the parameters, and the
+root cannot be <span class="code">null</span>.  Perhaps the most common constructor is
+the one that has only the root as parameter: <span class="code">new&nbsp;Scene(root)</span>.</p>
+
+
+<p>A scene has a width and a height, which can be specified as parameters to the
+constructor: <span class="code">new Scene(root,width,height)</span>.  In the typical case
+where the <span class="code">root</span> is a <span class="classname">Pane</span>, the size of the
+pane will be set to match the size of the scene, and the pane will lay out
+its contents based on that size.  If the size of the scene is not specified,
+then the size of the scene will be set to the preferred size of the pane.
+(Another possible class for the root node is <span class="classname">Group</span>,
+from package <span class="code">javafx.scene</span>, which we have not covered.  When a
+<span class="classname">Group</span> is used as the root in a scene that has a
+specified size, the group is not resized to match the size of the scene;
+instead, it is "clipped"; that is, any part of the group that lies outside
+the scene is simply not shown.)  It is not possible for a program to set the width or
+height of a <span class="classname">Scene</span>, but if the size of the stage that 
+contains a scene is changed, then the size of the scene is changed 
+to match the new size of the stage's content area, and the root node of the
+scene (if it is a <span class="classname">Pane</span>) will be resized as well.</p>
+
+
+<p>A <span class="classname">Scene</span> can have a background fill <span class="classname">color</span> (actually
+a <span class="classname">Paint</span>), which can be specified in the constructor.  Generally, the scene's 
+background is not seen, since it is covered by the background of the root node.  The default
+style sets the background of the root to be light gray.  However, you can set the background color
+of the root to be transparent if you want to see the scene background instead.</p>
+
+
+<hr class="break">
+
+
+<p>A <span class="classname">Stage</span>, from package <span class="code">javafx.stage</span>, represents a
+window on the computer's screen.  Any JavaFX <span class="classname">Application</span> has at
+least one stage, called the primary stage, which is created by the system and passed 
+as a parameter to the application's <span class="code">start()</span> method.  A typical program
+uses more than one window.  It is possible for a program to create new <span class="classname">Stage</span>
+objects; we will see how to do that in <a href="../c13/index.html">Chapter&nbsp;13</a>.</p>
+
+
+<p>A stage contains a scene, which fills its content area.  The scene is installed in the stage by calling the
+instance method <span class="code">stage.setScene(scene)</span>.  It is possible to show a stage
+that does not contain a scene, but its content area will just be a blank rectangle.</p>
+
+
+<p>In addition to a content area, a stage has a title bar above the content.  The title bar
+contains a title for the window and some "decorations"&mdash;little controls that the
+user can click to do things like close and maximize the window.  The title bar is provided
+by the operating system, not by Java, and its style is set by the operating system.
+The instance method <span class="code">stage.setTitle(string)</span> sets the text that is shown in
+the title bar.  The title can be changed at any time.</p>
+
+
+<p>By default a stage is resizable.  That is, the size of the window can be changed by the
+user, by dragging its borders or corners.  To prevent the user from changing the
+window size, you can call <span class="code">stage.setResizable(false)</span>.  However, a program
+can change the size of a stage with the instance methods <span class="code">stage.setWidth(w)</span>
+and <span class="code">stage.setHeight(h)</span>, and this can be done even if the stage has
+been made non-resizable.  Usually, the initial size of a stage is determined by the
+size of the scene that it contains, but it is also possible to set the initial size before
+showing the window using <span class="code">setWidth()</span> and <span class="code">setHeight()</span>.</p>
+
+
+<p>By default, when a stage is resizable, the user can make the window arbitrarily small
+and arbitrarily large.  It is possible to put limits on the resizability of a window
+with the instance methods <span class="code">stage.setMinWidth(w)</span>, <span class="code">stage.setMaxWidth(w)</span>,
+<span class="code">stage.setMinHeight(h)</span>, and <span class="code">stage.setMaxHeight(h)</span>.  The size
+limits apply only to what the user can do by dragging the borders or corners of the window.
+</p>
+
+
+<p>It is also possible to change the position of a stage on the screen, using the
+instance methods <span class="code">stage.setX(x)</span> and <span class="code">stage.setY(y)</span>.
+The x and y coordinates specify the position of the top left corner of the window,
+in the coordinate system of the screen.  Typically, you would do this before showing
+the stage.</p>
+
+
+<p>Finally, for now, remember that a stage is not visible on the screen until you
+show it by calling the instance method <span class="code">stage.show()</span>.  Showing the
+primary stage is typically the last thing that you do in a application's
+<span class="code">start()</span> method.</p>
+
+
+   
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.6.4">6.6.4&nbsp;&nbsp;Creating Jar Files</a>
+</h3>
+   
+
+<p>As the last topic for this chapter, we look again at jar files.  Recall
+that a jar file is a "java archive" that can contain a number of class files as well
+as resource files used by the program. When creating
+a program that uses more than one file, it's usually a good idea to place all required
+class and resource files into a jar file.  If that is done, then a user will only need that
+one file to run the program. In fact, it is possible to make a so-called <span class="newword">executable
+jar file</span>.  A user can run an executable jar file in much the same way
+as any other application, usually by double-clicking the icon of the jar file.
+(The user's computer must have a correct version of Java installed, and the computer
+must be configured correctly for this to work.  The configuration is usually done automatically when
+Java is installed, at least on Windows and Mac OS.)</p>
+   
+
+<p>The question, then, is how to create a jar file.  The answer depends on what
+programming environment you are using.  The two basic types of programming environment&mdash;command line
+and IDE&mdash;were discussed in <a href="../c2/s6.html">Section&nbsp;2.6</a>.  Any IDE (Integrated Development Environment)
+for Java should have a command for creating jar files.  In the Eclipse IDE, for example,
+it can be done as follows:  In the Package Explorer pane, select the programming project (or just
+all the individual source files that you need).  Right-click on the selection, and
+choose "Export" from the menu that pops up.  In the window that appears, select "JAR file"
+and click "Next".  In the window that appears next, enter a name for the jar file in
+the box labeled "JAR file".  (Click the "Browse" button next to this box to select the
+file name using a file dialog box.)  The name of the file should end with ".jar".
+If you are creating a regular jar file, not an executable
+one, you can hit "Finish" at this point, and the jar file will be created.  To create an
+executable file, hit the "Next" button <i>twice</i> to get to the "Jar Manifest
+Specification" screen.  At the bottom of this screen is an input box labeled "Main class".
+You have to enter the name of the class that contains the <span class="code">main()</span> routine
+that will be run when the jar file is executed.  If you hit the "Browse" button next to
+the "Main class" box, you can select the class from a list of classes that contain
+<span class="code">main()</span> routines.  Once you've selected the main class, you can
+click the "Finish" button to create the executable jar file.</p>
+
+
+<p>It is also possible to create jar files on the command line.  The Java Development Kit
+includes a command-line program named <span class="code">jar</span> that can be used to create jar files.
+If all your classes are in the default package (like most of the examples in this book), then
+the <span class="code">jar</span> command is easy to use.  To create a non-executable jar file on the command line,
+change to the directory that contains the class files that you want to include in the jar.
+Then give the command</p>
+   
+
+<pre>jar  cf  JarFileName.jar  *.class</pre>
+   
+
+<p>where <span class="code">JarFileName</span> can be any name that you want to use for the jar file.
+The "<span class="code">*</span>" in "<span class="code">*.class</span>" is a wildcard that makes <span class="code">*.class</span> match every class
+file in the current directory.  This means that all the class files in the directory will be
+included in the jar file.  If the program uses resource files, such as images, they should
+also be listed in the command.  If you want to include only certain class files, you
+can name them individually, separated by spaces.  (Things get more complicated if your classes and resources are not in the
+default package.  In that case, the class files must be in subdirectories of the
+directory in which you issue the <span class="code">jar</span> command.  See <a href="../c2/s6.html#basics.6.6">Subsection&nbsp;2.6.6</a>.)</p>
+   
+
+<p>Making an executable jar file on the command line is  more complicated.
+There has to be some way of specifying which class contains the <span class="code">main()</span>
+routine.  This is done by creating a <span class="newword">manifest file</span>.  The manifest
+file can be a plain text file containing a single line of the form</p>
+
+
+<pre>Main-Class: ClassName</pre>
+
+
+<p>where <span class="code">ClassName</span> should be replaced by the name of the class that contains
+the <span class="code">main()</span> routine.  For example, if the <span class="code">main()</span> routine is in
+the class <span class="classname">MosaicDraw</span>, then the manifest file should read
+"<span class="code">Main-Class: MosaicDraw</span>".  You can give the manifest file any name
+you like.  Put it in the same directory where you will issue the <span class="code">jar</span> command,
+and use a command of the form</p>
+   
+
+<pre>jar  cmf  ManifestFileName  JarFileName.jar  *.class</pre>
+   
+
+<p>to create the jar file.  (The <span class="code">jar</span> command is capable of performing a
+variety of different operations.  The first parameter to the command, such as "<span class="code">cf</span>"
+or "<span class="code">cmf</span>", tells it which operation to perform.)</p>
+   
+
+<p>By the way, if you have successfully created an executable jar file, you can run
+it on the command line using the command "<span class="code">java&nbsp;-jar</span>".  For example:</p>
+   
+
+<pre>java  -jar  JarFileName.jar</pre>
+
+
+
+
+<hr>
+<div align="center">
+<b><small>End of Chapter 6</small></b>
+</div>
+<hr>
+
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="s5.html">Previous Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

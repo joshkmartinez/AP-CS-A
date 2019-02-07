@@ -1,0 +1,388 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Solution to Exercise 4, Chapter 10</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2>Solution for Programming Exercise 10.4</h2>
+<hr class="break">
+<p>
+<span class="start"><big>T</big>his page contains</span> a sample solution to
+           one of the exercises from <a href="../index.html">Introduction to Programming Using Java</a>.</p>
+<hr>
+<h3 class="exercise">Exercise 10.4:</h3>
+<p>A <span class="newword">predicate</span> is a boolean-valued function with one parameter.
+Java has the parameterized functional interface <span class="atype">Predicate&lt;T&gt;</span>,
+from package <span class="code">java.util.function</span>,
+to represent predicates.  The definition of <span class="atype">Predicate&lt;T&gt;</span> could be:</p>
+
+
+<pre>public interface Predicate&lt;T&gt; {
+    public boolean test( T obj );
+}</pre>
+
+
+<p>The idea is that an object that implements this interface knows how to
+"test" objects of type <span class="classname">T</span>
+in some way.   Java already has some methods that use predicates, such as the
+<span class="code">removeIf(p)</span> method that is defined for any <span class="classname">Collection</span>.
+(See <a href="../c10/s6.html#generics.6.1">Subsection&nbsp;10.6.1</a>).  However, this exercise asks you to write
+a few similar methods yourself.  Define a class that contains 
+the following generic static methods for working with predicate objects.
+The name of the class should be <span class="classname">Predicates</span>, in analogy
+with the standard class <span class="classname">Collections</span> that provides various
+<span class="code">static</span> methods for working with collections.  You should
+<b>not</b> use the stream API for this exercise.</p>
+
+
+<pre>public static &lt;T&gt; void remove(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred)
+   // Remove every object, obj, from coll for which pred.test(obj) 
+   // is true.  (This does the same thing as coll.removeIf(pred).)
+   
+public static &lt;T&gt; void retain(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred)
+   // Remove every object, obj, from coll for which
+   // pred.test(obj) is false.  (That is, retain the
+   // objects for which the predicate is true.)
+   
+public static &lt;T&gt; List&lt;T&gt; collect(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred)
+   // Return a List that contains all the objects, obj,
+   // from the collection, coll, such that pred.test(obj)
+   // is true.
+   
+public static &lt;T&gt; int find(ArrayList&lt;T&gt; list, Predicate&lt;T&gt; pred)
+   // Return the index of the first item in list
+   // for which the predicate is true, if any.
+   // If there is no such item, return -1.</pre>
+   
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>Discussion</b></big>
+</div>
+<hr>
+<p>The code for this exercise is pretty short, but it
+involves some advanced ideas, including methods with bounded type parameters
+(from <a href="../c10/s5.html#generics.5.4">Subsection&nbsp;10.5.4</a>).  Aside from that,
+the main point of the exercise is to work with predicates and to see how they are
+useful in generic programming. The operation of finding all the items in a
+collection that satisfy some condition is very common. The code to do it is not
+hard to write, but even so, it is nice to have it done once and for all. In this
+exercise, the condition that the items have to satisfy is represented as a
+<span class="classname">Predicate</span>. The <span class="code">collect()</span> method provides a general way to
+find all the items that satisfy the condition. The items, in this case,
+are to be dumped into a <span class="classname">List</span>.</p>
+
+
+<p>The implementation of the <span class="code">collect()</span> method simply uses a
+for-each loop to go through the collection, <span class="code">coll</span>, and puts every
+item that satisfies the predicate into a list. The method returns an object of
+type <span class="classname">List</span>, but <span class="classname">List</span> is only an interface. Any real list must
+belong to one of the classes that implement this interface, such as
+<span class="classname">LinkedList</span> or <span class="classname">ArrayList</span>. I create the list as an
+<span class="classname">ArrayList</span>, but a <span class="classname">LinkedList</span> would also be reasonable.</p>
+
+
+<pre>/**
+ * Return a List that contains all the objects, obj, from the collection, 
+ * coll, for which pred.test(obj) is true.
+ */
+public static &lt;T&gt; List&lt;T&gt; collect(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred) {
+   List&lt;T&gt; list = new ArrayList&lt;T&gt;();
+   for ( T item : coll ) {
+      if (pred.test(item))
+         list.add(item);
+   }
+   return list;
+} // end collect()</pre>
+
+
+<p>The <span class="code">remove()</span> and <span class="code">retain()</span> methods are similar to
+<span class="code">collect()</span>, except that instead of making a new collection, they modify
+the collection, <span class="code">coll</span>.  A for-each loop cannot modify the collection
+over which it is iterating, so the <span class="code">remove()</span> and <span class="code">retain()</span> methods
+will have to use <span class="classname">Iterators</span>.  Recall that if <span class="code">iter</span>
+is an <span class="classname">Iterator</span> for a collection, then the method
+<span class="code">iter.remove()</span> will remove from the collection the item that was seen
+most recently by the iterator.  The <span class="code">remove()</span> method can be written
+as:</p>
+   
+
+<pre>/**
+ * Remove every object, obj, from coll for which pred.test(obj) is true.
+ */
+public static &lt;T&gt; void remove(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred) {
+   Iterator&lt;T&gt; iter = coll.iterator();
+   while (iter.hasNext()) {
+      T item = iter.next();
+      if (pred.test(item))
+         iter.remove();
+   }
+} // end remove()</pre>
+   
+
+<p>The <span class="code">retain()</span> method is almost identical to this, and the
+<span class="code">find()</span> method is easy to write using an ordinary <span class="code">for</span>
+loop.  See my solution, below.</p>
+
+
+<p>If you look at the documentation for <span class="atype">Predicate&lt;T&gt;</span>,
+you will see that it defines a method <span class="code">negate()</span>.  (It is defined
+in the interface as a <span class="code">default</span> method.  A functional interface can
+only define one abstract method, but it can define additional methods if they are
+default methods.)  If <span class="code">pred</span>
+is a predicate, then <span class="code">pred.negate()</span> that is true when pred is false
+and is false when pred is true.  This means that <span class="code">retain()</span> could
+actually be defined simply as</p>
+
+
+<pre>public static &lt;T&gt; void retain(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred) {
+    remove( coll, pred.negate() );
+}</pre>
+
+
+<p>My test program creates some collections and applies the methods from
+the <span class="classname">Predicates</span> class to them. My collections contain objects of type
+<span class="classname">Integer</span> and I made two <span class="classname">Predicates</span> that work on objects of
+this type. One way to create such a predicate is to write a class that implements the interface
+<span class="classname">Predicate&lt;Integer&gt;</span>, and then to make an object belonging to
+that class. For example, I could have defined the class:</p>
+
+
+<pre>/**
+ * An object of type Even tests an Object of type Integer to see whether the 
+ * integer that it represents is an even number. Note that the test() method 
+ * should only be applied to non-null values of type Integer.
+ */
+static class Even implements Predicate&lt;Integer&gt; {
+   public boolean test(Integer i) {
+      if ( i % 2 == 0 )
+         return true;
+      else
+         return false;
+   }
+} // end class Even</pre>
+
+
+<p>The predicate object could then created with a command:</p>
+
+
+<pre>Predicate&lt;Integer&gt; pred = new Even():</pre>
+
+
+<p>But of course, it is also possible to define the
+predicate more simply as a lambda expression:</p>
+
+
+<pre>Predicate&lt;Integer&gt; pred = i -&gt; (i % 2 == 0);</pre>
+
+
+<p>or, of course, we could simply use the lambda expression
+at the point where the predicate is needed.  For example:</p>
+
+
+<pre>result = Predicates.collect(coll, i -&gt; (i % 2 == 0) )</pre>
+
+
+<p>I hope that you can see how using the lambda expression simpliies
+the code quite a bit!</p>
+
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>The Solution</b></big>
+</div>
+<hr>
+   
+
+<p>
+<b><u>The Predicates Class:</u></b>
+</p>
+
+
+<pre class="exercisecode">import java.util.Collection;
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
+/**
+ * This class defines some static methods for working
+ * with Collections and Predicates.  (The Predicate
+ * interface is NOT a standard part of Java.)
+ */
+public class Predicates {
+
+   
+   /**
+    * Remove every object, obj, from coll for which pred.test(obj) is true.
+    */
+   public static &lt;T&gt; void remove(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred) {
+      Iterator&lt;T&gt; iter = coll.iterator();
+      while (iter.hasNext()) {
+         T item = iter.next();
+         if (pred.test(item))
+            iter.remove();
+      }
+   } // end remove()
+
+   
+   /**
+    * Remove every object, obj, from coll for which pred.test(obj) is false.  
+    * (That is, retain the objects for which the predicate is true.)
+    */
+   public static &lt;T&gt; void retain(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred){
+      Iterator&lt;T&gt; iter = coll.iterator();
+      while (iter.hasNext()) {
+         T item = iter.next();
+         if ( ! pred.test(item) )
+            iter.remove();
+      }
+   } // end retain()
+   
+   
+   /**
+    * Return a List that contains all the objects, obj, from the collection, 
+    * coll, for which pred.test(obj) is true.
+    */
+   public static &lt;T&gt; List&lt;T&gt; collect(Collection&lt;T&gt; coll, Predicate&lt;T&gt; pred) {
+      List&lt;T&gt; list = new ArrayList&lt;T&gt;();
+      for ( T item : coll ) {
+         if (pred.test(item))
+            list.add(item);
+      }
+      return list;
+   } // end collect()
+
+   
+   /**
+    * Return the index of the first item in list for which the predicate is true, if any.
+    * If there is no such item, return -1.
+    */
+   public static &lt;T&gt; int find(ArrayList&lt;T&gt; list, Predicate&lt;T&gt; pred) {
+      // 
+      for (int i = 0; i &lt; list.size(); i++) {
+         T item = list.get(i);
+         if (pred.test(item))
+            return i;
+      }
+      return -1;
+   } // end find()
+
+   
+} // end class Predicates
+
+</pre>
+   
+
+<p>
+<b><u>The Test program:</u></b>
+</p>
+   
+
+<pre class="exercisecode">
+import java.util.*;
+import java.util.function.Predicate;
+
+/**
+ * Perform some simple tests on the Predicates class.
+ */
+public class TestPredicates {
+
+   /**
+    * For convenience make a Collection containing some integers.  The Collection 
+    * is actually a TreeSet, but that is not relevant to the main program.
+    */
+   static Collection&lt;Integer&gt; makeSet() {
+      Collection&lt;Integer&gt; set = new TreeSet&lt;Integer&gt;();
+      set.add(Integer.valueOf(32));
+      set.add(Integer.valueOf(17));
+      set.add(Integer.valueOf(142));
+      set.add(Integer.valueOf(56));
+      set.add(Integer.valueOf(1899));
+      set.add(Integer.valueOf(57));
+      set.add(Integer.valueOf(999));
+      set.add(Integer.valueOf(86));
+      set.add(Integer.valueOf(83));
+      set.add(Integer.valueOf(100));
+      return set;
+   } // end makeSet()
+
+   /**
+    * Main routine tests the Predicates class by making Collections of Integers 
+    * and applying the methods from the Predicates class to them.
+    */
+   public static void main(String[] args) {
+
+      Collection&lt;Integer&gt; coll;    // A collection (from makeSet() method).
+
+      List&lt;Integer&gt; result;        // The result of applying collect() to coll.
+
+      Predicate&lt;Integer&gt; pred = i -&gt; (i % 2 == 0);  // Tests if an Integer is even.
+
+      coll = makeSet();
+      System.out.println("Original collection: " + coll);
+
+      Predicates.remove(coll,pred);
+      System.out.println("Remove evens: " + coll);
+
+      coll = makeSet();
+      Predicates.retain(coll,pred);
+      System.out.println("Retain evens: " + coll);
+
+      coll = makeSet();
+      result = Predicates.collect(coll,pred);
+      System.out.println("Collect evens: " + result);
+
+      ArrayList&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();
+      int i = Predicates.find(list,pred);
+      System.out.println("Find first even: at index " + i);
+
+
+      pred = n -&gt; (n &gt; 100);        // Tests if an Integer is bigger than 100.
+
+      coll = makeSet();
+      System.out.println("Original collection: " + coll);
+
+      Predicates.remove(coll,pred);
+      System.out.println("Remove big: " + coll);
+
+      coll = makeSet();
+      Predicates.retain(coll,pred);
+      System.out.println("Retain big: " + coll);
+
+      coll = makeSet();
+      result = Predicates.collect(coll,pred);
+      System.out.println("Collect big: " + result);
+
+      list = new ArrayList&lt;Integer&gt;(coll);
+      i = Predicates.find(list,pred);
+      System.out.println("Find first big: at index " + i);
+
+   } // end main()
+
+} // end class TestPredicates
+</pre>
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

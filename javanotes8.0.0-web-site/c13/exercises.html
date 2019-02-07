@@ -1,0 +1,144 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Exercises for Chapter 13</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2>Programming Exercises for Chapter 13</h2>
+<hr class="break">
+<p>
+<span class="start"><big>T</big>his page contains</span> several exercises for Chapter 13
+        in <a href="../index.html">Introduction to Programming Using Java</a>.  For each exercise, a link to
+        a possible solution is provided.   Each solution includes a discussion of how a programmer might approach the
+        problem and interesting points raised by the problem or its solution, as well as complete source
+        code of the solution.</p>
+<hr>
+<h3 class="exercise">Exercise 13.1:</h3>
+<p>The folder <span class="sourceref"><a href="../source/chapter13/nature-images">nature-images</a></span> contains several pictures of
+animals.  (In the web site download, you can find that folder in the <span class="code">chapter13</span> directory
+inside the <span class="code">source</span> directory.)
+Write a "scratch off" program that could be used by a small child that works as follows:
+The program window starts by showing a large uniformly colored rectangle, with one of the
+animal pictures hidden behind it.  As the user drags the mouse over the image, part of the
+colored overlay is scratched off, revealing the picture underneath.  Here is what it should
+look like after part of the overlay has been removed:</p>
+
+<p align="center">
+<img src="scratch-off.jpg" width="450" height="322" alt="a partly revealed bluebird"></p>
+
+<p>You can implement this by using one canvas, containing the colored overlay, stacked on top of another
+canvas that contains the animal picture.  (Stacked canvases were used in the sample
+program <span class="sourceref"><a href="../source/chapter13/ToolPaint.java">ToolPaint.java</a></span> from <a href="../c13/s2.html#GUI2.2.4">Subsection&nbsp;13.2.4</a>.)
+To implement scratching off part of the overlay, just clear a small rect in the overlay 
+canvas around the mouse location.  The program should have some way to move on to the next
+picture.  Another idea is to have several different sizes of scratchers, so that an
+impatient child can use a giant one that will remove large swatches of color.</p>
+
+<p align="right">
+<a href="ex1-ans.html">See the Solution</a>
+</p>
+<hr>
+<h3 class="exercise">Exercise 13.2:</h3>
+<p>The <span class="classname">StopWatchLabel</span>
+component from <a href="../c13/s3.html#GUI2.3.1">Subsection&nbsp;13.3.1</a> displays the text "Timing..."
+when the stopwatch is running. It would be nice if it displayed the elapsed
+time since the stopwatch was started. For that, you need to create an
+<span class="classname">AnimationTimer</span>. (See <a href="../c6/s3.html#GUI1.3.5">Subsection&nbsp;6.3.5</a>.)
+Add an <span class="classname">AnimationTimer</span> to the original source code, 
+<span class="sourceref"><a href="../source/chapter13/StopWatchLabel.java">StopWatchLabel.java</a></span>, to drive the display of the elapsed time in
+seconds.</p>
+
+<p align="right">
+<a href="ex2-ans.html">See the Solution</a>
+</p>
+<hr>
+<h3 class="exercise">Exercise 13.3:</h3>
+<p>Improve the program <span class="sourceref"><a href="../source/chapter13/ToolPaint.java">ToolPaint.java</a></span>,
+from <a href="../c13/s2.html">Section&nbsp;13.2</a>.  You can any improvements you like, but here
+are some suggestions:</p>
+
+<ul>
+
+<li>Have separate menus for "Fill Color" and "Stroke Color".</li>
+
+<li>Make it possible for the user to draw shapes that are both filled and
+stroked.  For example, add two new tools, "Stroked Filled Rect" and
+"StrokedFilledOval".</li>
+
+<li>Add a "Line Width" menu.</li>
+
+<li>Add keyboard accelerators for some commands (see <a href="../c13/s5.html#GUI2.5.4">Subsection&nbsp;13.5.4</a>).</li>
+
+<li>Make it possible to use a translucent fill color.  A simple approach to this
+is to use a <span class="classname">CheckMenuItem</span> to select either
+fully opaque or 50% opaque fill. I don't advise
+trying to implement translucent stroke colors, since that's more difficult.</li>
+
+<li>Add an "Undo" command that will restore the image to what it was before
+the last time it was modified.  This can be implemented by making a copy
+of the image before you modify it.  It's possible to have a multi-level
+undo, but that's harder and uses more memory.</li>
+
+</ul>
+
+<p>Remember that the <span class="code">ToolPaint</span> program requires <span class="sourceref"><a href="../source/chapter13/SimpleDialogs.java">SimpleDialogs.java</a></span>.</p>
+
+<p align="right">
+<a href="ex3-ans.html">See the Solution</a>
+</p>
+<hr>
+<h3 class="exercise">Exercise 13.4:</h3>
+<p>The sample program <span class="sourceref"><a href="../source/chapter11/PhoneDirectoryFileDemo.java">PhoneDirectoryFileDemo.java</a></span>
+from <a href="../c11/s3.html#IO.3.2">Subsection&nbsp;11.3.2</a> keeps data for a "phone directory" in a file in the user's
+home directory.  <a href="../c11/ex5-ans.html">Exercise&nbsp;11.5</a> asked you to revise that program to
+use an XML format for the data.  Both programs have a simple command-line user
+interface.  For this exercise, you should provide a GUI interface for the
+phone directory data.  You can base your program either on the original sample
+program or on the modified XML version from the exercise.  Use a <span class="classname">TableView</span>
+to hold the data.  The user should be able to edit all the entries in the
+table.  Also, the user should be able to add and delete rows.  Include either
+buttons or menu commands that can be used to perform these actions.  The
+delete command should delete the selected row, if any.   New rows should be
+added at the end of the table.</p>
+
+<p>Your program should load data from the file when it starts and save data to the
+file when it ends, just as the two previous programs do.  For a GUI program, you need to save the
+data when the user closes the window, which ends the program. To do that, you
+can add a listener to the program's <span class="classname">Stage</span> to handle
+the WindowHidden event.  For an example of using that event, the Mandelbrot Viewer program from 
+<a href="../c13/s5.html">Section&nbsp;13.5</a> uses it to save preferences when the program ends.
+For an example of creating an editable table, see <span class="sourceref"><a href="../source/chapter13/ScatterPlotTableDemo.java">ScatterPlotTableDemo.java</a></span>.</p>
+
+<p>(I suggest keeping things simple.  You not being asked to write a real phone book application!
+The point is mostly to make an editable table.  My program has text input boxes for name and number, and
+an "Add" button for adding a new entry containing the input in those boxes. 
+My program always saves the data, whether or not the user has
+changed it.   The interface will be poor:  The user has to double-click a cell to edit it and press
+return to finish the edit and save the new value.  It is possible to make a
+table with a better editing interface, but to do that, you need to write a new 
+<span class="classname">CellFactory</span> class for the table.)</p>
+
+<p align="right">
+<a href="ex4-ans.html">See the Solution</a>
+</p>
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

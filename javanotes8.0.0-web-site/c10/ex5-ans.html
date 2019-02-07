@@ -1,0 +1,243 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Solution to Exercise 5, Chapter 10</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2>Solution for Programming Exercise 10.5</h2>
+<hr class="break">
+<p>
+<span class="start"><big>T</big>his page contains</span> a sample solution to
+           one of the exercises from <a href="../index.html">Introduction to Programming Using Java</a>.</p>
+<hr>
+<h3 class="exercise">Exercise 10.5:</h3>
+<p>This is a short exercise in using the stream API. 
+Suppose that the class <span class="classname">Score</span> is defined as</p>
+
+
+<pre>class ScoreInfo {
+    String firstName;
+    String lastName;
+    int score;
+    Score( String lName, String fName, int s ) {
+        firstName = fName;
+        lastName = lName;
+        score = s;
+    }
+}</pre>
+
+
+<p>and that <span class="code">scoreData</span> is an array of <span class="classname">ScoreInfos</span>
+containing information about the scores of students on a test.
+Use the stream API to do each of the following tasks:</p>
+
+<ul>
+
+<li>print the number of students (without using <span class="code">scoreData.length</span>)</li>
+
+<li>print the average score for all of the students</li>
+
+<li>print the number of students who got an A (score greater than or equal to 90)</li>
+
+<li>use the <span class="code">collect()</span> stream operation to create 
+    a <span class="classname">List&lt;String&gt;</span> that contains the names of students whose score was less than 70;
+    the names should be in the form first name followed by last name</li>
+
+<li>print the names from the <span class="classname">List</span> that was generated in the previous task</li>
+
+<li>print out the student's names and scores, ordered last name</li>
+
+<li>print out the student's names and scores, ordered by score</li>
+
+</ul>
+
+<p>You can put all of the code in <span class="code">main()</span> routine and include
+<span class="classname">ScoreInfo</span> as a <span class="code">static</span> nested class.
+Do not use <b>any</b> for loops or other control structures.  Do everything
+using the stream API.  For testing your code, you can use this array:</p>
+
+
+<pre>private static ScoreInfo[] scoreData = new ScoreInfo[] {
+        new Score("Smith","John",70),
+        new Score("Doe","Mary",85),
+        new Score("Page","Alice",82),
+        new Score("Cooper","Jill",97),
+        new Score("Flintstone","Fred",66),
+        new Score("Rubble","Barney",80),
+        new Score("Smith","Judy",48),
+        new Score("Dean","James",90),
+        new Score("Russ","Joe",55),
+        new Score("Wolfe","Bill",73),
+        new Score("Dart","Mary",54),
+        new Score("Rogers","Chris",78),
+        new Score("Toole","Pat",51),
+        new Score("Khan","Omar",93),
+        new Score("Smith","Ann",95)
+};</pre>
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>Discussion</b></big>
+</div>
+<hr>
+<p>In each case, to process the values from the array using the stream 
+API, we need to make a stream containing those values.  That's done by calling
+<span class="code">Arrays.stream(scoreData)</span>.  From there, we just need to apply the
+appropriate stream operators to get the desired results.  I have added some
+comments on each of the assigned tasks to the program.</p>
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>The Solution</b></big>
+</div>
+<hr>
+
+<pre class="exercisecode">import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+/**
+ * This program tests the stream API by doing various computations.
+ */
+public class StreamTest {
+
+    /**
+     * Data for one student about a score on a test.
+     */
+    private static class ScoreInfo {
+        String firstName;
+        String lastName;
+        int score;
+        ScoreInfo( String lName, String fName, int s ) {
+            firstName = fName;
+            lastName = lName;
+            score = s;
+        }
+    }
+    
+    /**
+     * A test array of StudentInfo that will be used to create streams.
+     */
+    private static ScoreInfo[] scoreData = new ScoreInfo[] {
+            new ScoreInfo("Smith","John",70),
+            new ScoreInfo("Doe","Mary",85),
+            new ScoreInfo("Page","Alice",82),
+            new ScoreInfo("Cooper","Jill",97),
+            new ScoreInfo("Flintstone","Fred",66),
+            new ScoreInfo("Rubble","Barney",80),
+            new ScoreInfo("Smith","Judy",48),
+            new ScoreInfo("Dean","James",90),
+            new ScoreInfo("Russ","Joe",55),
+            new ScoreInfo("Wolfe","Bill",73),
+            new ScoreInfo("Dart","Mary",54),
+            new ScoreInfo("Rogers","Chris",78),
+            new ScoreInfo("Toole","Pat",51),
+            new ScoreInfo("Khan","Omar",93),
+            new ScoreInfo("Smith","Ann",95)
+    };
+        
+    
+    public static void main(String[] args) {
+        
+        /* The number of students can be computed simply by applying
+         * the .count() operation to a stream created from the array. */
+        
+        long count = Arrays.stream(scoreData).parallel().count();
+        System.out.println("Number of students: " + count);
+        
+        /* To get the average, use the .sum() operation, and divide by count. */
+        
+        int total = Arrays.stream(scoreData).parallel()
+                              .mapToInt( s -&gt; s.score )
+                              .sum();
+        System.out.printf("Average grade:  %1.2f%n", (double)total/count );
+        
+        /* To get the number of students who got an A, first filter the
+         * stream letting through only students who satisfy the
+         * predicate  s -&gt; s.score &gt;= 90.  This predicate returns true
+         * only for students whose score is greater than or equal to 90.
+         * The number is then computed by applying .count() to the 
+         * resulting stream. */
+        
+        long countA = Arrays.stream(scoreData).parallel()
+                   .filter( s -&gt; s.score &gt;= 90 )
+                   .count();
+        System.out.println("Number who got an A: " + countA);
+        System.out.println();
+        
+        /* To get a list of names of students who failed, first filter
+         * the stream to let through only ScoreInfo objects with score
+         * less than 70.  Since we want the names of students, we need
+         * to convert the stream of ScoreInfo objects into a stream
+         * of strings by applying a mapping operation.  Then applying
+         * .collect(Collectors.toList()) produces the List that we need. */
+
+        List&lt;String&gt; failing = Arrays.stream(scoreData)
+                                          .filter( s -&gt; (s.score &lt; 70) )
+                                          .map( s -&gt; (s.firstName + " " + s.lastName) )
+                                          .collect( Collectors.toList() );
+        
+        /* Now we need to print the list, which can easily be done with
+         * a for-each loop.  However, it can also be done using .forEach()
+         * operation on a stream.  In this case, the String Consumer in the
+         * .forEach() operation is given as the method reference 
+         * System.out::println.  That is, it is the println() method in the
+         * object System.out.  This method reference is the same as writing
+         * the lambda expression  s -&gt; System.out.println(s).  */
+        
+        System.out.println("Failing students: ");
+        failing.stream().forEach( System.out::println );
+        System.out.println();
+        
+        /* To print the data ordered by last name, apply the .sorted() operation
+         * to sort the values in the stream by last name, then use .forEach()
+         * to output the information from each ScoreInfo object in the stream. 
+         * The .sorted() operation takes a parameter that is a Comparator for
+         * comparing two values from the stream.  In this case, we just
+         * compare the lastNames from two ScoreInfo objects, using the standard
+         * compareTo() method for Strings. */
+        
+        System.out.println("Data sorted by last name:");
+        Arrays.stream(scoreData)
+             .sorted( (s1,s2) -&gt; s1.lastName.compareTo(s2.lastName) )
+             .forEach( s -&gt; System.out.printf(
+                                 "  %s, %s: %d%n", s.lastName, s.firstName, s.score) );
+        System.out.println();
+        
+        /* The data can be output ordered by score in the same way, using a
+         * different comparator in the .sorted() operation. */
+        
+        System.out.println("Data sorted by score:");
+        Arrays.stream(scoreData)
+             .sorted( (s1,s2) -&gt; s1.score - s2.score )
+             .forEach( s -&gt; System.out.printf(
+                                 "  %s, %s: %d%n", s.lastName, s.firstName, s.score) );
+        
+    }
+    
+} // end StreamTest
+</pre>
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

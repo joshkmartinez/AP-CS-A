@@ -1,0 +1,677 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Solution to Exercise 11, Chapter 6</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2>Solution for Programming Exercise 6.11</h2>
+<hr class="break">
+<p>
+<span class="start"><big>T</big>his page contains</span> a sample solution to
+           one of the exercises from <a href="../index.html">Introduction to Programming Using Java</a>.</p>
+<hr>
+<h3 class="exercise">Exercise 6.11:</h3>
+<p>In the Blackjack game 
+from <a href="../c6/ex10-ans.html">Exercise&nbsp;6.10</a>, the user can click on the "Hit",
+"Stand", and "NewGame" buttons even when it doesn't make sense to do so. It
+would be better if the buttons were disabled at the appropriate times. The "New
+Game" button should be disabled when there is a game in progress. The "Hit" and
+"Stand" buttons should be disabled when there is <b>not</b> a game in progress. The
+instance variable <span class="code">gameInProgress</span> tells whether or not a game is in
+progress, so you just have to make sure that the buttons are properly enabled
+and disabled whenever this variable changes value. 
+I strongly advise writing a method that can be called every time it is
+necessary to set the value of the <span class="code">gameInProgress</span> variable. That
+method can take full responsibility for enabling and disabling the buttons
+(as long as it is used consistently).
+Recall that if <span class="code">bttn</span> is a variable of type <span class="code">Button</span>, then
+<span class="code">bttn.setDisable(true)</span> disables the button and
+<span class="code">bttn.setDisable(false)</span> enables the button.</p>
+
+
+<p>As a second (and more difficult) improvement, make it possible
+for the user to place bets on the Blackjack game. When the program starts, give
+the user $100. Add a <span class="classname">TextField</span> to the strip of controls along the
+bottom of the panel. The user enters the bet in this <span class="classname">TextField</span>.
+When the game begins, check the amount of the bet. You should do this when the
+game begins, not when it ends, because several errors can occur: The contents
+of the <span class="classname">TextField</span> might not be a legal number, the bet that the user
+places might be more money than the user has, or the bet might be &lt;= 0. You
+should detect these errors and show an error message instead of starting the
+game. The user's bet should be an integral number of dollars.</p>
+
+
+<p>It would be a good idea to make the <span class="classname">TextField</span> uneditable while the
+game is in progress. If <span class="code">betInput</span> is the <span class="classname">TextField</span>, you can
+make it editable and uneditable by the user with the commands
+<span class="code">betInput.setEditable(true)</span> and <span class="code">betInput.setEditable(false)</span>.</p>
+
+
+<p>In the <span class="code">drawBoard()</span> method, you should include commands to
+display the amount of money that the user has left.</p>
+
+
+<p>There is one other thing to think about: Ideally, the program should not start a new
+game when it is first created. The user should have a chance to set a bet
+amount before the game starts. So, in the <span class="code">start()</span> method, you
+should not call <span class="code">doNewGame()</span>. You might want to display a message such
+as "Welcome to Blackjack" before the first game starts.</p>
+   
+
+<p>Here is a picture of my program:</p>
+
+<p align="center">
+<img src="blackjack-gui.png" width="417" height="373" alt="a blackjack game in progress"></p>
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>Discussion</b></big>
+</div>
+<hr>
+
+<p>First, I want to briefly discuss the changes that I made to the appearance of
+the user interface, compared to the program, <span class="sourceref"><a href="../source/chapter6/HighLowGUI.java">HighLowGUI.java</a></span>, on
+which the Blackjack programs are based.</p>
+
+<p>For Blackjack, I added a dark red border around the <span class="classname">BorderPane</span>
+that serves as the <span class="code">root</span> node of the scene graph.  I also wanted
+a red line between the canvas and the <span class="code">buttonBar</span> that is in the
+bottom position.  For that, I added a border to <span class="code">buttonBar</span>, but only
+on its top edge; the border width on the other three sides of the <span class="code">buttonBar</span>
+is set to zero.</p>
+
+<p>In <span class="classname">HighLowGUI</span>, the three buttons are all the same size,
+and they fill the <span class="code">buttonBar</span>.  In the final version of Blackjack,
+the button bar contains five components, and it didn't look good to make them
+all the same width.  Furthermore, I wanted to give a nicer background color (beige)
+to the button bar, and it needed some padding to add some space between the
+components and the edges of the button bar.  Finally, to put the components that
+it contains in the center of the button bar rather than at the left end,
+the alignment property of the button bar is set to <span class="code">Pos.CENTER</span>.
+So, in my Blackjack program,
+the root node and button bar are created and configured in the <span class="code">start()</span>
+method as follows:</p>
+
+
+<pre>HBox buttonBar = new HBox(6, hitButton, standButton, newGameButton,
+        new Label(" Your bet:"), betInput);
+buttonBar.setStyle("-fx-border-color: darkred; -fx-border-width: 3px 0 0 0;" 
+        + "-fx-padding: 8px; -fx-background-color:beige");
+buttonBar.setAlignment(Pos.CENTER);
+
+BorderPane root = new BorderPane();
+root.setStyle("-fx-border-color: darkred; -fx-border-width: 3px");
+root.setCenter(board);
+root.setBottom(buttonBar);</pre>
+
+
+<p>All of these details might seem very complicated, but it does get easier
+with practice!</p>
+
+
+<hr class="break">
+
+
+<p>The buttons in the program must be enabled and
+disabled whenever the value of the variable <span class="code">gameInProgress</span> changes. 
+At the same time, the text field should be made editable or non-editable.  As
+recommended in the exercise, I wrote a method for changing the value of 
+<span class="code">gameInProgress</span>. This method also sets the buttons and text field to reflect the
+state of the program, which allows the state of the buttons and text field
+to be controlled in one location:</p>
+
+
+<pre>/**
+ * This method is called whenever the value of the gameInProgress
+ * property has to be changed.  In addition to setting the value
+ * of the gameInProgress variable, it also enables and disables
+ * the buttons and text input box to reflect the state of the game.
+ * @param inProgress The new value of gameInProgress.
+ */
+private void setGameInProgress( boolean inProgress ) {
+    gameInProgress = inProgress;
+    if (gameInProgress) {
+        hitButton.setDisable(false);
+        standButton.setDisable(false);
+        newGameButton.setDisable(true);
+        betInput.setEditable(false);
+        hitButton.requestFocus();
+    }
+    else {
+        hitButton.setDisable(true);
+        standButton.setDisable(true);
+        newGameButton.setDisable(false);
+        betInput.setEditable(true);
+        newGameButton.requestFocus();
+    }
+}</pre>
+
+
+<p>Note that this method requests that the "Hit" button get focus of there is a game in progress,
+and that the "New Game" button get focus if not.  When a button has the input focus, the user
+can trigger the button by pressing Return.  The idea is to give the input focus to
+the button that represents the user's most likely next action.  This makes it possible
+for the user to play the game largely by hitting the space bar, instead of using the
+mouse.  (In fact, since the TAB key can be used to move the input focus, the user can
+play the game without ever touching the mouse.)</p>
+
+
+<p>Once <span class="code">setGameInProgress()</span> is available, then any line in the old program that said
+"<span class="code">gameInProgress&nbsp;=&nbsp;false;</span>" should be changed to
+"<span class="code">setGameInProgress(false);</span>". And any line that said
+"<span class="code">gameInProgress&nbsp;=&nbsp;true;</span>" should be changed to
+"<span class="code">setGameInProgress(true);</span>". In this way, we can be sure that the
+buttons are always properly enabled and disabled.  Note that I added a 
+call to <span class="code">setGameInProgress(false)</span> to the <span class="code">start()</span> method
+as well, to make sure the buttons and textfield are properly configured at the
+beginning of the program.  Since the new program does not immediately start
+the first game, <span class="code">gameInProgress</span> should be set to <span class="code">false</span>
+in the <span class="code">start()</span> method. (Also, the call to <span class="code">doNewGame()</span>
+in the <span class="code">start()</span> method was deleted).</p>
+
+
+<p>You should understand why I use a subroutine to set the value of
+<span class="code">gameInProgress</span>. Every time <span class="code">gameInProgress</span> changes, each of
+the buttons has to be enabled or disabled and the text field has
+to be made editable or uneditable. That's four extra lines of code
+each time the program says <span class="code">gameInProgress&nbsp;=&nbsp;true</span> 
+or <span class="code">gameInProgress&nbsp;=&nbsp;false</span>. We can avoid some extra typing by calling the subroutine.
+Furthermore, if we always call the subroutine to set the value of
+<span class="code">gameInProgress</span>, we can be sure that the states of the buttons and text field will
+always be set correctly to match the value of <span class="code">gameInProgress</span>.
+</p>
+   
+
+<p>The changes that I've discussed so far are enough to complete the first part
+of the exercise, enabling and disabling the buttons.  We still have to implement
+betting.</p>
+   
+
+<hr class="break">
+
+
+<p>I added several new instance variables to the program to implement betting:
+a <span class="classname">TextField</span>, <span class="code">betInput</span>, where the user
+inputs the bet amount; an <span class="ptype">int</span> variable, <span class="code">usersMoney</span>,
+to hold the number of dollars that the user currently has; and another
+<span class="ptype">int</span> variable, <span class="code">betAmount</span>, to store the amount
+of the user's bet while a game is in progress.</p>
+   
+
+<p>The <span class="classname">TextField</span> for the user's input
+is created with the command "<span class="code">betInput = new
+TextField("10");</span>". The parameter in the constructor specifies the
+initial content of the text input box. This is meant as a reasonable value for
+the bet, but the user can change it if she wants to.  The number of preferred
+columns for the textfield is reduced by calling
+<span class="code">betInput.setPrefColumnCount(5)</span>. The preferred size of the <span class="classname">TextField</span> is computed
+based on the preferred column count.  Without this change, the textfield would be
+too big for this program.</p>
+
+
+<p>The value of <span class="code">usersMoney</span> is
+initialized to 100 when it is declared. Any time a game ends, if the user wins,
+then <span class="code">betAmount</span> is added to the user's money, and if the user loses, then
+<span class="code">betAmount</span> is subtracted from the user's money. We have to decide what
+happens if the user runs out of money. One possibility would be to shut the
+game down, but that seems drastic since it's only play money anyway. So, if the
+value of <span class="code">usersMoney</span> drops to zero, I give the user another $100 by
+setting the value of <span class="code">usersMoney</span> back to 100; this is done in
+<span class="code">doNewGame()</span> at the start of the next game.</p>
+   
+
+<p>At the beginning of a game in <span class="code">doNewGame()</span>, the program has to look at the number in the text
+field to determine how much money the user wants to bet on the game.  Several things
+can go wrong at this time: The text in the box might not be a legal integer,
+the amount might be more money than the user has, and the value might be less than or
+equal to zero.  Each of these possibilities has to be tested, and, if an error is detected,
+an error message has to be shown to the user and no new game is started.
+It's a little complicated:</p>
+   
+
+<pre>try {  // get the amount of the user's bet and check for errors
+    betAmount = Integer.parseInt(betInput.getText());
+}
+catch (NumberFormatException e) {
+    message = "Bet amount must be an integer!";
+    betInput.requestFocus();
+    betInput.selectAll();
+    drawBoard();
+    return;
+}
+if (betAmount &gt; usersMoney) {
+    message = "The bet amount can't be more than you have!";
+    betInput.requestFocus();
+    betInput.selectAll();
+    drawBoard();
+    return;
+}
+if (betAmount &lt;= 0) {
+    message = "The bet has to be a positive number";
+    betInput.requestFocus();
+    betInput.selectAll();
+    drawBoard();
+    return;
+}</pre>
+
+
+<p>If the program gets past all of these tests, it starts the game as it did in the old program.</p>
+  
+
+<p>When the game ends for any reason, the user's money has to be adjusted. There are many points
+in the source code where the game ends. In each of those places, I inserted a line
+"<span class="code">usersMoney = usersMoney + betAmount</span>" if the user won or
+"<span class="code">usersMoney = usersMoney - betAmount</span>" if the user lost.  It might
+have been a good idea to write another subroutine to handle this task.</p>
+   
+
+<p>I also added some code to the <span class="code">drawBoard()</span> method to display
+the user's current amount of money. To accommodate this, this version of the panel is
+25 pixels taller than the previous version.</p>
+
+
+<p>If the first game has not started, <span class="code">drawBoard()</span> draws a welcome
+message instead of showing the user's and dealer's hands.  There is the question
+of how to test whether the first game has started.  The obvious (and perhaps best)
+way to handle that would have been to add another <span class="ptype">boolean</span>
+state variable such as <span class="code">firstGameHasStarted</span>.  However, I used
+the fact that <span class="code">dealerHand</span> is <span class="code">null</span> before the first
+game starts (and only then). So <span class="code">drawBoard()</span> can test whether
+<span class="code">dealerHand</span> is <span class="code">null</span> to decide whether to draw the
+welcome message.</p>
+
+
+<hr>
+<div class="exercisesubtitle" align="center">
+<big><b>The Solution</b></big>
+</div>
+<hr>
+
+<p>Here is the new version of the Blackjack source code, with changes from
+<a href="../c6/ex10-ans.html">Exercise&nbsp;6.10</a> shown in red:</p>
+
+<pre class="exercisecode">
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+<span class="newcode">import javafx.scene.control.Label;
+import javafx.scene.control.TextField;</span>
+import javafx.scene.image.Image;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
+/**
+ * In this program, the user plays a game of Blackjack.  The
+ * computer acts as the dealer.  The user plays by clicking
+ * "Hit!" and "Stand!" buttons.  <span class="newcode">The user can place bets.
+ * At the beginning of the game, the user is given $100.</span>
+ *
+ * This program depends on the following classes:  Card, Hand,
+ * BlackjackHand, Deck.  It also requires the image resource
+ * file cards.png.
+ */
+public class BlackjackGUI2 extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    //---------------------------------------------------------------------
+
+    private Deck deck;         // A deck of cards to be used in the game.
+
+    private BlackjackHand dealerHand;   // Hand containing the dealer's cards.
+    private BlackjackHand playerHand;   // Hand containing the user's cards.
+
+    private Button hitButton, standButton, newGameButton;
+
+    <span class="newcode">private TextField betInput;  // An input box for the user's bet amount.</span>
+
+    private String message; // A message drawn on the canvas, which changes
+                            //    to reflect the state of the game.
+
+    private boolean gameInProgress; // Set to true when a game begins and to false
+                                    //   when the game ends.
+
+    private Canvas board;     // The canvas were cards and messages are displayed.
+
+    private Image cardImages;  // The image that contains all the cards in a deck.
+
+    <span class="newcode">private int usersMoney = 100;  // How much money the user currently has.
+
+    private int betAmount;  // The amount the use bet on the current game,
+                            //      when a game is in progress.</span>
+
+    /**
+     * The start() method() sets up the GUI and event handling.
+     */
+    public void start(Stage stage) {
+
+        cardImages = new Image("cards.png");
+
+        board = new Canvas(515, 415); 
+            // space for 5 cards across and 2 cards down, 
+            // with 20-pixel spaces between cards,
+            // plus space for messages
+
+        hitButton = new Button( "Hit!" );
+        hitButton.setOnAction( e -&gt; doHit() );
+        standButton = new Button( "Stand!" );
+        standButton.setOnAction( e -&gt; doStand() );
+        newGameButton = new Button( "New Game" );
+        newGameButton.setOnAction( e -&gt; doNewGame() );
+
+        <span class="newcode">betInput = new TextField("10");
+        betInput.setPrefColumnCount(5);</span>
+
+        HBox buttonBar = new HBox(6, hitButton, standButton, newGameButton,
+                <span class="newcode">new Label(" Your bet:"), betInput</span>);
+        buttonBar.setStyle("-fx-border-color: darkred; -fx-border-width: 3px 0 0 0;" 
+                + "-fx-padding: 8px; -fx-background-color:beige");
+        buttonBar.setAlignment(Pos.CENTER);
+
+        BorderPane root = new BorderPane();
+        root.setStyle("-fx-border-color: darkred; -fx-border-width: 3px");
+        root.setCenter(board);
+        root.setBottom(buttonBar);
+
+        <span class="newcode">setGameInProgress(false);</span>
+        drawBoard();
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Blackjack");
+        stage.setResizable(false);
+        stage.show();
+
+    }  // end start()
+
+
+    <span class="newcode">/**
+     * This method is called whenever the value of the gameInProgress
+     * property has to be changed.  In addition to setting the value
+     * of the gameInProgress variable, it also enables and disables
+     * the buttons and text input box to reflect the state of the game.
+     * @param inProgress The new value of gameInProgress.
+     */
+    private void setGameInProgress( boolean inProgress ) {
+        gameInProgress = inProgress;
+        if (gameInProgress) {
+            hitButton.setDisable(false);
+            standButton.setDisable(false);
+            newGameButton.setDisable(true);
+            betInput.setEditable(false);
+            hitButton.requestFocus();
+        }
+        else {
+            hitButton.setDisable(true);
+            standButton.setDisable(true);
+            newGameButton.setDisable(false);
+            betInput.setEditable(true);
+            newGameButton.requestFocus();
+        }
+    }</span>
+
+
+    /**
+     * This method is called when the user clicks the "Hit!" button.  First 
+     * check that a game is actually in progress.  If not, give  an error 
+     * message and exit.  Otherwise, give the user a card.  The game can end 
+     * at this point if the user goes over 21 or if the user has taken 5 cards 
+     * without going over 21.
+     */
+    void doHit() {
+        if (gameInProgress == false) {
+                <span class="newcode">// Should be impossible, since the Hit button
+                // is disabled when it is not legal to use it.</span>
+            message = "Click \"New Game\" to start a new game.";
+            drawBoard();
+            return;
+        }
+        playerHand.addCard( deck.dealCard() );
+        if ( playerHand.getBlackjackValue() &gt; 21 ) {
+            <span class="newcode">usersMoney = usersMoney - betAmount;
+            message = "You've busted!  Sorry, you lose.";
+            setGameInProgress(false);</span>
+        }
+        else if (playerHand.getCardCount() == 5) {
+            <span class="newcode">usersMoney = usersMoney + betAmount;
+            message = "You win by taking 5 cards without going over 21.";
+            setGameInProgress(false);</span>
+        }
+        else {
+            message = "You have " + playerHand.getBlackjackValue() + ".  Hit or Stand?";
+        }
+        drawBoard();
+    }
+
+
+    /**
+     * This method is called when the user clicks the "Stand!" button.
+     * Check whether a game is actually in progress.  If it is, the game 
+     * ends.  The dealer takes cards until either the dealer has 5 cards 
+     * or more than 16 points.  Then the  winner of the game is determined. 
+     */
+    void doStand() {
+        if (gameInProgress == false) {
+                <span class="newcode">// Should be impossible, since the Stand button
+                // is disabled when it is not legal to use it.</span>
+            message = "Click \"New Game\" to start a new game.";
+            drawBoard();
+            return;
+        }
+        <span class="newcode">setGameInProgress(false);</span>
+        while (dealerHand.getBlackjackValue() &lt;= 16 &amp;&amp; dealerHand.getCardCount() &lt; 5)
+            dealerHand.addCard( deck.dealCard() );
+        if (dealerHand.getBlackjackValue() &gt; 21) {
+            <span class="newcode">usersMoney = usersMoney + betAmount;</span> 
+            message = "You win!  Dealer has busted with " + dealerHand.getBlackjackValue() + ".";
+        }
+        else if (dealerHand.getCardCount() == 5) {
+            <span class="newcode">usersMoney = usersMoney - betAmount; </span>
+            message = "Sorry, you lose.  Dealer took 5 cards without going over 21.";
+        }
+        else if (dealerHand.getBlackjackValue() &gt; playerHand.getBlackjackValue()) {
+            <span class="newcode">usersMoney = usersMoney - betAmount;</span>
+            message = "Sorry, you lose, " + dealerHand.getBlackjackValue()
+                                   +    " to " + playerHand.getBlackjackValue() + ".";
+        }
+        else if (dealerHand.getBlackjackValue() == playerHand.getBlackjackValue()) {
+            <span class="newcode">usersMoney = usersMoney - betAmount; </span>
+            message = "Sorry, you lose.  Dealer wins on a tie.";
+        }
+        else {
+            <span class="newcode">usersMoney = usersMoney + betAmount; </span>
+            message = "You win, " + playerHand.getBlackjackValue()
+                          + " to " + dealerHand.getBlackjackValue() + "!";
+        }
+        drawBoard();
+    }
+
+
+    /**
+     * Called by the constructor, and called by doNewGame().  Start a new game.  
+     * Deal two cards to each player.  The game might end right then  if one 
+     * of the players had blackjack.  Otherwise, gameInProgress is set to true 
+     * and the game begins.
+     */
+    void doNewGame() {
+        if (gameInProgress) {
+                // If the current game is not over, it is an error to try
+                // to start a new game.  <span class="newcode">Should be impossible, since
+                // the New Game button is disabled when it is not legal to use it.</span>
+            message = "You still have to finish this game!";
+            drawBoard();
+            return;
+        }
+        <span class="newcode">if (usersMoney == 0) { // User is broke; give the user another $100.
+            usersMoney = 100;
+        }
+        try {  // get the amount of the user's bet and check for errors
+            betAmount = Integer.parseInt(betInput.getText());
+        }
+        catch (NumberFormatException e) {
+            message = "Bet amount must be an integer!";
+            betInput.requestFocus();
+            betInput.selectAll();
+            drawBoard();
+            return;
+        }
+        if (betAmount &gt; usersMoney) {
+            message = "The bet amount can't be more than you have!";
+            betInput.requestFocus();
+            betInput.selectAll();
+            drawBoard();
+            return;
+        }
+        if (betAmount &lt;= 0) {
+            message = "The bet has to be a positive number";
+            betInput.requestFocus();
+            betInput.selectAll();
+            drawBoard();
+            return;
+        }</span>
+        deck = new Deck();   // Create the deck and hands to use for this game.
+        dealerHand = new BlackjackHand();
+        playerHand = new BlackjackHand();
+        deck.shuffle();
+        dealerHand.addCard( deck.dealCard() );  // Deal two cards to each player.
+        dealerHand.addCard( deck.dealCard() );
+        playerHand.addCard( deck.dealCard() );
+        playerHand.addCard( deck.dealCard() );
+        if (dealerHand.getBlackjackValue() == 21) {
+            message = "Sorry, you lose.  Dealer has Blackjack.";
+            <span class="newcode">usersMoney = usersMoney - betAmount; 
+            setGameInProgress(false);</span>
+        }
+        else if (playerHand.getBlackjackValue() == 21) {
+            message = "You win!  You have Blackjack.";
+            <span class="newcode">usersMoney = usersMoney + betAmount;  
+            setGameInProgress(false);</span>
+        }
+        else {
+            message = "You have " + playerHand.getBlackjackValue() + ".  Hit or stand?";
+            setGameInProgress(true);
+        }
+        drawBoard();
+    }  // end newGame();
+
+
+    /**
+     * The drawBoard() method shows the message<span class="newcode">s</span> at the bottom of the
+     * canvas, and it draws all of the dealt cards spread out
+     * across the canvas.  <span class="newcode">If the first game has not started, it shows
+     * a welcome message instead of the cards.</span>
+     */
+    public void drawBoard() {
+
+        GraphicsContext g = board.getGraphicsContext2D();
+        g.setFill( Color.DARKGREEN);
+        g.fillRect(0,0,board.getWidth(),board.getHeight());
+
+        g.setFont( Font.font(16) );
+
+        <span class="newcode">// Draw a message telling how much money the user has.
+
+        g.setFill(Color.YELLOW);
+        if (usersMoney &gt; 0) {
+            g.fillText("You have $" + usersMoney, 20, board.getHeight() - 45);
+        }
+        else {
+            g.fillText("YOU ARE BROKE!  (I will give you another $100.)", 
+                    20, board.getHeight() - 45 );
+            usersMoney = 100;
+        }</span>
+
+        g.setFill( Color.rgb(220,255,220) );
+
+        <span class="newcode">if (dealerHand == null) {
+                // The first game has not yet started.
+                // Draw a welcome message and return.
+            g.setFont( Font.font(30) );
+            g.fillText("Welcome to Blackjack!\nPlace your bet and\nclick \"New Game\".", 40,80);
+            return;  
+        }</span>
+
+        // Draw the message at the bottom of the canvas.
+
+        g.fillText(message, 20, board.getHeight() - 20);
+
+        // Draw labels for the two sets of cards.
+
+        g.fillText("Dealer's Cards:", 20, 27);
+        g.fillText("Your Cards:", 20, 190);
+
+        // Draw dealer's cards.  Draw first card face down if
+        // the game is still in progress,  It will be revealed
+        // when the game ends.
+
+        if (gameInProgress)
+            drawCard(g, null, 20, 40);
+        else
+            drawCard(g, dealerHand.getCard(0), 20, 40);
+        for (int i = 1; i &lt; dealerHand.getCardCount(); i++)
+            drawCard(g, dealerHand.getCard(i), 20 + i * 99, 40);
+
+        // Draw the user's cards.
+
+        for (int i = 0; i &lt; playerHand.getCardCount(); i++)
+            drawCard(g, playerHand.getCard(i), 20 + i * 99, 206);
+
+    }  // end drawBoard();
+
+
+    /**
+     * Draws a card with top-left corner at (x,y).  If card is null,
+     * then a face-down card is drawn.  The cards images are from 
+     * the file cards.png; this program will fail without it.
+     */
+    private void drawCard(GraphicsContext g, Card card, int x, int y) {
+        int cardRow, cardCol;
+        if (card == null) {  
+            cardRow = 4;   // row and column of a face down card
+            cardCol = 2;
+        }
+        else {
+            cardRow = 3 - card.getSuit();
+            cardCol = card.getValue() - 1;
+        }
+        double sx,sy;  // top left corner of source rect for card in cardImages
+        sx = 79 * cardCol;
+        sy = 123 * cardRow;
+        g.drawImage( cardImages, sx,sy,79,123, x,y,79,123 );
+    } // end drawCard()
+
+
+} // end class BlackjackGUI2
+</pre>
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [ <a href="exercises.html">Exercises</a> |
+        <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

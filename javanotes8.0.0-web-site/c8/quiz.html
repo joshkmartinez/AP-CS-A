@@ -1,0 +1,133 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Quiz on Chapter 8</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="quiz_answers.html">Quiz Answers</a> | <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2 class="quiz_title">Quiz on Chapter 8</h2>
+<p>
+<span class="start"><big>T</big>his page contains</span> questions on Chapter 8 of
+           <a href="../index.html"><i>Introduction to Programming Using Java</i></a>.
+           You should be able to answer these questions after studying that chapter.
+           Sample answers to these questions can be found <a href="quiz_answers.html">here</a>.</p>
+<div class="quiz-question">
+<p class="question">Question&nbsp;1:</p>
+<p>Why do programming languages
+require that variables be declared before they are used? What does this have to
+do with correctness and robustness?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;2:</p>
+<p>What is a <i>precondition</i>? Give an example.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;3:</p>
+<p>Explain how preconditions
+can be used as an aid in writing correct programs.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;4:</p>
+<p>Find a useful loop invariant for the <span class="code">while</span> loop in
+the binary search algorithm (<a href="../c7/s4.html#arrays.4.1">Subsection&nbsp;7.4.1</a>).</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;5:</p>
+<p>Java has a predefined class
+called <span class="classname">Throwable</span>. What does this class represent? Why does it
+exist?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;6:</p>
+<p>Write a method that
+prints out a <span class="code">3N+1</span> sequence starting from a given integer, <span class="code">N</span>.
+The starting value should be a parameter to the method. If the parameter is
+less than or equal to zero, throw an <span class="classname">IllegalArgumentException</span>. If the
+number in the sequence becomes too large to be represented as a value of type
+<span class="ptype">int</span>, throw an <span class="classname">ArithmeticException</span>.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;7:</p>
+<p>Rewrite the method from the previous question, using <span class="code">assert</span>
+statements instead of exceptions to check for errors.  What is the difference between
+the two versions of the method when the program is run?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;8:</p>
+<p>Some classes of exceptions are <i>checked exceptions</i> that
+require <i>mandatory exception handling.</i> Explain what this means.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;9:</p>
+<p>Consider a subroutine <span class="code">processData()</span> that has the header</p>
+
+
+<pre>static void processData() throws IOException</pre>
+
+
+<p>Write a <span class="code">try..catch</span> statement that calls this subroutine and prints
+an error message if an <span class="classname">IOException</span> occurs.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;10:</p>
+<p>Why should a subroutine
+throw an exception when it encounters an error? Why not just terminate the
+program?</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;11:</p>
+<p>Suppose that you have a choice of two algorithms that perform
+the same task.  One has average-case run time that is Θ(n<sup>2</sup>) while the run time
+of the second algorithm has an average-case run time that is Θ(n*log(n)).  Suppose that
+you need to process an input of size n&nbsp;=&nbsp;100.  Which algorithm would
+you choose?  Can you be certain that you are choosing the fastest algorithm for the
+input that you intend to process?
+</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;12:</p>
+<p>Analyze the run time of the following algorithm.  That is, find a function
+f(n) such that the run time of the algorithm is O(f(n)) or, better, Θ(f(n)).
+Assume that <span class="code">A</span> is an array of integers, and use the length of the array
+as the input size, n.
+</p>
+
+<pre>
+int total = 0;
+for (int i = 0; i &lt; A.length; i++) {
+   if (A[i] &gt; 0)
+      total = total + A[i];
+}
+</pre>
+
+</div>
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="quiz_answers.html">Quiz Answers</a> | <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

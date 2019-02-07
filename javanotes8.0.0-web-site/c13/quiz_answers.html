@@ -1,0 +1,282 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Answers for Quiz on Chapter 13</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2 class="quiz_title">Answers for Quiz on Chapter 13</h2>
+<p>
+<span class="start"><big>T</big>his page contains</span> sample answers to the quiz on Chapter 13 of
+           <a href="../index.html"><i>Introduction to Programming Using Java</i></a>.
+           Note that generally, there are lots of correct answers to a given question.</p>
+<div class="quiz-question">
+<p class="question">Question&nbsp;1:</p>
+<p>What is an "observable property"?</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>An observable <b>value</b> is an object that emits events when
+its value is changed.  It is possible to add listeners to the object,
+and the listeners will be notified when its value changes.</p>
+
+<p>An observable property is a property (that is, an instance variable) in
+an object that is an observable value.  Furthermore, the use of the term
+"observable property" usually implies that it is possible to "bind" other properties
+of the same type to this one, so that the value of the bound property will
+track the value of the property to which it is bound.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;2:</p>
+<p>Suppose that <span class="code">input</span> is a <span class="classname">TextField</span> and
+that <span class="code">label</span> is a <span class="classname">Label</span>.  Suppose that you want
+the text on the label to always be the same as the text in the text field.
+Write <b>two</b> code segments to accomplish that, one using an event listener and
+one using property binding.</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>The text field has a property <span class="code">input.textProperty()</span> that
+represents the text in the input box.  We can add an event listener to that
+property, and the handler for that event can set the text in the label:</p>
+
+<pre>input.textProperty().addListener( e -&gt; label.setText(input.getText()) );</pre>
+
+<p>The label also has a property, <span class="code">label.textProperty()</span>, representing
+the text that it displays, so another option is to bind that property to the
+property of the input box:</p>
+
+<pre>label.textProperty().bind( input.textProperty() );</pre>
+
+<p>One difference between these two approaches is that the binding will immediately
+copy the current text from the text field into the label.  When using the listener, we would
+have to manually set up the initial texts to be the same.</p>
+
+<p>By the way, the listener that was used in the above command is an <span class="classname">InvalidationListener</span>.
+Another approach would be to use a <span class="classname">ChangeListener</span>.  The handler for a 
+<span class="classname">ChangeEvent</span> takes three parameters, where the third parameter is the new
+value of the observable property, so the task could also be accomplished by</p>
+
+<pre>input.textProperty().addListener( (o,oldVal,newVal) -&gt; label.setText(newVal)) );</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;3:</p>
+<p>Describe the picture that is produced by the following
+code, were <span class="code">canvas</span> is a <span class="classname">Canvas</span>:</p>
+
+<pre>
+GraphicsContext g = canvas.getGraphicsContext2D();
+g.setFill(Color.WHITE);
+g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+g.translate( canvas.getWidth()/2, canvas.getHeight()/2 );
+g.rotate( 30 );
+g.setFill(Color.RED);
+g.fillRect(0,0,100,100);
+</pre>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>The entire canvas is filled with white, except for a 
+filled red square that is 100-by-100 pixels in size.
+The corner of the square is at the center of the canvas that is being painted,
+and the top side of the square descends at a 30 degree angle from that point.
+The command <span class="code">g.fillRect(0,0,100,100)</span> draws a red square with its
+top left corner at (0,0).  But that square is first rotated by 30 degrees
+and then translated.  The translation moves the point (0,0) to the 
+point <span class="code">(canvas.getWidth()/2,canvas.getHeight()/2)</span>,
+placing the top left corner of the square at the center of the canvas.
+(Transformations are applied to objects in the opposite of their order in the code.)</p>
+
+<p>Of course, this answer assumes that no transformation had been
+applied <b>before</b> this code is executed.  If there is a previous
+transformation, then that transform would be applied to the picture
+that is described in the answer, before that picture appears on the
+screen.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;4:</p>
+<p>Create a <span class="classname">LinearGradient</span> paint and use it to fill
+the rectangle drawn by <span class="code">g.fillRect(100,100,300,200)</span>.  The
+rectangle should look like this, light gray at the top and black at the bottom:</p>
+
+<p align="center">
+<img src="gradient-rect.png" width="320" height="225" alt="a rectangle filled with a gray-to-black gradient"></p>
+
+<p>(The API for creating gradient paints is complicated.  It's OK to look it up!)</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>The gradient can be defined by two color stops, one at 0, with color 
+<span class="code">Color.LIGHTGRAY</span> and one at 1, with color <span class="code">Color.BLACK</span>.
+Since the rectangle is covered by one copy of the gradient, the
+<span class="code">CycleMethod</span> for the gradient is irrelevant.  We can specify the
+start point for the gradient to be the top left corner of the rectangle, (100,100), 
+and the end point for the gradient to be the bottom left corner, (100,300).
+(Note that the height of the rectangle is 200; since the top of the rectangle
+is at y=100, the bottom is at y=100+200.  The end point of the gradient is
+specified using (x,y)-coordinates, not width and height like the rectangle.)
+So the rectangle can be drawn with</p>
+
+
+<pre>LinearGradient gradient = 
+                   new LinearGradient( 100,100, 100,300, false, CycleMethod.REPEAT,
+                         new Stop(0,Color.LIGHTGRAY), new Stop(1,Color.BLACK));
+g.setFill(gradient);
+g.fillRect(100,100,300,200)</pre>
+
+
+<p>Many variations on this are possible.  For example, the start point could
+be at the bottom right corner, and the end point at the top right corner.
+In that case, the color for the first color stop would be black, and the color
+for the second color stop would be light gray.   We could also use a
+proportional gradient, where the coordinates for the start and end points
+are given in a coordinate system where the coordinates of the top left
+corner are (0,0) and the coordinates fo the bottom left corner are (0,1):</p>
+
+
+<pre>LinearGradient gradient = 
+                   new LinearGradient( 0,0, 0,1, true, CycleMethod.REPEAT,
+                         new Stop(0,Color.LIGHTGRAY), new Stop(1,Color.BLACK));</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;5:</p>
+<p>Suppose that <span class="code">g</span> is a <span class="classname">GraphicsContext</span>.
+Explain the purpose of the methods <span class="code">g.save()</span> and <span class="code">g.restore()</span>.</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>A call to <span class="code">g.save()</span> pushes a copy of the current state of
+the graphics context onto a stack of saved states.  The state include properties
+of the graphics context that affect drawing such as the transform, the stroke
+and fill paints, and the line width.  A call to <span class="code">g.restore()</span> will
+pop the most recently saved state from the stack and restore graphics context
+properties to their values from that state.  Any changes to the state that were
+made after the corresponding call to <span class="code">g.save()</span> will be undone.
+This allows you to change make temporary changes to the state while being
+sure that those changes will not carry over to future drawing.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;6:</p>
+<p>What does the acronym <i>MVC</i> stand for, and how does it apply to the
+<span class="classname">List</span> class?</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>MVC stands for "Model-View-Controller."  In a <span class="classname">List</span>,
+the <i>view</i> is the actual visible component on the screen.  The <i>model</i>
+is the collection of data that specifies, among other things, what appears in each
+cell of the list.  This data is stored in an observable list, and the view
+listens for changes in that list and redraws itself when any change occurs.
+(Another part of the model is the "selection model", which keeps
+track of which item is currently selected in the list.)
+The <i>controller</i> is responsible for interaction
+with the user.  It consists mostly of a bunch of listener objects that listen
+for events generated when the user interacts with the list.  The listeners
+respond by making changes in the model, which will in turn cause a change in the
+view.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;7:</p>
+<p>What is the difference between a "modal" dialog box and a
+"modeless" dialog box?</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>When a modal dialog box is shown, the user will not be able to
+use the parent window of the dialog box until the dialog box is closed.
+With a modeless dialog box, it is possible for the user to work with
+both the dialog box and its parent window.  (Some dialog boxes are
+"application modal," meaning that they block interaction with the
+entire application, not just with one window.)</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;8:</p>
+<p>The Java 8 API includes some classes in a package named <span class="code">org.w3c.dom</span>.
+Why such a funny package name?</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>The packages presumably come from an organization that owns the Web domain name
+<span class="code">w3c.org</span>.  (In fact, it's the organization that controls standards for the web.)
+This follows the recommended naming convention for packages: The package name starts with
+the pieces of the domain name in reverse order.  The last part of the package name, "dom",
+doesn't come from the domain name; it was something chosen by the organization for this
+particular package, to distinguish it from other packages that might be put out by the same 
+organization.  (In fact, the <span class="code">org.w3c.dom</span> package contains classes and
+subpackages related to the "Document Object Model," which is used in the processing
+of XML and HTML documents.)</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;9:</p>
+<p>Suppose that <span class="code">closeItem</span> is a <span class="classname">MenuItem</span>.
+What is done by the following statement? (What is an "accelerator"?)</p>
+
+<pre>closeItem.setAccelerator( KeyCombination.valueOf("ctrl+W") );</pre>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>An accelerator for a menu item is a combination of keyboard keys 
+that is equivalent to selecting that item from a menu.
+<span class="code">KeyCombination.valueOf("ctrl+W")</span> is a key combination that
+represents pressing the "W" key while holding down the control key.
+Since that key combination is installed as the accelerator for
+<span class="code">closeItem</span>, hitting "W" while holding down the control key
+will invoke the same action as selecting <span class="code">closeItem</span> with
+the mouse.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;10:</p>
+<p>What is meant by <i>Internationalization</i> of a program?</p>
+
+</div>
+<div class="quiz-answer">
+<p class="answer">Answer:</p>
+<p>Internationalization refers to writing the program in a way that
+will make it easy to adapt the program for use in a variety of "locales."
+For example, it should be easy to translate all the strings that are used
+in the program into other languages.  To make this possible the strings
+should not be hard coded into the program itself.  Instead, they are
+placed in a separate resource file, so that the program can be translated
+into another language simply by writing a resource file for that language.
+(Internationalization also applies to the format that is used for dates
+and numbers.)</p>
+
+</div>
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

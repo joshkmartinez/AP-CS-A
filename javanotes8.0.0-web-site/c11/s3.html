@@ -1,0 +1,737 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Section 11.3 -- Programming With Files</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="s2.html">Previous Section</a> |
+           <a href="s4.html">Next Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<table class="subsections" vspace="8" hspace="8" cellpadding="5" border="2" align="right">
+<tr>
+<td>
+<div align="center">
+<b>Subsections</b>
+<hr>
+<small><a href="#IO.3.1">Copying a File</a>
+<br>
+<a href="#IO.3.2">Persistent Data</a>
+<br>
+<a href="#IO.3.4">Storing Objects in Files</a>
+<br>
+</small>
+</div>
+</td>
+</tr>
+</table>
+<div class="content">
+<h3 class="section_title">Section 11.3</h3>
+<h2 class="section_title">Programming With Files</h2>
+<hr class="break">
+   
+
+<p>
+<span class="start"><big>I</big>n this section</span>, we look at several programming
+examples that work with files, using the techniques that were
+introduced in <a href="../c11/s1.html">Section&nbsp;11.1</a> and <a href="../c11/s2.html">Section&nbsp;11.2</a>.</p>
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="IO.3.1">11.3.1&nbsp;&nbsp;Copying a File</a>
+</h3>
+   
+
+<p>As a first example, we look at a simple command-line program
+that can make a copy of a file.
+Copying a file is a pretty common operation, and every operating
+system already has a command for doing it. However, it is still instructive
+to look at a Java program that does the same thing. Many file operations are
+similar to copying a file, except that the data from the input file is
+processed in some way before it is written to the output file. All such
+operations can be done by programs with the same general form.
+<a href="../c4/s3.html#subroutines.3.4b">Subsection&nbsp;4.3.6</a> included a program for copying text files 
+using <span class="classname">TextIO</span>.  The example in this section will
+work for any file.</p>
+
+
+<p>Since the program should be able to copy any file, we can't assume that the
+data in the file is in human-readable form. So, we have to use the byte streams,
+<span class="classname">InputStream</span> and <span class="classname">OutputStream</span>,
+to operate on the file.  The program simply copies all the
+data from the <span class="classname">InputStream</span> to the <span class="classname">OutputStream</span>, one byte at a
+time. If <span class="code">source</span> is the variable that refers to the
+<span class="classname">InputStream</span>, then the function <span class="code">source.read()</span> can be used to
+read one byte. This function returns the value -1 when all the bytes in the
+input file have been read. Similarly, if <span class="code">copy</span> refers to the
+<span class="classname">OutputStream</span>, then <span class="code">copy.write(b)</span> writes one byte to the
+output file. So, the heart of the program is a simple <span class="code">while</span> loop. As
+usual, the I/O operations can throw exceptions, so this must be done in a
+<span class="code">try..catch</span> statement:</p>
+
+
+<pre>while(true) {
+   int data = source.read();
+   if (data &lt; 0)
+      break;
+   copy.write(data);
+}</pre>
+
+
+<p>The file-copy command in an operating system such as UNIX uses
+command line arguments to specify the names of the files. For example, the user
+might say "<span class="code">copy original.dat backup.dat</span>" to copy an existing file,
+<span class="code">original.dat</span>, to a file named <span class="code">backup.dat</span>. Command-line
+arguments can also be used in Java programs. The command line arguments are
+stored in the array of strings, <span class="code">args</span>, which is a parameter to the
+<span class="code">main()</span> routine. The program can retrieve the command-line arguments
+from this array. (See <a href="../c4/s3.html#subroutines.3.4b">Subsection&nbsp;4.3.6</a>.)
+For example, if the program is named <span class="code">CopyFile</span> and if
+the user runs the program with the command</p>
+
+
+<pre>java CopyFile work.dat oldwork.dat</pre>
+
+
+<p>then in the program, <span class="code">args[0]</span> will be the string
+<span class="code">"work.dat"</span> and <span class="code">args[1]</span> will be the string
+<span class="code">"oldwork.dat"</span>. The value of <span class="code">args.length</span> tells the program how
+many command-line arguments were specified by the user.</p>
+
+
+<p>The program <span class="sourceref"><a href="../source/chapter11/CopyFile.java">CopyFile.java</a></span> gets the names of the files from the
+command-line arguments. It prints an error message and exits if the file names
+are not specified. To add a little interest, there are two ways to use the
+program. The command line can simply specify the two file names. In that case,
+if the output file already exists, the program will print an error message and
+end. This is to make sure that the user won't accidently overwrite an important
+file. However, if the command line has three arguments, then the first argument
+must be "<span class="code">-f</span>" while the second and third arguments are file names. The
+<span class="code">-f</span> is a <span class="newword">command-line option</span>, which is
+meant to modify the behavior of the program. The program interprets the
+<span class="code">-f</span> to mean that it's OK to overwrite an existing program. (The "f"
+stands for "force," since it forces the file to be copied in spite of what
+would otherwise have been considered an error.) You can see in the source code
+how the command line arguments are interpreted by the program:</p>
+
+
+<pre>import java.io.*;
+
+/**
+ *  Makes a copy of a file.  The original file and the name of the
+ *  copy must be given as command-line arguments.  In addition, the
+ *  first command-line argument can be "-f"; if present, the program
+ *  will overwrite an existing file; if not, the program will report
+ *  an error and end if the output file already exists.  The number
+ *  of bytes that are copied is reported.
+ */
+public class CopyFile {
+
+   public static void main(String[] args) {
+      
+      String sourceName;   // Name of the source file, 
+                           //    as specified on the command line.
+      String copyName;     // Name of the copy, 
+                           //    as specified on the command line.
+      InputStream source;  // Stream for reading from the source file.
+      OutputStream copy;   // Stream for writing the copy.
+      boolean force;  // This is set to true if the "-f" option
+                      //    is specified on the command line.
+      int byteCount;  // Number of bytes copied from the source file.
+      
+      /* Get file names from the command line and check for the 
+         presence of the -f option.  If the command line is not one
+         of the two possible legal forms, print an error message and 
+         end this program. */
+   
+      if (args.length == 3 &amp;&amp; args[0].equalsIgnoreCase("-f")) {
+         sourceName = args[1];
+         copyName = args[2];
+         force = true;
+      }
+      else if (args.length == 2) {
+         sourceName = args[0];
+         copyName = args[1];
+         force = false;
+      }
+      else {
+         System.out.println(
+                 "Usage:  java CopyFile &lt;source-file&gt; &lt;copy-name&gt;");
+         System.out.println(
+                 "    or  java CopyFile -f &lt;source-file&gt; &lt;copy-name&gt;");
+         return;
+      }
+      
+      /* Create the input stream.  If an error occurs, end the program. */
+      
+      try {
+         source = new FileInputStream(sourceName);
+      }
+      catch (FileNotFoundException e) {
+         System.out.println("Can't find file \"" + sourceName + "\".");
+         return;
+      }
+      
+      /* If the output file already exists and the -f option was not
+         specified, print an error message and end the program. */
+   
+      File file = new File(copyName);
+      if (file.exists() &amp;&amp; force == false) {
+          System.out.println(
+               "Output file exists.  Use the -f option to replace it.");
+          return;  
+      }
+      
+      /* Create the output stream.  If an error occurs, end the program. */
+
+      try {
+         copy = new FileOutputStream(copyName);
+      }
+      catch (IOException e) {
+         System.out.println("Can't open output file \"" + copyName + "\".");
+         return;
+      }
+      
+      /* Copy one byte at a time from the input stream to the output
+         stream, ending when the read() method returns -1 (which is 
+         the signal that the end of the stream has been reached).  If any 
+         error occurs, print an error message.  Also print a message if 
+         the file has been copied successfully.  */
+      
+      byteCount = 0;
+      
+      try {
+         while (true) {
+            int data = source.read();
+            if (data &lt; 0)
+               break;
+            copy.write(data);
+            byteCount++;
+         }
+         source.close();
+         copy.close();
+         System.out.println("Successfully copied " + byteCount + " bytes.");
+      }
+      catch (Exception e) {
+         System.out.println("Error occurred while copying.  "
+                                   + byteCount + " bytes copied.");
+         System.out.println("Error: " + e);
+      }
+      
+   }  // end main()
+   
+   
+} // end class CopyFile</pre>
+
+
+<p>It is actually quite inefficient to copy one byte at a time.  Efficiency could
+be improved by using alternative versions of the <span class="code">read()</span> and
+<span class="code">write()</span> methods that read and write multiple bytes (see the
+API for details).  Alternatively, the input and output streams could
+be wrapped in objects of type <span class="classname">BufferedInputStream</span>
+and <span class="classname">BufferedOutputStream</span> which automatically read
+data from and write data to files in larger blocks.  This would require changing only
+the two lines in the program that create the streams.  For example, the
+input stream could be created using</p>
+
+
+<pre>source = new BufferedInputStream(new FileInputStream(sourceName));</pre>
+
+
+<p>The buffered stream would then be used in exactly the same way as the
+unbuffered stream.</p>
+
+
+<p>There is also a sample program <span class="sourceref"><a href="../source/chapter11/CopyFileAsResources.java">CopyFileAsResources.java</a></span> that
+does the same thing as <span class="code">CopyFile</span> but uses the resource pattern in a 
+<span class="code">try..catch</span> statement to make sure that the streams are closed in
+all cases.  See the discussion at the end of <a href="../c8/s3.html#robustness.3.2">Subsection&nbsp;8.3.2</a>)</p>
+
+
+   
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="IO.3.2">11.3.2&nbsp;&nbsp;Persistent Data</a>
+</h3>
+   
+
+<p>Once a program ends, any data that was stored in variables and objects in
+the program is gone.  In many cases, it would be useful to have some of that
+data stick around so that it will be available when the program is run again.
+The problem is, how to make the data <span class="newword">persistent</span> between
+runs of the program?  The answer, of course, is to store the data in a file
+(or, for some applications, in a database&mdash;but the data in a
+database is itself stored in files).</p>
+   
+
+<p>Consider a "phone book" program that allows the user to keep track of
+a list of names and associated phone numbers.  The program would make no sense
+at all if the user had to create the whole list from scratch each time
+the program is run.  It would make more sense to think of the phone book
+as a persistent collection of data, and to think of the program as an
+interface to that collection of data.  The program would allow the user
+to look up names in the phone book and to add new entries.  Any changes
+that are made should be preserved after the program ends.</p>
+   
+
+<p>The sample program <span class="sourceref"><a href="../source/chapter11/PhoneDirectoryFileDemo.java">PhoneDirectoryFileDemo.java</a></span> is
+a very simple implementation of this idea.  It is meant only as an
+example of file use; the phone book that it implements is a "toy" version
+that is <b>not</b> meant to be taken seriously.  This program stores the phone
+book data in a file named "<span class="code">.phone_book_demo</span>" in the user's
+home directory.  To find the user's home directory, it uses the
+<span class="code">System.getProperty()</span> method that was mentioned in
+<a href="../c11/s2.html#IO.2.2">Subsection&nbsp;11.2.2</a>.  When the program starts, it checks whether
+the file already exists.  If it does, it should contain the user's
+phone book, which was saved in a previous run of the program; in that case,
+the data from the file is read and entered into a <span class="classname">TreeMap</span>
+named <span class="code">phoneBook</span>
+that represents the phone book while the program is running.
+(See <a href="../c10/s3.html#generics.3.1">Subsection&nbsp;10.3.1</a>.)
+In order to store the phone book in a file, some decision must be
+made about how the data in the phone book will be represented. For
+this example, I chose a simple representation in which each line of
+the file contains one entry consisting of a name and the associated
+phone number.  A percent sign (<span class="code">'%'</span>) separates the name 
+from the number.  The following code at the beginning of the program
+will read the phone book data file, if it exists and has the correct
+format:</p>
+   
+
+<pre>File userHomeDirectory = new File( System.getProperty("user.home") );
+File dataFile = new File( userHomeDirectory, ".phone_book_data" );
+        // A file named .phone_book_data in the user's home directory.
+
+if ( ! dataFile.exists() ) {
+   System.out.println("No phone book data file found.  A new one");
+   System.out.println("will be created, if you add any entries.");
+   System.out.println("File name:  " + dataFile.getAbsolutePath());
+}
+else {
+   System.out.println("Reading phone book data...");
+   try( Scanner scanner = new Scanner(dataFile) ) {
+      while (scanner.hasNextLine()) {
+             // Read one line from the file, containing one name/number pair.
+         String phoneEntry = scanner.nextLine();
+         int separatorPosition = phoneEntry.indexOf('%');
+         if (separatorPosition == -1)
+            throw new IOException("File is not a phonebook data file.");
+         name = phoneEntry.substring(0, separatorPosition);
+         number = phoneEntry.substring(separatorPosition+1);
+         phoneBook.put(name,number);
+      }
+   }
+   catch (IOException e) {
+      System.out.println("Error in phone book data file.");
+      System.out.println("File name:  " + dataFile.getAbsolutePath());
+      System.out.println("This program cannot continue.");
+      System.exit(1);
+   }
+}</pre>
+ 
+
+<p>The program then lets the user do various things with the phone book,
+including making modifications.  Any changes that are made are made
+only to the <span class="classname">TreeMap</span> that holds the data.
+When the program ends, the phone book data is written to the file
+(if any changes have been made while the program was running),
+using the following code:</p>
+     
+
+<pre>if (changed) {
+   System.out.println("Saving phone directory changes to file " + 
+         dataFile.getAbsolutePath() + " ...");
+   PrintWriter out;
+   try {
+      out = new PrintWriter( new FileWriter(dataFile) );
+   }
+   catch (IOException e) {
+      System.out.println("ERROR: Can't open data file for output.");
+      return;
+   }
+   for ( Map.Entry&lt;String,String&gt; entry : phoneBook.entrySet() )
+      out.println(entry.getKey() + "%" + entry.getValue() );
+   out.flush();
+   out.close();
+   if (out.checkError())
+      System.out.println("ERROR: Some error occurred while writing data file.");
+   else
+      System.out.println("Done.");
+}</pre>
+
+
+<p>The net effect of this is that all the data, including the changes,
+will be there the next time the program is run.  I've shown you all the
+file-handling code from the program.  If you would like to see the rest
+of the program, see the <span class="sourceref"><a href="../source/chapter11/PhoneDirectoryFileDemo.java">source code</a></span>.</p>
+   
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="IO.3.4">11.3.3&nbsp;&nbsp;Storing Objects in Files</a>
+</h3>
+
+
+<p>Whenever data is stored in files, some definite format must be adopted for
+representing the data.  As long as the output routine that writes the data
+and the input routine that reads the data use the same format, the files
+will be usable.  However, as usual, correctness is not the end of the story.
+The representation that is used for data in files should also be robust.
+(See <a href="../c8/s1.html">Section&nbsp;8.1</a>.)  To see what this means, we will look
+at several different ways of representing the same data.  This example
+builds on the example <span class="sourceref"><a href="../source/chapter7/SimplePaint2.java">SimplePaint2.java</a></span> from
+<a href="../c7/s3.html#arrays.3.3">Subsection&nbsp;7.3.3</a>.  (You might want to run it now to remind yourself
+of what it can do.)  In that program, the user can use the
+mouse to draw simple sketches.  Now, we will add file input/output capabilities
+to that program.  This will allow the user to save a sketch to a file and later read
+the sketch back from the file into the program so that the user can continue
+to work on the sketch.  The basic requirement is that all relevant data
+about the sketch must be saved in the file, so that the sketch can be
+exactly restored when the file is read by the program.</p>
+   
+ 
+
+<p>The new version of the program can be found in the source code
+file <span class="sourceref"><a href="../source/chapter11/SimplePaintWithFiles.java">SimplePaintWithFiles.java</a></span>.  A "File" menu
+has been added to the new version.  It implements "Save" and
+"Open" commands for writing program data to a file and reading
+saved data back into the program.</p>
+   
+
+<p>The data for a sketch consists of the background color of the picture
+and a list of the curves that were drawn by the user.  A curve consists of
+a list of <span class="classname">Point2Ds</span>.  The class <span class="classname">Point2D</span> is
+found in package <span class="code">javafx.geometry</span>; a <span class="classname">Point2D</span>,
+<span class="code">pt</span>, has instance methods <span class="code">pt.getX()</span> and <span class="code">pt.getY()</span>
+that return the coordinates of a point in the xy-plane as values of type <span class="ptype">double</span>.
+Each curve can be a different color.  Furthermore, a curve can be "symmetric," which
+means that in addition to the curve itself, the horizontal and vertical reflections
+of the curve are also drawn.  The data for each
+curve are stored in an object of type <span class="classname">CurveData</span>, which
+is defined in the program as:</p>
+   
+
+<pre>/**
+ * An object of type CurveData represents the data required to redraw one
+ * of the curves that have been sketched by the user.
+ */
+private static class CurveData {
+   Color color;  // The color of the curve.
+   boolean symmetric;  // Are horizontal and vertical reflections also drawn?
+   ArrayList&lt;Point2D&gt; points;  // The points on the curve.
+}</pre>
+   
+
+<p>Then, a list of type <span class="atype">ArrayList&lt;CurveData&gt;</span> is used to hold
+data for all of the curves that the user has drawn.</p>
+   
+
+<p>Let's think about how the data for a sketch could be saved to a text file/
+The basic idea is that all data necessary to reconstitute
+a sketch must be saved to the output file in some definite format.  The method
+that reads the file must follow exactly the same format as it reads the data,
+and it must use the data to rebuild the data structures that represent the sketch
+while the program is running.</p>
+   
+
+<p>When writing character data, all of the data has to be expressed, ultimately, in terms of simple 
+data values such as strings and primitive type values.  A color, for example,
+can be expressed in terms of three numbers giving the red, green, and blue
+components of the color.  The first (not very good) idea that comes to mind might be to
+just dump all the necessary data, in some definite order, into the file.
+Suppose that <span class="code">out</span> is a <span class="classname">PrintWriter</span> that
+is used to write to the file.  We could then say:</p>
+
+
+<pre>Color bgColor = getBackground();    // Write the background color to the file.
+out.println( bgColor.getRed() );
+out.println( bgColor.getGreen() );
+out.println( bgColor.getBlue() );
+
+out.println( curves.size() );       // Write the number of curves.
+   
+for ( CurveData curve : curves ) {  // For each curve, write...
+   out.println( curve.color.getRed() );      // the color of the curve
+   out.println( curve.color.getGreen() );   
+   out.println( curve.color.getBlue() );
+   out.println( curve.symmetric ? 0 : 1 );   // the curve's symmetry property
+   out.println( curve.points.size() );       // the number of points on curve
+   for ( Point2D pt : curve.points ) {       // the coordinates of each point
+      out.println( pt.getX() );
+      out.println( pt.getY() );
+   }
+}</pre>
+   
+
+<p>This works in the sense that the file-reading method can read the
+data and rebuild the data structures.  Suppose that the input method uses
+a <span class="classname">Scanner</span> named <span class="code">scanner</span> to read
+the data file.  Then it could say:</p>
+   
+
+<pre>Color newBackgroundColor;                // Read the background Color.
+double red = scanner.nextDouble();
+double green = scanner.nextDouble();
+double blue = scanner.nextDouble();
+newBackgroundColor = Color.color(red,green,blue);
+
+ArrayList&lt;CurveData&gt; newCurves = new ArrayList&lt;&gt;();
+   
+int curveCount = scanner.nextInt();      // The number of curves to be read.
+for (int i = 0; i &lt; curveCount; i++) {
+   CurveData curve = new CurveData();
+   double r = scanner.nextDouble();            // Read the curve's color.
+   double g = scanner.nextDouble();
+   double b = scanner.nextDouble();
+   curve.color = Color.color(r,g,b);
+   int symmetryCode = scanner.nextInt(); // Read the curve's symmetry property.
+   curve.symmetric = (symmetryCode == 1);
+   curveData.points = new ArrayList&lt;&gt;();
+   int pointCount = scanner.nextInt();  // The number of points on this curve.
+   for (int j = 0; j &lt; pointCount; j++) {
+      int x = scanner.nextDouble();        // Read the coordinates of the point.
+      int y = scanner.nextDouble();
+      curveData.points.add(new Point2D(x,y));
+   }
+   newCurves.add(curve);
+}
+
+curves = newCurves;                     // Install the new data structures.
+setBackground(newBackgroundColor);</pre>
+   
+   
+
+<p>Note how every piece of data that was written by the output method is
+read, in the same order, by the input method.  While this does work, the
+data file is just a long string of numbers.  It doesn't make much more sense
+to a human reader than a binary-format file would.  Furthermore, it is still
+fragile in the sense that any small change made to the data representation
+in the program, such as adding a new property to curves, will render the
+data file useless (unless you happen to remember exactly which version of
+the program created the file).</p>
+   
+
+<p>So, I decided to use a more complex, more meaningful data
+format for the text files created by my program.  Instead of just
+writing numbers, I add <b>words</b> to say what the numbers mean.
+Here is a short but complete data file for the program; just by
+looking at it, you can probably tell what is going on:</p>
+
+
+<pre>SimplePaintWithFiles 1.0
+background 0.4 0.4 0.5
+
+startcurve
+  color 1 1 1
+  symmetry true
+  coords 10 10
+  coords 200 250
+  coords 300 10
+endcurve
+
+startcurve
+  color 0 1 1
+  symmetry false
+  coords 10 400
+  coords 590 400
+endcurve</pre>   
+
+
+<p>The first line of the file identifies the program that created the
+data file; when the user selects a file to be opened, the program can check
+the first word in the file as a simple test to make sure the file
+is of the correct type.  The first line also contains a version number,
+1.0.  If the file format changes in a later version of the program, a
+higher version number would be used; if the program sees a version number
+of 1.2 in a file, but the program only understands version 1.0, the
+program can explain to the user that a newer version of the program is
+needed to read the data file.</p>
+   
+
+<p>The second line of the file specifies the background color of the
+picture.  The three numbers specify the red, green, and blue components
+of the color.  The word "background" at the beginning of the line makes
+the meaning clear.  The remainder of the file consists of data for the
+curves that appear in the picture.  The data for each curve is clearly
+marked with "startcurve" and "endcurve."  The data consists of the color
+and symmetry properties of the curve and the xy-coordinates of each
+point on the curve.  Again, the meaning is clear.  Files in this format
+can easily be created or edited by hand.  In fact, the data file shown
+above was actually created in a text editor rather than by the program.
+Furthermore, it's easy to extend the format to allow for additional options.
+Future versions of the program could add a "thickness" property to the
+curves to make it possible to have curves with differing line widths.
+Shapes such as rectangles and ovals could easily be added.</p>
+   
+
+<p>Outputting data in this format is easy.  Suppose that <span class="code">out</span>
+is a <span class="classname">PrintWriter</span> that is being used to write
+the sketch data to a file.  Then the output is be done with:</p>
+   
+
+<pre>out.println("SimplePaintWithFiles 1.0"); // Version number.
+out.println( "background " + backgroundColor.getRed() + " " +
+        backgroundColor.getGreen() + " " + backgroundColor.getBlue() );
+for ( CurveData curve : curves ) {
+    out.println();
+    out.println("startcurve");
+    out.println("  color " + curve.color.getRed() + " " +
+            curve.color.getGreen() + " " + curve.color.getBlue() );
+    out.println( "  symmetry " + curve.symmetric );
+    for ( Point2D pt : curve.points )
+        out.println( "  coords " + pt.getX() + " " + pt.getY() );
+    out.println("endcurve");
+}</pre>
+
+
+<p>In the program, this code is used in a <span class="code">doSave()</span> method that
+is similar to the one that is presented in <a href="../c11/s2.html#IO.2.3">Subsection&nbsp;11.2.3</a>.  The method
+uses a file dialog box to allow the user to select the output file.</p>
+   
+
+<p>Reading the data is somewhat harder, since the input routine has to
+deal with all the extra words in the data.  In my input routine,
+I decided to allow some variation in the order in which the data occurs in the
+file.  For example, the background color can be specified at
+the end of the file, instead of at the beginning.  It can
+even be left out altogether, in which case white will be used
+as the default background color.  This is possible because
+each item of data is labeled with a word that describes its
+meaning; the labels can be used to drive the processing of
+the input.  Here is the complete method from <span class="sourceref"><a href="../source/chapter11/SimplePaintWithFiles.java">SimplePaintWithFiles.java</a></span>
+that reads data files created by the <span class="code">doSave()</span> method.  It uses a
+<span class="classname">Scanner</span> to read items from the file:</p>
+   
+
+<pre>private void doOpen() {
+    FileChooser fileDialog = new FileChooser();
+    fileDialog.setTitle("Select File to be Opened");
+    fileDialog.setInitialFileName(null);  // No file is initially selected.
+    if (editFile == null)
+        fileDialog.setInitialDirectory(new File(System.getProperty("user.home")));
+    else
+        fileDialog.setInitialDirectory(editFile.getParentFile());
+    File selectedFile = fileDialog.showOpenDialog(window);
+    if (selectedFile == null)
+        return;  // User canceled.
+    Scanner scanner;
+    try {
+        scanner = new Scanner( selectedFile );
+    }
+    catch (Exception e) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR,
+                "Sorry, but an error occurred\nwhile trying to open the file.");
+        errorAlert.showAndWait();
+        return;
+    }
+    try {
+        String programName = scanner.next();
+        if ( ! programName.equals("SimplePaintWithFiles") )
+            throw new IOException("File is not a SimplePaintWithFiles data file.");
+        double version = scanner.nextDouble();
+        if (version &gt; 1.0)
+            throw new IOException("File requires a newer version of SimplePaintWithFiles.");
+        Color newBackgroundColor = Color.WHITE;
+        ArrayList&lt;CurveData&gt; newCurves = new ArrayList&lt;CurveData&gt;();
+        while (scanner.hasNext()) {
+            String itemName = scanner.next();
+            if (itemName.equalsIgnoreCase("background")) {
+                double red = scanner.nextDouble();
+                double green = scanner.nextDouble();
+                double blue = scanner.nextDouble();
+                newBackgroundColor = Color.color(red,green,blue);
+            }
+            else if (itemName.equalsIgnoreCase("startcurve")) {
+                CurveData curve = new CurveData();
+                curve.color = Color.BLACK;
+                curve.symmetric = false;
+                curve.points = new ArrayList&lt;Point2D&gt;();
+                itemName = scanner.next();
+                while ( ! itemName.equalsIgnoreCase("endcurve") ) {
+                    if (itemName.equalsIgnoreCase("color")) {
+                        double r = scanner.nextDouble();
+                        double g = scanner.nextDouble();
+                        double b = scanner.nextDouble();
+                        curve.color = Color.color(r,g,b);
+                    }
+                    else if (itemName.equalsIgnoreCase("symmetry")) {
+                        curve.symmetric = scanner.nextBoolean();
+                    }
+                    else if (itemName.equalsIgnoreCase("coords")) {
+                        double x = scanner.nextDouble();
+                        double y = scanner.nextDouble();
+                        curve.points.add( new Point2D(x,y) );
+                    }
+                    else {
+                        throw new Exception("Unknown term in input.");
+                    }
+                    itemName = scanner.next();
+                }
+                newCurves.add(curve);
+            }
+            else {
+                throw new Exception("Unknown term in input.");
+            }
+        }
+        scanner.close();
+        backgroundColor = newBackgroundColor;
+        curves = newCurves;
+        redraw();
+        editFile = selectedFile;
+        window.setTitle("SimplePaint: " + editFile.getName());
+    }
+    catch (Exception e) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR,
+                "Sorry, but an error occurred while\ntrying to read the data:\n" 
+                        + e);
+        errorAlert.showAndWait();
+    }    
+}</pre>
+   
+
+<p>The main reason for this long discussion of file formats has been to
+get you to think about the problem of representing complex data in a form suitable
+for storing the data in a file.  The same problem arises when data must
+be transmitted over a network.  There is no one correct solution to the
+problem, but some solutions are certainly better than others.  In
+<a href="../c11/s5.html">Section&nbsp;11.5</a>, we will look at one solution to the data
+representation problem that has become increasingly common.</p>
+   
+
+<hr class="break">
+   
+
+<p>In addition to being able to save sketch data in  text form, 
+<span class="code">SimplePaintWithFiles</span> can also save the
+picture itself as an image file that could be, for example, printed
+or put on a web page.  This is a preview of image-handling techniques
+that will be covered in <a href="../c13/s2.html#GUI2.2.6">Subsection&nbsp;13.2.6</a>, and it uses
+techniques that I have not yet covered.</p>
+
+
+
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="s2.html">Previous Section</a> |
+           <a href="s4.html">Next Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

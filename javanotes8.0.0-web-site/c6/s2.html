@@ -1,0 +1,836 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Section 6.2 -- Some Basic Classes</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="s1.html">Previous Section</a> |
+           <a href="s3.html">Next Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<table class="subsections" vspace="8" hspace="8" cellpadding="5" border="2" align="right">
+<tr>
+<td>
+<div align="center">
+<b>Subsections</b>
+<hr>
+<small><a href="#GUI1.2.1">Color and Paint</a>
+<br>
+<a href="#GUI1.2.2">Fonts</a>
+<br>
+<a href="#GUI1.2.3">Image</a>
+<br>
+<a href="#GUI1.2.4">Canvas and GraphicsContext</a>
+<br>
+<a href="#GUI1.2.5">A Bit of CSS</a>
+<br>
+</small>
+</div>
+</td>
+</tr>
+</table>
+<div class="content">
+<h3 class="section_title">Section 6.2</h3>
+<h2 class="section_title">Some Basic Classes</h2>
+<hr class="break">
+
+
+<p>In this section, we will look at some basic classes,
+including classes representing colors, fonts, and images.
+We will see how these classes are used in the <span class="classname">GraphicsContext</span>
+API, which you already encountered in a preliminary way in <a href="../c3/s9.html">Section&nbsp;3.9</a>,
+but they are also useful in other parts of JavaFX.  There is also a brief
+introduction to <span class="newword">CSS style sheets</span>, which can be used to control
+many aspects of the visual appearance of GUI components.</p>
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.2.1">6.2.1&nbsp;&nbsp;Color and Paint</a>
+</h3>
+   
+
+<p>Computer color uses an <span class="newword">RGB color system</span>.
+That is, a color on a computer screen is specified by three numbers, called
+<span class="newword">color components</span>, giving the level of red, green, and
+blue in the color.  A color is represented by an object of type <span class="classname">Color</span>,
+from package <span class="code">javafx.scene.paint</span>.  In JavaFX, each color component
+is a <span class="ptype">double</span> value in the range 0.0 to 1.0.  A <span class="classname">Color</span>
+object also has a fourth component in the range 0.0 to 1.0, referred as the <span class="newword">alpha color component</span>,
+which is generally used to represent the transparency or opaqueness of the color
+when it is used for drawing.  When a fully opaque color (alpha component equal to 1.0) is
+used for drawing, the drawing color completely replaces the current color of the
+drawing surface.  When a fully transparent color (alpha component equal to 0.0) is used
+for drawing, it has no effect at all.  When the alpha component is between 0.0 and
+1.0, the drawing color is combined with the current color to give the new color of
+the drawing surface, as if the original contents of the drawing surface were being 
+viewed through colored, translucent glass.  A <span class="classname">Color</span> object
+can be constructed by giving its red, green, blue, and alpha components; for example,</p>
+
+
+<pre>Color myColor = new Color( r, g, b, a );</pre>
+
+
+<p>where r, g, b, and a are in the range 0.0 to 1.0.
+However, the <span class="classname">Color</span> class also has a number of
+static methods for making color objects.  Static methods whose job
+is to create objects are sometimes called <span class="newword">factory methods</span>.
+So instead of using the
+constructor, you could also say</p>
+
+
+<pre>Color myColor = Color.color( r, g, b, a );</pre>
+
+
+<p>and in the common case of a fully opaque color, with <i>a</i> equal to 1.0,
+you can use</p>
+
+
+<pre>Color myColor = Color.color( r, g, b );</pre>
+
+
+<p>These static factory methods are preferable to the constructor because they
+have the option of reusing color objects.  For example,
+two calls to <span class="code">Color.color(0.2,0.3,1.0)</span> might return the same
+<span class="classname">Color</span> object.  This is OK because 
+color objects are immutable; that is, there is no way to change a color
+after it has been constructed.  So there is really no reason to use
+two different objects to represent the same color.</p>
+
+
+<p>Your computer screen probably uses "32-bit color," which means that the
+color of each pixel is actually represented using just 8 bits for each of the four
+color components.  Eight bits can represent the 256 integers in the range 0 to 255,
+so computer colors have traditionally been specified using
+integer color components in the range 0 to 255.  The <span class="classname">Color</span>
+class has the following static method for making colors in this way:
+</p>
+
+
+<pre>Color.rgb( r, g, b )</pre>
+
+
+<p>where r, g, and b are integers in the range 0 to 255.  There is also
+<span class="code">Color.rgb(r,g,b,a)</span> where r, g, and b are <span class="ptype">ints</span> in the
+range 0 to 255, and a is a <span class="ptype">double</span> in the range 0.0 to 1.0.</p>
+
+
+<p>An alternative to RGB is the <span class="newword">HSB color system</span>.
+In the HSB system, a color is specified by three numbers called the
+<span class="newword">hue</span>, the <span class="newword">saturation</span>,
+and the <span class="newword">brightness</span>. The hue is the basic color,
+ranging from red through orange through all the other colors of the rainbow.
+The brightness is pretty much what it sounds like. A fully saturated color is a
+pure color tone. Decreasing the saturation is like mixing white or gray paint
+into the pure color. In JavaFX, the hue is given by a <span class="ptype">double</span>
+value in the range 0.0 to 360.0, while saturation and brightness are
+<span class="ptype">double</span> values in the range 0.0 to 1.0.  (The hue value is
+given in degrees, were the colors are seen as laid out along a circle, with
+both 0.0 and 360.0 representing pure red.) The
+<span class="classname">Color</span> class has static methods
+<span class="code">Color.hsb(h,s,b)</span> and <span class="code">Color.hsb(h,s,b,a)</span>
+for making HSB colors. For example, to make a color with a random hue that is as bright and as
+saturated as possible, you could use:</p>
+
+
+<pre>Color randomColor = Color.hsb( 360*Math.random(), 1.0, 1.0 );</pre>
+
+
+<p>The RGB system and the HSB system are just different ways of describing the
+same set of colors. It is possible to translate between one system and the
+other. The best way to understand the color systems is to experiment with them.
+The sample program <span class="sourceref"><a href="../source/chapter6/SimpleColorChooser.java">SimpleColorChooser.java</a></span> lets you do that.
+You won't understand the source code at this time, but you can run it to play
+with color selection or to find RGB or HSB values for the color that want.</p>
+
+
+<p>The <span class="classname">Color</span> class also contains a large number of
+constants representing colors, such as <span class="code">Color.RED</span>, <span class="code">Color.BLACK</span>,
+<span class="code">Color.LIGHTGRAY</span>, and <span class="code">Color.GOLDENROD</span>.  It might be worth mentioning that
+<span class="code">Color.GREEN</span> is the fairly dark green color given by <span class="code">Color.rgb(0,128,0)</span>;
+the constant representing <span class="code">Color.rgb(0,255,0)</span> is <span class="code">Color.LIME</span>.
+There is also <span class="code">Color.TRANSPARENT</span>, which represents a fully transparent
+color, with all RGBA color components equal to zero.</p>
+
+
+<p>Given a <span class="classname">Color</span>, <span class="code">c</span>, you can find out the
+values of the various color components by calling functions such as
+<span class="code">c.getRed()</span>, <span class="code">c.getHue()</span>, and <span class="code">c.getOpacity()</span>.
+These methods return <span class="ptype">double</span> values in the range 0.0 to 1.0, except
+for <span class="code">c.getHue()</span>, which returns a <span class="ptype">double</span> in the range
+0.0 to 360.0.</p>
+
+
+<hr class="break">
+
+
+<p>
+<span class="classname">Color</span> is a subclass of another class,
+<span class="classname">Paint</span>, which represents the more general idea of
+"something that can be used to fill and to stroke shapes."  In addition
+to colors, there are image paints and gradient paints.  I will not use these
+more general paints in this chapter, but they will be covered in
+<a href="../c13/s2.html#GUI2.2.2">Subsection&nbsp;13.2.2</a>.  For now, you should just know that when a
+method has a parameter of type <span class="classname">Paint</span>, you
+can use a <span class="classname">Color</span>.</p>
+
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.2.2">6.2.2&nbsp;&nbsp;Fonts</a>
+</h3>
+
+
+<p>A <span class="newword">font</span> represents a particular size and style
+of text. The same character will appear different in different fonts. In JavaFX,
+a font is represented by an object of type <span class="classname">Font</span>,
+from the package <span class="code">javafx.scene.text</span>.  Although the <span class="classname">Font</span>
+defines a couple of constructors, the best way to make a font object is with
+one of the static factory methods from that class.</p>
+
+
+<p>A font has a name, which is a string that specifies a font family such as "Times New Roman."
+A given family can have variations such as a bold or an italic version of the font.
+And a font has a size, which is specified in "points," where a point should really be 1/72 inch
+but might in practice be equal to the size of a pixel.  The most general function for
+making fonts can specify all of these options:
+</p>
+
+
+<pre>Font myFont = Font.font( family, weight, posture, size );</pre>
+
+
+<p>If the system can't match the requested font properties exactly, it will return the
+font that it thinks best matches the parameters.
+Here, <span class="code">family</span> is a <span class="classname">String</span> that should specify a font family
+that is available to the program.  Unfortunately, there is no set of fonts that
+is required to be available.  "Times New Roman," "Arial," and "Verdana" are
+likely to work.  (These are fonts that were created by Microsoft and released for free
+use; they are installed on many systems.)  You can pass <span class="code">null</span> as the <span class="code">familyName</span>
+to use the default font family.</p>
+
+
+<p>Font "weight" is given as an enumerated type value from the <span class="code">enum</span>
+<span class="classname">FontWeight</span>.  It will usually be either <span class="code">FontWeight.BOLD</span>
+or <span class="code">FontWeight.NORMAL</span>, although there are a few other values such as
+<span class="code">FontWeight.EXTRA_BOLD</span>.  Similarly, font "posture" is one of the
+constants <span class="code">FontPosture.ITALIC</span> or <span class="code">FontPosture.REGULAR</span>.
+Both <span class="classname">FontWeight</span> and <span class="classname">FontPosture</span>
+are from package <span class="code">javafx.scene.text</span>.</p>
+
+
+<p>The <span class="classname">Font</span> class has several other static functions for making
+fonts, which specify only a subset of the four properties family, weight, posture, and
+size.  These include: <span class="code">Font.font(size)</span>, <span class="code">Font.font(family)</span>,
+<span class="code">Font.font(family,weight,size)</span>, and a few others.  The missing properties
+will have default values, which can depend on the computer where the program is running.
+The static function <span class="code">Font.getDefault()</span> returns a font that has default
+values for all the properties.  You can call <span class="code">Font.getDefault().getSize()</span>
+to find the default point size.  (It's 13.0 on my computer, but might be different
+on yours.)  Here are a few examples of making fonts:</p>
+
+
+<pre>Font font1 = Font.font(40);
+Font font2 = Font.font("Times New Roman", FontWeight.BOLD, 24);
+Font font3 = Font.font(null, FontWeight.BOLD, FontPosture.ITALIC, 14);</pre>
+
+
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.2.3">6.2.3&nbsp;&nbsp;Image</a>
+</h3>
+
+
+<p>The term "image" refers to something like a photograph or drawing&mdash;anything
+that can be represented by a rectangular grid of colored pixels.  Images are often
+stored in files.  JavaFX makes it easy to load an image from a file so that
+it can be displayed by a program.  An image is represented by
+an object of type <span class="classname">Image</span>, from package
+<span class="code">javafx.scene.image</span>.  The constructor</p>
+
+
+<pre>new Image( path )</pre>
+
+
+<p>is used to load an image from an image file.  The <span class="code">path</span> parameter
+is a string that specifies the location of the file.  The location can be very
+general, such as an image on the Internet or on the user's computer, but for
+now I'm interested in images from <span class="newword">resource files</span>.
+A resource is something that is part of a program but is not code.  Resources
+can include things like sounds, data files, and fonts, as well as images.
+The system can load resources for a program from the same places where
+it looks for the program's .class files.  For a resource file in the
+program's top-level directory, the path to the file is simply the name
+of the file.  If the file is in a subdirectory of the main directory, then
+the path includes the subdirectory name.  For example, the path
+"images/cards.png" refers to a file named "cards.png" inside a subdirectory
+named "images," and "resources/sounds/beep.aiff" refers to a file named
+"beep.aiff" inside a directory named "sounds" that is in turn inside a
+directory named "resources."</p>
+
+
+<p>There are many kinds of image files, which store the image data in
+a variety of formats.  For JavaFX <span class="classname">Image</span> objects,
+you can use image files whose names end with .gif, .jpeg (or .jpg), .png,
+and .bmp.  So, for example, if "cards.png" is a file in the top-level program directory,
+you can create the image object</p>
+
+
+<pre>Image cards = new Image( "cards.png" );</pre>
+
+
+<p>The image can then be displayed in a <span class="classname">GraphicsContext</span>,
+as we will soon see.  There will be other uses for images later in this chapter.</p>
+
+
+
+
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.2.4">6.2.4&nbsp;&nbsp;Canvas and GraphicsContext</a>
+</h3>
+
+
+<p>The screen of a computer is a grid of little squares called <span class="newword">pixels</span>.
+The color of each pixel can be set individually, and
+drawing on the screen just means setting the colors of individual pixels.
+Every visible GUI component is drawn by coloring pixels, and every component
+has a coordinate system that maps (x,y) coordinates to points within the
+component.  Most components draw themselves, but there is one JavaFX component
+on which you can draw anything you want by calling the appropriate methods.
+Such "drawing surface" components are of type <span class="classname">Canvas</span>,
+in package <span class="code">javafx.scene.canvas</span>.  A <span class="classname">Canvas</span>
+is a <span class="classname">Node</span> and so can be part of a scene graph.
+(However, it is not a <span class="classname">Parent</span>, so it cannot act as
+a container for other nodes and it cannot be the root of a scene graph.
+This means that even when a canvas is the only thing that you want to show
+in a window, it must still be placed into a container that will serve as 
+the root of the scene graph.)</p>
+
+
+<p>A <span class="classname">Canvas</span> appears on the screen as 
+a rectangle made up of pixels. A position in the
+rectangle is specified by a pair of coordinates, <span class="code">(x,y)</span>. The
+upper left corner has coordinates <span class="code">(0,0)</span>. The <span class="code">x</span> coordinate
+increases from left to right, and the <span class="code">y</span> coordinate increases from top
+to bottom. The illustration shows a 20-pixel by 12-pixel canvas (with
+very large pixels). A small line, rectangle, and oval are shown as they would
+be drawn by coloring individual pixels:</p>
+
+
+<p align="center">
+<img src="pixel-coordinates.png" width="420" height="212" alt="pixel coordinate system" class="bordered"></p>
+   
+
+<p>Note that, properly speaking, the
+coordinates don't belong to the pixels but to the grid lines between them,
+and coordinates can, in fact, be numbers of type <span class="ptype">double</span>
+and can refer to points inside a pixel.  For example, the center of the
+top left pixel in a canvas has coordinates (0.5,0.5).  In fact, all drawing
+is done using coordinates of type <span class="ptype">double</span>.</p>
+
+
+<p>The width and height of a <span class="classname">Canvas</span> can be specified in the constructor that
+used to create the canvas object.  For example, to create a tiny 20-by-12 canvas:</p>
+
+
+<pre>Canvas canvas = new Canvas(20,12)</pre>
+
+
+<p>You can query the size of a canvas by calling <span class="code">canvas.getWidth()</span> and
+<span class="code">canvas.getHeight()</span>, which return values of type <span class="ptype">double</span>.
+Canvasses are usually meant to be non-resizable, but the size can be changed if necessary
+by calling <span class="code">canvas.setWidth(w)</span> and <span class="code">canvas.setHeight(h)</span>.</p>
+
+
+<p>When a canvas is first created, it is filled with "transparent black," that is, with a color
+that has all RGBA components set to zero.  This makes the canvas transparent:  You will see
+whatever lies behind the canvas in the scene.</p>
+
+
+<p>In order to draw on a canvas, you need an object of type <span class="classname">GraphicsContext</span>.
+Every <span class="classname">Canvas</span> has an associated <span class="classname">GraphicsContext</span>;
+different <span class="classname">GraphicsContexts</span> draw on different <span class="classname">Canvases</span>.
+You can get the graphics context for a <span class="classname">Canvas</span>, <span class="code">canvas</span>,
+by calling <span class="code">canvas.getGraphicsContext2D()</span>.  For any given <span class="classname">Canvas</span>,
+this method will always return the same <span class="classname">GraphicsContext</span> object.
+<a href="../c3/s9.html">Section&nbsp;3.9</a> discussed some of the things that can be done with a graphics context.
+In particular, you learned that a shape can be stroked and, if it has an interior, it can also be filled.
+Methods in <span class="classname">GraphicsContext</span>, <span class="code">g</span>, that can be used for drawing
+include the following, where all numeric parameters are of type <span class="ptype">double</span>:</p>
+
+
+<ul>
+
+<li>
+<span class="codedef">g.strokeRect(x,y,w,h)</span> and <span class="codedef">g.fillRect(x,y,w,h)</span> &mdash;
+Draw a rectangle with top left corner at <span class="code">(x,y)</span>, with width <span class="code">w</span> and
+with height&nbsp;<span class="code">h</span>.  If <span class="code">w</span> or <span class="code">h</span> is less than or
+equal to zero, nothing is drawn.
+</li>
+
+<li>
+<span class="codedef">g.clearRect(x,y,w,h)</span> &mdash; Fill the same rectangle with a fully transparent
+color, so that whatever lies behind the rectangle will be visible through the canvas.  Note that 
+this is <b>not</b> the same as calling <span class="code">g.fillRect(x,y,w,h)</span> with a transparent fill
+color; doing that has no effect at all on the contents of the rectangle.
+</li>
+
+<li>
+<span class="codedef">g.strokeOval(x,y,w,h)</span> and <span class="codedef">g.fillOval(x,y,w,h)</span> &mdash;
+Draw an oval that just fits inside the rectangle with top left corner at <span class="code">(x,y)</span>, with width <span class="code">w</span> and
+with height&nbsp;<span class="code">h</span>.
+</li>
+
+<li>
+<span class="codedef">g.strokeRoundRect(x,y,w,h,rh,rv)</span> and <span class="codedef">g.fillRoundRect(x,y,w,h,rh,rv)</span> &mdash;
+Draw a rectangle with rounded corners. The rectangle has top left corner at <span class="code">(x,y)</span>, with width <span class="code">w</span> and
+with height&nbsp;<span class="code">h</span>.  A quarter oval is cut off each corner, where the horizontal radius of the
+oval is <span class="code">rh</span> and its vertical radius is <span class="code">rv</span>.
+</li>
+
+<li>
+<span class="codedef">g.strokeText(str,x,y)</span> and <span class="codedef">g.fillText(str,x,y)</span> &mdash;
+Draw the text of the <span class="classname">String</span> <span class="code">str</span>.  The point <span class="code">(x,y)</span>
+is the left end of the baseline of the text. (A string is drawn on top of its baseline, with descenders
+such as the tail of a "y" extending below the baseline.)  The string can contain multiple lines
+separated by newline ('\n') characters; <span class="code">(x,y)</span> then gives the baseline of the
+first line of the string.  Note that stroking text means drawing just the outlines of the characters.
+</li>
+
+<li>
+<span class="codedef">g.strokePolygon(xcoords,ycoords,n)</span> and <span class="codedef">g.fillPolygon(xcoords,ycoords,n)</span> &mdash;
+Draw a polygon, consisting of line segments connecting a sequence of points.  The number of points is given
+by the third parameter, <span class="code">n</span>.  The first two parameters are arrays of type
+<span class="atype">double[]</span> containing the coordinates of the points.  An extra line segment is automatically
+added to connect the last point back to the first.  That is, the
+polygon connects the points <span class="code">(xcoords[0],ycoords[0])</span>, <span class="code">(xcoords[1],ycoords[1])</span>, ...,
+<span class="code">(xcoords[n-1],ycoords[n-1])</span>, <span class="code">(xcoords[0],ycoords[0])</span>.
+</li>
+
+<li>
+<span class="codedef">g.strokeLine(x1,y1,x2,y2)</span> &mdash; Draws a line from <span class="code">(x1,y1)</span>
+to <span class="code">(x2,y2)</span>.  (It's no use trying to fill a line, since it has no interior.)</li>
+
+</ul>
+
+
+<p>The <span class="classname">GraphicsContext</span> object, <span class="code">g</span> has a number of properties that affect
+drawing.  When anything is drawn using <span class="code">g</span>, the current values of the relevant
+properties are used.  This means that changing the value of a property does not affect anything
+that has already been drawn; the change only applies to things drawn in the future.  Each property
+has a setter method and a getter method.  One of the properties is the <span class="classname">Paint</span> 
+that is used for filling (which in
+this chapter will always be a <span class="classname">Color</span>); this property can be set by calling
+<span class="code">g.setFill(paint)</span>, and you can get its current value by calling <span class="code">g.getFill()</span>.
+Similarly, the <span class="classname">Paint</span> that is used for stroking can be set and get using
+<span class="code">g.setStroke(paint)</span> and <span class="code">g.getStroke()</span>, and the width of strokes can be
+set and get using <span class="code">g.setLineWidth(w)</span> and <span class="code">g.getLineWidth()</span>, where
+<span class="code">w</span> is of type <span class="ptype">double</span>.  And you can set and get the font that will be used
+for drawing text with <span class="code">g.setFont(font)</span> and <span class="code">g.getFont()</span>.
+</p>
+
+
+<p>Note that stroking a shape is like dragging the <b>center</b> of a pen along the outline of the shape.
+The size of the pen is given by the linewidth property.  The stroke that is drawn extends on both sides
+of the actual path of the pen by an amount equal to half of the linewidth.  For example, if you
+draw a horizontal line of width&nbsp;1 with endpoints (100,100) and (300,100), half of the stroke lies
+above the geometric line and half lies below it.  The computer might show this by blending the color
+of the stroke color with the current color.  If you want the stroke to 
+nicely cover complete pixels, you should actually use (100.5,100.5) and (300.5,100.5) as the coordinates
+of the endpoints of the line.  (Whenever you draw something, you might find that for pixels that are only
+partially covered, the drawing color is blended with the current color instead of replacing it.  This is
+done to decrease the jagged appearance of shapes that are made out of whole pixels, like the line and
+oval in the above illustration.  This is known as <span class="newword">antialiasing</span>.)
+</p>
+
+
+<p>It is also possible to draw an image onto a canvas, where the image is represented by an
+object of type <span class="classname">Image</span>.  There are several methods for drawing
+images:</p>
+
+
+<ul>
+
+<li>
+<span class="codedef">g.drawImage(image,x,y)</span> &mdash; Draws the <span class="code">image</span> with its
+upper left corner at <span class="code">(x,y)</span>, using the actual size of the image.
+</li>
+
+<li>
+<span class="codedef">g.drawImage(image,x,y,w,h)</span> &mdash; Draws the <span class="code">image</span> in the
+rectangle with upper left corner at <span class="code">(x,y)</span>, with width <span class="code">w</span>, and
+with height&nbsp;<span class="code">h</span>.  The image is stetched or shrunk to fit that rectangle if 
+necessary.
+</li>
+
+<li>
+<span class="codedef">g.drawImage(image, sx,sy,sw,sh, dx,dy,dh,dw)</span> &mdash; Draws the contents
+of a specified "source" rectangle in the image to a specified "destination" rectangle on the
+canvas.  This method lets you draw just part of an image.  The source rectangle has
+upper left corner at <span class="code">(sx,sy)</span>, width <span class="code">sw</span>, and height&nbsp;<span class="code">sh</span>.
+The last four parameters specify the destination rectangle in a similar way.
+</li>
+
+</ul>
+
+
+<hr class="break">
+
+
+<p>It's time for a couple of actual examples.  First, an example that draws some text using 
+a variety of fonts.  
+The program draws multiple copies of the string "Hello JavaFX" using random fonts and 
+locations.  The text is filled with random colors and stroked with a thin black stroke:
+</p>
+
+
+<p align="center">
+<img src="randomStrings.png" width="400" height="293" alt="RandomStrings program"></p>
+
+
+<p>The program uses five fonts, which are created in the <span class="code">start()</span> method using several
+different static factory methods from the <span class="classname">Font</span> class:</p>
+
+
+<pre>font1 = Font.font("Times New Roman", FontWeight.BOLD, 20);
+font2 = Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 28);
+font3 = Font.font("Verdana", 32);
+font4 = Font.font(40);
+font5 = Font.font("Times New Roman",FontWeight.BOLD,FontPosture.ITALIC,60);
+</pre>
+
+
+<p>The program defines a <span class="code">draw()</span> method that completely
+redraws the content of a canvas.  It is called when the canvas is first
+created, and it is also called when the user clicks the "Redraw" button.
+The method first fills the canvas with a white background, which erases
+the previous contents of the canvas.  It then fills and strokes 25 copies
+of "Hello JavaFX", using a random fill color, a random position for the
+text, and a randomly selected font for each copy:</p>
+
+
+<pre>private void draw() {
+
+    GraphicsContext g = canvas.getGraphicsContext2D();
+    
+    double width = canvas.getWidth();
+    double height = canvas.getHeight();
+    
+    g.setFill( Color.WHITE );  // fill with white background
+    g.fillRect(0, 0, width, height);
+
+    for (int i = 0; i &lt; 25; i++) {
+
+        // Draw one string.  First, set the font to be one of the five
+        // available fonts, at random.  
+
+        int fontNum = (int)(5*Math.random()) + 1;
+        switch (fontNum) {
+        case 1:
+            g.setFont(font1);
+            break;
+        case 2:
+            g.setFont(font2);
+            break;
+        case 3:
+            g.setFont(font3);
+            break;
+        case 4:
+            g.setFont(font4);
+            break;
+        case 5:
+            g.setFont(font5);
+            break;
+        } // end switch
+
+        // Set the color to a bright, saturated color, with random hue.
+
+        double hue = 360*Math.random();
+        g.setFill( Color.hsb(hue, 1.0, 1.0) );
+
+        // Select the position of the string, at random.
+
+        double x,y;
+        x = -50 + Math.random()*(width+40);
+        y = Math.random()*(height+20);
+
+        // Draw the message.
+
+        g.fillText("Hello JavaFX",x,y);
+        
+        // Also stroke the outline of the strings with black.
+        
+        g.setStroke(Color.BLACK);
+        g.strokeText("Hello JavaFX",x,y);
+
+    } // end for
+
+} // end draw()
+</pre>
+
+
+<p>You can find the full source code for the program in <span class="sourceref"><a href="../source/chapter6/RandomStrings.java">RandomStrings.java</a></span>.</p>
+
+
+<p>The second sample program is similar, but instead of drawing random strings, it draws five
+playing cards dealt at random from a deck:</p>
+
+
+<p align="center">
+<img src="randomCards.png" width="519" height="232" alt="RandomCards program"></p>
+
+
+<p>The deck and cards are represented using the
+<span class="classname">Deck</span> and <span class="classname">Card</span> classes from
+<a href="../c5/s4.html">Section&nbsp;5.4</a>. The card images come from the file <span class="sourceref"><a href="../source/chapter6/cards.png">cards.png</a></span>,
+which is a resource file for the program.  The file contains a single image that contains
+images of all the cards, arranged in rows and columns.  Here it is, shown at reduced size:</p>
+
+
+<p align="center">
+<img src="cards.png" width="513" height="307" alt="deck of cards"></p>
+
+
+<p>(This image is from the Gnome desktop project, <a href="http://www.gnome.org">http://www.gnome.org</a>.)
+The image file is loaded into the program in the <span class="code">start()</span> method simply by saying</p>
+
+
+<pre>cardImages = new Image("cards.png");</pre>
+
+
+<p>where <span class="code">cardImages</span> is an instance variable of type <span class="classname">Image</span>.
+Suppose that we want to draw the card
+from row number R and column number C in a <span class="classname">GraphicsContext</span> <span class="code">g</span>
+(where both rows and columns are numbered starting at zero).
+Each card in the image is 79 pixels by 123 pixels, so the card that we want has its top
+left corner at (79*C,123*R).  If we want to place the card on the canvas with its
+top left corner at (x,y), we can use the third <span class="code">drawImage()</span> method given above,
+which specifies a source rectangle in the image and a destination rectangle on the canvas:
+</p>
+
+
+<pre>g.drawImage( cardImages, 79*C,123*R,79,123, x,y,79,123 );</pre>
+
+
+<p>In the program, the card that we want to draw is given by a variable <span class="code">card</span>
+of type <span class="classname">Card</span>.  The row and column in the image are determined by
+the suit and value of the card, which are given by <span class="code">card.getSuit()</span> and
+<span class="classname">card.getValue()</span>.  The values returned by these functions have to be
+manipulated a little to get the correct row and column numbers, and the position of the
+card on the canvas is calculated to leave a 20-pixel gap between one card and the next.
+Here is the <span class="classname">draw()</span>
+method from the program, which deals five random cards from a deck and draws them:</p>
+
+
+<pre>private void draw() {
+    
+    GraphicsContext g = canvas.getGraphicsContext2D();
+    
+    Deck deck = new Deck();
+    deck.shuffle();
+    
+    double sx,sy;  // top left corner of source rect for card in cardImages
+    double dx,dy;  // corner of destination rect for card in the canvas
+    
+    for (int i = 0; i &lt; 5; i++) {
+        Card card = deck.dealCard();
+        System.out.println(card); // for testing
+        sx = 79 * (card.getValue()-1);
+        sy = 123 * (3 - card.getSuit());
+        dx = 20 + (79+20) * i;
+        dy = 20;
+        g.drawImage( cardImages, sx,sy,79,123, dx,dy,79,123 );
+    }
+    
+} // end draw()</pre>
+
+
+<p>For the complete program, see <span class="sourceref"><a href="../source/chapter6/RandomCards.java">RandomCards.java</a></span>.</p>
+
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.2.5">6.2.5&nbsp;&nbsp;A Bit of CSS</a>
+</h3>
+
+
+<p>JavaFX makes it possible to control the style&mdash;that is, the visual
+appearance&mdash;of components in a GUI using <span class="newword">CSS</span> (Cascading Style Sheets).
+CSS is one of several languages that are used to make web pages.  It can
+control things like colors, fonts, and borders of elements of a web page.
+It has been adapted to play a similar role in other contexts, such as
+JavaFX.  I do not intend to cover CSS in any detail, and anything that
+can be done with CSS can also be done with Java code.  However, there
+are some things that are just easier to do with CSS; I will cover
+a few of them in this short section and will use them in my programs.
+For people who already know CSS, a guide to its use in JavaFX is
+available as I write this at</p>
+
+
+<p align="center">
+<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html</a>
+</p>
+
+
+<p>A CSS <span class="newword">style rule</span> consists of a property and a value for that property.
+For example, CSS can be used to place a border around many kinds of GUI components.
+A border has properties with names such as <span class="code">-fx-border-color</span>
+and <span class="code">-fx-border-width</span>.  (All JavaFX CSS properties have names
+that begin with "-fx-" to distinguish them from regular CSS properties.)
+A value for <span class="code">-fx-border-color</span> can be a color name such as
+<span class="code">red</span> or <span class="code">lightblue</span>, among other formats.
+One color format that I will use takes the form <span class="code">#RRGGBB</span>,
+where R, G, and B stand for hexadecimal digits.  A two-digit hexadecimal
+number can represent numbers from 0 to 255.  The RR, GG, and BB in
+<span class="code">#RRGGBB</span> represent the red, green, and blue components of
+a color, each in the range 0 to 255.  For example, <span class="code">#FF0000</span>
+represents pure red, and <span class="code">#004444</span> represents a dark blue-green.</p>
+
+
+<p>For the border width, the value can be a single size, such
+as <span class="code">3px</span> or <span class="code">0.2cm</span>. The syntax is a number followed
+by a unit of measure, with no space between them.  Here, "px" stands for
+"pixels," and <span class="code">3px</span> means 3 pixels.  When a width is given
+by a single size, the size applies to all four sides of the border.
+Alternatively, four sizes can be given, separated by spaces, specifying
+the border width on the top, right, bottom, and left, in that order.
+For example, a thick, blue border could be specified as</p>
+
+
+<pre>-fx-border-color: blue; -fx-border-width: 5px</pre>
+
+
+<p>and for a dark red border that is thicker on the top  than
+on the other sides, you can use</p>
+
+
+<pre>-fx-border-color: #550000; -fx-border-width: 3px 1px 1px 1px</pre>
+
+
+<p>When several CSS rules are used together, they should be separated
+by semicolons.</p>
+
+
+<p>The background color of a component can be set using 
+<span class="code">-fx-background-color</span> as the property name.  The value
+is the same sort of color specification that would be used
+with <span class="code">-fx-border-color</span>.</p>
+
+
+<p>And the CSS property <span class="code">-fx-padding</span>
+represents space that is left between the content of a component
+and its edge (or border if there is one).  Like border width,
+padding can be specified as either a single size or a list of
+four sizes.  For example: <span class="code">-fx-padding:&nbsp;8px</span>.</p>
+
+
+<p>You can apply a style to a component using its <span class="code">setStyle()</span>
+method, whose parameter is a <span class="classname">String</span> containing
+one or more CSS style rules.  For example, suppose <span class="code">message</span>
+is a <span class="classname">Label</span>.  By default, labels have no
+padding or border.  They can be added with a command such as</p>
+
+
+<pre>message.setStyle(
+   "-fx-padding: 5px; -fx-border-color: black; -fx-border-width: 1px" );</pre>
+   
+
+<p>You can set the font for a component that displays text using the
+<span class="code">-fx-font</span> property.  The value for this property
+specifies the size and font family for the font, and can optionally
+be modified by a weight ("bold"), or by a style ("italic"), or both.
+Some examples:</p>
+
+
+<pre>-fx-font: 30pt "Times New Roman";
+-fx-font: bold italic 18pt serif;
+-fx-font: bold 42pt monospace;</pre>
+
+
+<p>Note that if the font family name contains spaces, it must be enclosed
+in quotes. The font families in the last two examples, "serif" and
+"monospace", are so-called generic family names that specify a certain
+style of font.  Other generic names include "sans-serif", "cursive",
+and "fantasy".  The characters in a serif font have short lines as decorations
+such as at the top and bottom of an upper case "I".  A "sans-serif" font
+lacks these decorations.  The characters in a "monospace" font all have the
+same width.  Monospace fonts are good for drawing characters that are meant
+to line up in columns.</p>
+
+
+<p>Many other properties can be set using CSS, but I will not cover them
+here.  I will use CSS only for borders, padding, background colors, and fonts.</p>
+
+
+<hr class="break">
+
+
+<p>Setting the style for many components can be tedious.  A <span class="newword">CSS style sheet</span>
+can be used to apply style to all components of a given type as well as to individual components
+and sets of components.  A style sheet is a file, usually with a name ending with .css.
+I will not discuss the syntax, but 
+here is a style sheet that will apply some style rules to all <span class="classname">Labels</span>
+and <span class="classname">Buttons</span>:</p>
+
+
+<pre>Button {
+   -fx-font: bold 16pt "Times New Roman";
+   -fx-text-fill: darkblue;
+}
+
+Label {
+   -fx-font: 15pt sans-serif;
+   -fx-padding: 7px;
+   -fx-border-color: darkred;
+   -fx-border-width: 2px;
+   -fx-text-fill: darkred;
+   -fx-background-color: pink;
+}</pre>
+
+
+<p>A style sheet file, just like an image file, can be a resource for a program.  That is,
+it can be stored in the same place as the .class files for the program.  Suppose that
+a style sheet named "mystyle.css" is in the program's top-level directory.  You can
+then apply the style to all components in a scene with the statement</p>
+
+
+<pre>scene.getStylesheets().add("mystyle.css");</pre>
+
+
+<p>A <span class="classname">Scene</span> can have several style sheets, and style sheets
+can also be added to individual containers.</p>
+
+
+
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="s1.html">Previous Section</a> |
+           <a href="s3.html">Next Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,875 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Section 6.5 -- Basic Layout</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="s4.html">Previous Section</a> |
+           <a href="s6.html">Next Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<table class="subsections" vspace="8" hspace="8" cellpadding="5" border="2" align="right">
+<tr>
+<td>
+<div align="center">
+<b>Subsections</b>
+<hr>
+<small><a href="#GUI1.5.1">Do Your Own Layout</a>
+<br>
+<a href="#GUI1.5.2">BorderPane</a>
+<br>
+<a href="#GUI1.5.3">HBox and VBox</a>
+<br>
+<a href="#GUI1.5.4">GridPane and TilePane</a>
+<br>
+</small>
+</div>
+</td>
+</tr>
+</table>
+<div class="content">
+<h3 class="section_title">Section 6.5</h3>
+<h2 class="section_title">Basic Layout</h2>
+<hr class="break">
+   
+
+<p>
+<span class="start"><big>C</big>omponents</span> are the fundamental building blocks
+of a graphical user interface.  But you have to do more with components besides create them.
+Another aspect of GUI programming is <span class="newword">laying out</span> components on the screen,
+that is, deciding where they are placed and how big they are. You have probably
+noticed that computing coordinates can be a difficult problem, especially if
+you don't assume a fixed size for the drawing area. Java has a solution for this, as
+well.</p>
+
+
+<p>Components are the visible objects that make up a GUI. Some components are
+<span class="newword">containers</span>, which can hold other components.  In <span class="code">JavaFX</span> terms,
+a container is a scene graph node that can contain other scene graph nodes
+as "children."  The children of a container must be "laid out," which means setting their
+sizes and positions.  It is possible for you to program the layout yourself, but
+layout is usually done automatically by the container.  Different kinds of containers
+implement different policies for laying out their child nodes.  
+In this section, we will cover some common types of JavaFX containers and
+their layout policies.  In this section and
+<a href="../c6/s6.html">the next</a>, we will look at several programming examples that use 
+components and layout.</p>
+
+
+<p>Because a container is itself a scene graph node, you can add a container as a child of
+another container. This makes complex
+nesting of components possible, as shown in this illustration:</p>
+
+
+<p align="center">
+<img src="panels-in-layout.png" width="217" height="164" alt="illustration of panels nested in other panels"></p>
+  
+
+<p>In this picture, a large container holds two smaller containers.  Each of the two smaller
+containers in turn holds three components.</p>
+
+
+<hr class="break">
+
+
+<p>Every scene graph node has a minimum width and height, a maximum width and height, and a preferred width and height.
+A container consults these values when it is deciding how to lay out its children.  (Some nodes, however, 
+are not resizable, meaning not meant to be resized by a container during layout; for such components,
+the minimum, maximum, and preferred width and height are effectively equal to the component's actual size.
+<span class="classname">Canvas</span> and <span class="classname">ImageView</span> are examples of non-resizable components.)
+In general, a container will compute its own preferred size
+based on the components that it contains.  The container's preferred size will allow each
+component that it contains to have at least its preferred size.  The container will compute its own minimum
+and maximum sizes in a similar way, based on the minimum and maximum sizes of its children.</p>
+
+
+<p>When setting the size of a child while doing layout, most containers will <b>not</b> set the
+width of the child to be less than the child's minimum width or greater than the child's maximum width, and the same
+for the child's height.  This will be true even if it means that the child will overlap other
+components or will extend outside the container.  (The part outside the container 
+might or might not be shown, depending on the container.)
+This can also leave empty space in the container.</p>
+   
+
+<p>Resizable nodes, which includes controls and most containers, have instance methods 
+for setting the minimum, preferred, and maximim width:
+<span class="code">setMinWidth(w)</span>, <span class="code">setPrefWidth(w)</span>, and <span class="code">setMaxWidth(w)</span>,
+where the parameter is of type <span class="ptype">double</span>, with similar instance methods for
+the height.  You can also set width and height values simultaneously with methods such as
+<span class="code">setMaxSize(w,h)</span> and <span class="code">setPrefSize(w,h)</span>.
+For a container, the values set by these methods will override the values
+that would have been computed by the container based the children
+that it contains.</p>
+
+
+
+<p>In JavaFX, containers that do layout are defined by the class <span class="classname">Pane</span>
+and its subclasses.  (<span class="classname">Pane</span> and its subclasses are in package
+<span class="code">javafx.scene.layout</span>.)  Here, we look at a few of these layout classes,
+starting with using <span class="classname">Pane</span> directly.</p>
+
+   
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.5.1">6.5.1&nbsp;&nbsp;Do Your Own Layout</a>
+</h3>
+
+
+
+<p>Sometimes, you would like to do your own layout, instead of letting it
+up to one of the standard subclasses of <span class="classname">Pane</span>.
+For our first example, we'll look at using the <span class="classname">Pane</span>
+class itself.  When you do that, you assume responsibility for setting
+the positions of the child nodes.  The <span class="classname">Pane</span>
+will, by default, resize each child to its preferred size, but you
+can take over that job too if you want.</p>
+
+
+<p>If <span class="code">node</span> is any screen graph node, then the statement</p>
+
+
+<pre>node.relocate( x, y );</pre>
+
+
+<p>puts the top left corner of the node at the point <span class="code">(x,y)</span>,
+measured in the coordinate system of the container that contains the
+node.  For a resizable node,</p>
+
+
+<pre>node.resize( width, height )</pre>
+
+
+<p>will set its size.  This method has no effect on a non-resizable node.
+(However, some nodes that are non-resizable in this sense, such as <span class="classname">Canvas</span>,
+nevertheless have a <span class="code">setWidth(w)</span> and a <span class="code">setHeight(h)</span> method for
+changing their size.)</p>
+
+
+<p>If the node is in a container that does all layout then, by default, neither
+<span class="code">relocate()</span> nor <span class="code">resize()</span> will have any effect.
+If the node is in a container such as <span class="classname">Pane</span>, then
+<span class="code">resize()</span> will work (on resizable nodes), but <span class="code">relocate()</span>
+will have no effect.  However, this is true only for nodes that are <span class="newword">managed</span>.
+A node can be made "unmanaged" by calling</p>
+
+
+<pre>node.setManaged(false);</pre>
+
+
+<p>When you do that, <b>any</b> container that contains <span class="code">node</span> as a child
+will completely ignore <span class="code">node</span>, as far as layout is concerned.  It is
+your responsibility to set its location and (for resizable nodes) size.  Note that
+an unmanaged node must still be placed inside a container for it to appear on
+the screen.</p>
+
+
+<hr class="break">
+   
+
+<p>We will look at an example that contains four components: two buttons, a label, and a
+canvas that displays a checkerboard pattern:</p>
+
+
+<p align="center">
+<img src="null-layout-demo.png" width="400" height="358" alt="OwnLayoutDemo with checkerboard, two buttons, and a message"></p>
+
+
+<p>The program is just an example of layout; it doesn't do anything,
+except that clicking the buttons changes the text of the label. (I will use
+this example in <a href="../c7/s5.html">Section&nbsp;7.5</a> as a starting point for a checkers game.)</p>
+
+
+<p>This example uses a <span class="classname">Pane</span> as the root node of the scene
+and as the container for the four components.  This means that the program is responsible
+for setting the locations of the components, by calling their <span class="code">relocate()</span>
+method.  (Without that, they will all appear with their top left corners at the default
+location, (0,0)!)  After looking at the result, I decided that I wanted the two buttons
+to have the same size and to be larger than their preferred sizes.  For that to work,
+the buttons had to be made unmanaged.  (Otherwise, calling their <span class="code">resize()</span> method
+would have no effect because the pane would set them back to their preferred size.)
+Here is the code from the application's <span class="code">start()</span> method that creates the four components and configures
+them, including setting their locations and sizes:</p>
+
+
+<pre>/* Create the child nodes. */
+
+board = new Checkerboard(); // a nested subclass of Canvas
+board.draw();  // draws the content of the checkerboard
+
+newGameButton = new Button("New Game");
+newGameButton.setOnAction( e -&gt; doNewGame() );
+
+resignButton = new Button("Resign");
+resignButton.setOnAction( e -&gt; doResign() );
+
+message = new Label("Click \"New Game\" to begin.");
+message.setTextFill( Color.rgb(100,255,100) ); // Light green.
+message.setFont( Font.font(null, FontWeight.BOLD, 18) );
+
+/* Set the location of each child by calling its relocate() method */
+
+board.relocate(20,20);
+newGameButton.relocate(370, 120);
+resignButton.relocate(370, 200);
+message.relocate(20, 370);
+
+/* Set the sizes of the buttons.  For this to have an effect, make
+ * the butons "unmanaged."  If they are managed, the Pane will set
+ * their sizes. */
+
+resignButton.setManaged(false);
+resignButton.resize(100,30);
+newGameButton.setManaged(false);
+newGameButton.resize(100,30);</pre>
+
+
+<p>The <span class="classname">Pane</span> that holds the components is
+the root node of the scene.  The window for the program will be 
+sized to be just large enough to hold the <span class="classname">Pane</span>
+at its preferred size.  By default, a <span class="classname">Pane</span>
+computes its preferred size to be just large enough to show all
+of its managed children.  Since I made the buttons unmanaged,
+they would not be included in the preferred size.  To make the
+window large enough to include them (and to allow more empty
+space below the label), the program sets the preferred width
+and height of the pane:</p>
+
+
+<pre>Pane root = new Pane();
+root.setPrefWidth(500);
+root.setPrefHeight(420);</pre>
+
+
+<p>The buttons, label, and board must be added as children of the
+pane.  This is done with the command:</p>
+
+
+<pre>root.getChildren().addAll(board, newGameButton, resignButton, message);</pre>
+
+
+<p>Alternatively, they could have been added one by one using statements
+such as</p>
+
+
+<pre>root.getChildren().add(board);</pre>
+
+
+<p>or the child nodes could have been given as parameters to the 
+constructor:</p>
+
+
+<pre>Pane root = new Pane(board, newGameButton, resignButton, message);</pre>
+
+
+<p>The pane still has to be made the root of the scene, the scene has to
+be placed in the stage, and the stage has to be configured and shown
+on the screen.  See the source code, <span class="sourceref"><a href="../source/chapter6/OwnLayoutDemo.java">OwnLayoutDemo.java</a></span>,
+for the complete story.</p>
+
+
+<p>It's fairly easy in this case to get a reasonable layout. It's much
+more difficult to do your own layout if you want to allow for changes in the size
+of the window.  To do that, you would probably write your own subclass of
+<span class="classname">Pane</span> (or of its superclass, <span class="classname">Region</span>),
+and override the <span class="code">layoutChildren()</span> method, which is called by the
+system when a container needs to do layout, including when the container is resized. 
+However, my real advice is
+that if you want to allow for changes in the container's size, try to find a
+standard container that will do the layout work for you.</p>
+
+
+
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.5.2">6.5.2&nbsp;&nbsp;BorderPane</a>
+</h3>
+
+   
+
+<p>A <span class="classname">BorderPane</span> is a subclass of <span class="classname">Pane</span> 
+that is designed to display
+one large, central component, with up to four smaller components arranged around
+the edges of the central component.  The five positions are referred to
+as center, top, right, bottom, and left.  The meaning of the five
+positions is shown in this diagram:</p>
+
+
+<p align="center">
+<img src="border-layout.png" width="229" height="181" alt="positions of components in a BorderPane"></p>   
+   
+
+<p>Note that a border layout can contain fewer than five components,
+so that not all five of the possible positions need to be filled.
+It would be very unusual, however, to have no center component.</p>
+
+
+<p>The <span class="classname">BorderPane</span> class has two constructors, one with no
+parameters and one that takes a single parameter giving the center child of the pane. 
+Child nodes can be added to a <span class="classname">BorderPane</span>, <span class="code">pane</span>,
+using the methods</p>
+
+
+<pre>pane.setCenter(node);
+pane.setTop(node);
+pane.setRight(node);
+pane.setBottom(node);
+pane.setLeft(node);</pre>
+
+
+<p>Calling one of these methods with parameter <span class="code">null</span> will remove the
+child from that position in the pane.</p>
+   
+
+<p>A <span class="classname">BorderPane</span> sets the sizes of its child nodes
+as follows, except that the width and height of a component
+is always restricted to lie between the minimum and maximum width 
+and height of that component:  The top and bottom components (if
+present) are shown at their preferred heights, but their width is set equal
+to the full width of the container.
+The left and right components are shown at their preferred widths, 
+but their height is set to the height of the container, minus the space 
+occupied by the top and bottom components.  Finally, the center component
+takes up any remaining space.</p>
+ 
+
+<p>The default preferred size of <span class="classname">BorderPane</span> is set just
+big enough to accommodate the preferred sizes of its (managed) children.
+The minimum size is computed in a similar way.  The default maximum size of a 
+<span class="classname">BorderPane</span> is unlimited.</p>
+
+
+<hr class="break">
+
+
+<p>For some subclasses of
+<span class="classname">Pane</span>, it is possible to tweak the layout of the
+children by applying things called <span class="newword">layout constraints</span>.
+For example, what happens in a <span class="classname">BorderPane</span> if 
+a child cannot be resized to exactly fit the available space?
+In that case, the child has a default position within the available
+space.  The center child is centered within the center space of the
+pane, the bottom child is placed at the bottom left corner of the
+bottom space in the pane, and so on.  You can change this default
+placement using a static method from the <span class="classname">BorderPane</span>
+class:</p>
+
+
+<pre>BorderPane.setAlignment( child, position );</pre>
+
+
+<p>where <span class="code">child</span> is the child node whose position you want
+to tweak and <span class="code">position</span> is one of the constants from 
+the enumerated type <span class="classname">Pos</span>, from package
+<span class="code">javafx.geometry</span>.  Possible positions include
+<span class="code">Pos.CENTER</span>, <span class="code">POS.TOP_LEFT</span>,
+<span class="code">Pos.BOTTOM_RIGHT</span>, and so on.  (I find it strange
+that the alignment is set using a static method, but that's the
+way layout constraints work in JavaFX.)</p>
+
+
+<p>You can also set a <span class="newword">margin</span> for any
+child of a <span class="classname">BorderPane</span>.  A margin is
+empty space around the child. The background color of the
+pane will show in the margin.  A margin is specified as
+a value of type <span class="classname">Insets</span>, from
+package <span class="code">javafx.geometry</span>.  An object
+of type <span class="classname">Insets</span> has
+four <span class="ptype">double</span> properties,
+<span class="code">top</span>, <span class="code">right</span>, <span class="code">bottom</span>,
+and <span class="code">left</span>, which can be specified in the
+constructor:</p>
+
+
+<pre>new Insets(top,right,bottom,left)</pre>
+
+
+<p>There is also a constructor that takes a single parameter,
+which is used as the value for all four properties.
+When used as a margin for a child node, the properties
+specify the width of the margin along the top, right,
+bottom, and left edges of the child.  The margin can
+be specified using another static method:</p>
+
+
+<pre>BorderPane.setMargin( child, insets );</pre>
+
+
+<p>For example,</p>
+
+
+<pre>BorderPane.setMargin( topchild, new Insets(2,5,2,5) );</pre>
+
+
+<p>Remember that you can also tweak the appearance of a container
+using CSS (<a href="../c6/s2.html#GUI1.2.5">Subsection&nbsp;6.2.5</a>), which is the easiest way to set
+a border or background color for the container.</p>
+
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.5.3">6.5.3&nbsp;&nbsp;HBox and VBox</a>
+</h3>
+
+
+<p>It is common to want to lay out a set of components
+in a horizontal row or in a vertical column.  For that, the
+classes <span class="classname">HBox</span> and <span class="classname">VBox</span>
+can be used.  <span class="classname">HBox</span> is a subclass of
+<span class="classname">Pane</span> that lays out its children next
+to each other, in a horizontal row.  <span class="classname">VBox</span>
+is a subclass of <span class="classname">Pane</span> that lays out
+its children in vertical column.  An <span class="classname">HBox</span>
+might be used as the bottom component in a <span class="classname">BorderPane</span>,
+making it possible to line up several components along the bottom
+of the border pane.  Similarly, a <span class="classname">VBox</span>
+might be used as the left or right component of a <span class="classname">BorderPane</span>.
+Here, I will only discuss <span class="classname">HBox</span>, but <span class="classname">VBox</span>
+is used in an entirely analogous way.</p>
+
+
+<p>An <span class="classname">HBox</span>, <span class="code">hbox</span>, can be configured to leave a gap between
+each child and the next.  The amount of the gap is given by a value of type double,
+which can be set by calling</p>
+
+
+<pre>hbox.setSpacing( gapAmount );</pre>
+
+
+<p>The default value is zero.  Children can be added to <span class="code">hbox</span> in the same
+way as for <span class="classname">Pane</span>, that is, by calling
+<span class="code">hbox.getChildren().add(child)</span> or
+<span class="code">hbox.getChildren().addAll(child1,child2,...)</span>.
+The <span class="classname">HBox</span> class has a constructor with no parameters, as well
+as one that takes the size of the gap as its first parameter, optionally
+followed by child nodes to be added to the box.</p>
+
+
+<p>By default, an <span class="classname">HBox</span> will resize its children to their
+preferred widths, possibly leaving some blank extra space on the right.  (The blank
+space would be there because the width of the <span class="classname">HBox</span> has been
+set to be larger than its preferred width.)
+If using the children's preferred widths would make the total width greater than the actual width
+of the <span class="classname">HBox</span>, it will shrink the children, within the 
+limit of their minimum widths. The height of the children will be set to the
+full available height in the <span class="classname">HBox</span>, but, as always, within
+the limits set by their minimum and maximum heights.</p>
+
+
+<p>Perhaps you would like the children to grow beyond their preferred widths,
+to fill the available space in an <span class="classname">HBox</span>.  To make
+that happen, you need to set a layout constraint on each child that you
+want to grow, using a static method:</p>
+
+
+<pre>HBox.setHgrow( child, priority );</pre>
+
+
+<p>The second parameter is a constant of the enumerated type <span class="classname">Priority</span>, from
+package <span class="code">javafx.scene.layout</span>.  The value will likely
+be <span class="code">Priority.ALWAYS</span>, which means that the child will always get a share of the
+extra space.  The child's width will still be limited by its maximum width, so you might
+need to increase that maximum to get the child to grow to the extent that you want.</p>
+
+
+<p>As an example, suppose that an <span class="classname">HBox</span> contains three <span class="classname">Buttons</span>,
+<span class="code">but1</span>, <span class="code">but2</span>, and <span class="code">but3</span>, and that you would like them to grow
+to fill the entire <span class="classname">HBox</span>.  You need to set the <span class="code">HGrow</span>
+constraint on each button.  Furthermore, since the maximum width of a button is
+equal to its preferred width, you need to increase each button's maximum width.
+Here, I set the maximum width to be <span class="code">Double.POSITIVE_INFINITY</span>, which means
+that the button can grow without any limit:</p>
+
+
+<pre>HBox.setHgrow(but1, Priority.ALWAYS); 
+HBox.setHgrow(but2, Priority.ALWAYS); 
+HBox.setHgrow(but3, Priority.ALWAYS); 
+but1.setMaxWidth(Double.POSITIVE_INFINITY); 
+but2.setMaxWidth(Double.POSITIVE_INFINITY); 
+but3.setMaxWidth(Double.POSITIVE_INFINITY);</pre>
+
+
+<p>Any extra space will be distributed equally to the three buttons and added on to
+their preferred widths.  This does not mean that they will all have the same width, because 
+their original, preferred widths might not be equal.  For a <span class="sourceref"><a href="../source/chapter6/HighLowGUI.java">sample program</a></span> in the
+<a href="../c6/s6.html#GUI1.6.1">next section</a>, I wanted the three buttons in
+an <span class="classname">HBox</span> to be the same size.  To accomplish that, I simply gave
+all three buttons the same large preferred width:</p>
+
+
+<pre>but1.setPrefWidth(1000);
+but2.setPrefWidth(1000);
+but3.setPrefWidth(1000);</pre>
+
+
+<p>The <span class="classname">HBox</span> will then shrink the buttons proportionately to
+fit in the available space, and they all end up with the same width.</p>
+
+
+<p>There are other ways to tweak the layout in an <span class="classname">HBox</span>.
+You can add a margin around any child using a static method similar to the
+one that is used for the same purpose in a <span class="classname">BorderPane</span>.
+You can set the <span class="classname">HBox</span> to use the preferred heights
+of its children, instead of stretching them to fit the height of the
+hbox by calling <span class="code">hbox.setFillHeight(false)</span>.  You can say
+where in the hbox the children are placed, when they do not fill the
+entire hbox by calling <span class="code">hbox.setAlignment(position)</span>;
+the parameter is of type <span class="classname">Pos</span> with a
+default of <span class="code">Pos.TOP_LEFT</span>.  And, of course, you can apply
+CSS style properties.</p>
+
+
+<hr class="break">
+
+
+<p>As an example, we look at a GUI built entirely using <span class="classname">HBox</span>
+and <span class="classname">VBox</span>.  The complete program can be found
+in <span class="sourceref"><a href="../source/chapter6/SimpleCalc.java">SimpleCalc.java</a></span>.  The program has two <span class="classname">TextFields</span>
+where the user can enter numbers, four <span class="classname">Buttons</span> that the
+user can click to add, subtract, multiply, or divide the two numbers, and
+a <span class="classname">Label</span> that displays the result of the operation.  Here
+is a picture of the program's window:</p>
+
+
+<p align="center">
+<img src="simple-calc.png" width="212" height="171" alt="screenshot from SimpleCalc.java"></p>
+ 
+
+<p>The root node for the window is a <span class="classname">VBox</span> containing 
+four items, where the first three items are <span class="classname">HBoxes</span>.
+The first <span class="classname">HBox</span> contains two components,
+a <span class="classname">Label</span> displaying the text "<span class="code">x&nbsp;=</span>"
+and a <span class="classname">TextField</span>.  It is created with the commands</p>
+
+
+<pre>xInput = new TextField("0");  // Text input box initially containing "0"
+HBox xPane = new HBox( new Label(" x = "), xInput );</pre>
+
+
+<p>and it is later added as the first child of the <span class="classname">VBox</span>
+Note that the label is simply created with a constructor and added to
+the <span class="classname">HBox</span>, since there is no need to keep a reference to
+it.</p>
+
+
+<p>The third <span class="classname">HBox</span> contains the four buttons.
+The buttons' default widths would be rather small.  To make them
+fill the entire <span class="classname">HBox</span>, I add an hgrow constraint
+to each button and increase its maximum width.  Here is how it's done:</p>
+
+
+<pre>/* Create the four buttons and an HBox to hold them. */
+
+Button plus = new Button("+");
+plus.setOnAction( e -&gt; doOperation('+') );
+
+Button minus = new Button("-");
+minus.setOnAction( e -&gt; doOperation('-') );
+
+Button times = new Button("*");
+times.setOnAction( e -&gt; doOperation('*') );
+
+Button divide = new Button("/");
+divide.setOnAction( e -&gt; doOperation('/') );
+
+HBox buttonPane = new HBox( plus, minus, times, divide );
+
+/* The four buttons need to be tweaked so that they will fill
+ * the entire buttonPane.  This can be done by giving each button
+ * a large maximum width and setting an hgrow constraint
+ * for the button. */
+
+HBox.setHgrow(plus, Priority.ALWAYS);
+plus.setMaxWidth(Double.POSITIVE_INFINITY);
+HBox.setHgrow(minus, Priority.ALWAYS);
+minus.setMaxWidth(Double.POSITIVE_INFINITY);
+HBox.setHgrow(times, Priority.ALWAYS);
+times.setMaxWidth(Double.POSITIVE_INFINITY);
+HBox.setHgrow(divide, Priority.ALWAYS);
+divide.setMaxWidth(Double.POSITIVE_INFINITY);</pre>
+
+
+<p>The last position in the <span class="classname">VBox</span> is occupied by a
+<span class="classname">Label</span>.  Since there is only one component, it is
+added directly to the <span class="classname">VBox</span>; there is no need to
+wrap it in an <span class="classname">HBox</span>.  However, in order to
+get the text in the label to appear in the center instead of at the
+left edge of the window, I needed to increase the maximum width of the
+label (so that the <span class="classname">VBox</span> will set its width
+to fill the entire available space).  Furthermore, I had to set
+the alignment property of the label, to tell the label to place its
+text in the center of the label and not at the left:</p>
+
+
+<pre>answer.setMaxWidth(Double.POSITIVE_INFINITY);
+answer.setAlignment(Pos.CENTER);</pre>
+   
+
+<p>One point of interest in this example, aside from the layout, is the <span class="code">doOperation()</span>
+method that is called when the user clicks one of the buttons.  This method must
+retrieve the user's numbers from the text fields, perform the appropriate 
+arithmetic operation on them (depending on which button was clicked), and
+set the text of the <span class="classname">Label</span>
+to represent the result.  However, the contents of
+the text fields can only be retrieved as strings, and these strings must be
+converted into numbers.  If the conversion fails, the label is set to display 
+an error message:</p>
+   
+
+<pre>private void doOperation( char op ) {
+
+    double x, y;  // The numbers from the input boxes.
+
+    try {  // Get x from the first input box.
+        String xStr = xInput.getText();
+        x = Double.parseDouble(xStr);
+    }
+    catch (NumberFormatException e) {
+            // The string xStr was not a legal number.
+            // Show an error message, move the input focus 
+            // to xInput and select all the text in that box.
+        answer.setText("Illegal data for x.");
+        xInput.requestFocus();
+        xInput.selectAll();
+        return; // stop processing when an error occurs!
+    }
+
+    try {  // Get a number from the second input box.
+        String yStr = yInput.getText();
+        y = Double.parseDouble(yStr);
+    }
+    catch (NumberFormatException e) {
+        answer.setText("Illegal data for y.");
+        yInput.requestFocus();
+        yInput.selectAll();
+        return;
+    }
+
+    /* Perform the operation based on the parameter, op. */
+
+    if (op == '+')
+        answer.setText( "x + y = " + (x+y) );
+    else if (op == '-')
+        answer.setText( "x - y = " + (x-y) );
+    else if (op == '*')
+        answer.setText( "x * y = " + (x*y) );
+    else if (op == '/') {
+        if (y == 0) {  // Can't divide by zero! Show an error message.
+            answer.setText("Can't divide by zero!");
+            yInput.requestFocus();
+            yInput.selectAll();
+        }
+        else {
+            answer.setText( "x / y = " + (x/y) );
+        }
+    }
+
+} // end doOperation()</pre>
+   
+
+<p>The complete source code for this example can be found in <span class="sourceref"><a href="../source/chapter6/SimpleCalc.java">SimpleCalc.java</a></span>.</p>
+
+
+
+
+<hr class="break">
+<h3 class="subsection_title">
+<a name="GUI1.5.4">6.5.4&nbsp;&nbsp;GridPane and TilePane</a>
+</h3>
+
+
+<p>Next, we consider <span class="classname">GridPane</span>, a subclass of
+<span class="classname">Pane</span> that lays out its children in rows and columns.
+Rows and columns are numbered, starting from zero.  Here is an illustration
+of a typical grid with 4 rows and 5 columns:</p>
+
+
+<p align="center">
+<img src="grid-layout.png" width="416" height="311" alt="cells in a GridPane"></p>   
+
+
+<p>Note that the rows are not necessarily all the same height, and
+columns are not necessarily all the same width.</p>
+
+
+<p>It is possible to leave gaps between rows or between columns, where
+the background of the <span class="classname">GridPane</span> will show.
+If <span class="code">grid</span> is the <span class="classname">GridPane</span>, set the
+size of the gaps by calling</p>
+
+
+<pre>grid.setHGap( gapSize );  // gap between columns
+gris.setVGap( gapSize );  // gap between rows</pre>
+
+
+<p>You can specify the row and column where a child is to be placed
+when you add the child to the <span class="classname">GridPane</span>:</p>
+
+
+<pre>grid.add( child, column, row );</pre>
+
+
+<p>(Note that the column number is specified first.)  In fact, it is
+possible for a child to span several rows or several columns in the
+grid.  The number of columns and number of rows that the
+child should occupy can be given as additional parameters to the
+<span class="code">add()</span> method:</p>
+
+
+<pre>grid.add( child, column, row, columnCount, rowCount );</pre>
+
+
+<p>The number of rows and number of columns in the grid are determined
+by the positions of the children that have been added to it.</p>
+
+
+<p>A <span class="classname">GridPane</span> will resize each child to fill the
+position or positions that it occupies in the grid (within minimum and
+maximum size limits).  The preferred width of a column will be just large
+enough to accommodate the preferred widths of all the children in that
+column, and similarly for the preferred height.  There are several ways
+to tweak this behavior, but here I will only mention that the
+actual column width and row height can be controlled.</p>
+
+
+<p>A <span class="classname">GridPane</span> can have a set of <span class="newword">column
+constraints</span> and a set of <span class="newword">row constraints</span>
+that determine how the column width and row height are computed.
+The width of a column can be computed based on the widths of its
+children (the default), it can be set to a constant value, or it can be computed
+as a percentage of available space.  Computation of row height is similar.
+Here is how to set constant row heights 
+for a <span class="code">gridpane</span> that has four rows:</p>
+
+
+<pre>gridpane.getRowConstraints().addAll(
+     new RowConstraints(100), // row 0 has height 100 pixels 
+     new RowConstraints(150), // row 1 has height 150 pixels 
+     new RowConstraints(100), // row 2 has height 100 pixels 
+     new RowConstraints(200), // row 3 has height 200 pixels 
+);</pre>
+
+
+<p>In this case, the total height of the gridpane is the same,
+no matter how much space is available for it.</p>
+
+
+<p>When percentages are used, the grid pane will expand to
+fill available space, and the row height or column width will be computed
+from the percentages.  For example, to force a five-column gridpane to fill
+the available width and to force all columns to have the same size:</p>
+
+
+<pre>for (int i = 0; i &lt; 5; i++) {
+   ColumnConstraints constraints = new ColumnConstraints();
+   constraints.setPercentWidth(20); // (there is no constructor that does this)
+   gridpane.getColumnConstraints().add(constraints);
+}</pre>
+
+
+<p>If the percentages add up to more than 100, then they will be decreased
+proportionately.  In the example, setting all five percentages to be 50 would
+have the same effect as setting them all to be 20.
+Things can get more complicated than this, but these are probably the most
+common cases.</p>
+
+
+<p>For an example of using a <span class="classname">GridLayout</span> see the
+source code of <span class="sourceref"><a href="../source/chapter6/SimpleColorChooser.java">SimpleColorChooser.java</a></span> from
+<a href="../c6/s2.html#GUI1.2.1">Subsection&nbsp;6.2.1</a>.  You should now be able to read and understand
+the entire program.</p>
+
+
+<hr class="break">
+
+
+<p>If you would like a grid in which all the rectangles are the
+same size, you can use a <span class="classname">TilePane</span>.  A <span class="classname">TilePane</span>
+arranges equal-size "tiles" in rows and columns.  Each tile holds one of the
+child nodes; there is no way to spread out a child over several tiles.</p>
+
+
+<p>A <span class="classname">TilePane</span>, <span class="code">tpane</span>, has a preferred number of rows and a preferred
+number of columns, which you should set by calling</p>
+
+
+<pre>tpane.setPrefColumns(cols);</pre>
+
+
+<p>The preferred number of columns will be used if the <span class="classname">TilePane</span>
+is shown at its preferred size, which is the usual case.  However, that is not necessarily 
+true if it is shown at a different size; in that case, the number of columns will be
+determined by the width of the available space.  The number of rows
+will be determined by the number of child nodes that are added to the <span class="classname">TilePane</span>.
+The children will be laid out in order, filling the first row from left to right, then the
+second row, and so on.  It is not required that the last row be completely filled.
+(All of this is true if the "orientation" of the <span class="classname">TilePane</span> is
+horizontal.  It is possible to change the orientation to vertical. In that case, the number
+of preferred rows is specified instead of the number of columns.  However, I have found little
+reason to do that.)</p>
+
+
+<p>It's very common to have a <span class="classname">TilePane</span> in which the number of 
+preferred columns is one.  In that case, it is similar to a <span class="classname">VBox</span>.
+It is also common for the number of columns to be equal to the number of child nodes,
+and in that case, it is similar to an <span class="classname">HBox</span>.</p>
+
+
+<p>At its preferred size, the width of each tile is equal to the largest preferred width
+of any child node, and similarly for the height.  The <span class="classname">TilePane</span>
+will resize each child to completely fill its tile, except that it will not make
+a child larger than its maximum width and height.</p>
+
+
+<p>There is a <span class="classname">TilePane</span> constructor with no parameters and one that
+takes a list of any number of children to be added to the pane.  You can also
+add children later using one of</p>
+
+
+<pre>tpane.getChildren().add(child);
+tpane.getChildren().addAll(child1, child2, ...);</pre>
+
+
+<p>You can specify the size of a horizontal gap that will be placed between columns and
+of a vertical gap that will be placed between rows.  The background of the pane will show
+through the gaps.  The gap amounts can be specified in the constructor (optionally 
+followed by a list of children):</p>
+
+
+<pre>TilePane tpane = new TilePane( hgapAmount, vgapAmount );</pre>
+
+
+<p>or they can be specified later with <span class="code">tpane.setHgap(h)</span> and <span class="code">tpane.setVgap(v)</span>.</p>
+
+
+<p>For an example that uses <span class="classname">TilePanes</span> for layout, see
+the solution to <a href="../c6/ex7-ans.html">Exercise&nbsp;6.7</a>.</p>
+
+
+
+
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="s4.html">Previous Section</a> |
+           <a href="s6.html">Next Section</a> |
+           <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>

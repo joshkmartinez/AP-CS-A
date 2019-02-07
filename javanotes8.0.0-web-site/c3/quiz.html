@@ -1,0 +1,169 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javanotes 8.0, Quiz on Chapter 3</title>
+<link type="text/css" rel="stylesheet" href="../javanotes.css">
+</head>
+<body>
+<div class="page">
+<div align="right">
+<small>
+        [  <a href="quiz_answers.html">Quiz Answers</a> | <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+<hr>
+<div class="content">
+<h2 class="quiz_title">Quiz on Chapter 3</h2>
+<p>
+<span class="start"><big>T</big>his page contains</span> questions on Chapter 3 of
+           <a href="../index.html"><i>Introduction to Programming Using Java</i></a>.
+           You should be able to answer these questions after studying that chapter.
+           Sample answers to these questions can be found <a href="quiz_answers.html">here</a>.</p>
+<div class="quiz-question">
+<p class="question">Question&nbsp;1:</p>
+<p>What is an <i>algorithm</i>?</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;2:</p>
+<p>Explain briefly what is
+meant by "pseudocode" and how is it useful in the development of
+algorithms.</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;3:</p>
+<p>What is a <i>block
+statement?</i> How are block statements used in Java programs?</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;4:</p>
+<p>What is the main difference
+between a <span class="code">while</span> loop and a <span class="code">do..while</span> loop?</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;5:</p>
+<p>What does it mean to
+<i>prime</i> a loop?</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;6:</p>
+<p>Explain what is meant by an
+<i>animation</i> and how a computer displays an animation.</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;7:</p>
+<p>Write a <span class="code">for</span> loop
+that will print out all the multiples of 3 from 3 to 36, that is: 3 6 9 12 15
+18 21 24 27 30 33 36.</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;8:</p>
+<p>Fill in the following
+<span class="code">main()</span> routine so that it will ask the user to enter an integer, read
+the user's response, and tell the user whether the number entered is even or
+odd. (You can use <span class="code">TextIO.getInt()</span> to read the integer. Recall that an
+integer <span class="code">n</span> is even if <span class="code">n&nbsp;%&nbsp;2&nbsp;==&nbsp;0</span>.)</p>
+
+<pre>public static void main(String[] args) {
+ 
+         // Fill in the body of this subroutine!
+ 
+}</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;9:</p>
+<p>Write a code segment that will print out two <i>different</i> random integers
+selected from the range 1 to 10.  All possible outputs should have the same probability.
+Hint:  You can easily select two random numbers, but you have to account for the
+fact that the two numbers that you pick might be the same.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;10:</p>
+<p>Suppose that <span class="code">s1</span> and <span class="code">s2</span> are variables of type
+<span class="classname">String</span>, whose values are expected to be string representations
+of values of type <span class="ptype">int</span>.  Write a code segment that will compute and print
+the integer sum of those values, or will print an error message if the values cannot
+successfully be converted into integers.  (Use a <span class="code">try..catch</span> statement.)</p>
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;11:</p>
+<p>Show the exact output that
+would be produced by the following <span class="code">main()</span> routine:</p>
+
+<pre>public static void main(String[] args) {
+    int N;
+    N = 1;
+    while (N &lt;= 32) {
+       N = 2 * N;
+       System.out.println(N);   
+    }
+}</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;12:</p>
+<p>Show the exact output
+produced by the following <span class="code">main()</span> routine:</p>
+
+<pre>public static void main(String[] args) {
+   int x,y;
+   x = 5;
+   y = 1;
+   while (x &gt; 0) {
+      x = x - 1;
+      y = y * x;
+      System.out.println(y);
+   }
+}</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;13:</p>
+<p>What output is produced by
+the following program segment? <b>Why?</b> (Recall that <span class="code">name.charAt(i)</span>
+is the i-th character in the string, <span class="code">name</span>.)</p>
+
+<pre>String name;
+int i;
+boolean startWord;
+
+name = "Richard M. Nixon";
+startWord = true;
+for (i = 0; i &lt; name.length(); i++) {
+   if (startWord)
+      System.out.println(name.charAt(i));
+   if (name.charAt(i) == ' ')
+      startWord = true;
+   else
+      startWord = false;
+}</pre>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;14:</p>
+<p>Suppose that <span class="code">numbers</span> is an array of type <span class="atype">int[]</span>.
+Write a code segment that will count and output the number of times that the
+number 42 occurs in the array.</p>
+
+</div>
+<div class="quiz-question">
+<p class="question">Question&nbsp;15:</p>
+<p>Define the <span class="newword">range</span> of an array of numbers to be
+the maximum value in the array minus the minimum value.  Suppose that
+<span class="code">raceTimes</span> is an array of type <span class="atype">double[]</span>.
+Write a code segment that will find and print the range of <span class="code">raceTimes</span>.</p>
+
+</div>
+</div>
+<hr>
+<div align="right">
+<small>
+        [  <a href="quiz_answers.html">Quiz Answers</a> | <a href="index.html">Chapter Index</a> | 
+        <a href="../index.html">Main Index</a> ]
+    </small>
+</div>
+</div>
+</body>
+</html>
