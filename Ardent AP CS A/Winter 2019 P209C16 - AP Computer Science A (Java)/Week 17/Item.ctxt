@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Item
+comment1.params=
+comment1.target=int\ getLevel()
+comment2.params=l
+comment2.target=void\ setLevel(int)
+comment3.params=
+comment3.target=int\ getVendorValue()
+comment4.params=v
+comment4.target=void\ setVendorValue(int)
+numComments=5

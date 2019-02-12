@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=MerlinsWand
+comment1.params=l\ vv
+comment1.target=MerlinsWand(int,\ int)
+comment2.params=
+comment2.target=java.lang.String\ toString()
+numComments=3

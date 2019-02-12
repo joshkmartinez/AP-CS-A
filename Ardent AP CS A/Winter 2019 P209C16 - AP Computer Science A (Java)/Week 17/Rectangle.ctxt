@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Rectangle
+comment1.params=w\ h
+comment1.target=Rectangle(double,\ double)
+comment2.params=
+comment2.target=double\ getArea()
+comment3.params=
+comment3.target=double\ getHeight()
+comment4.params=
+comment4.target=double\ getWidth()
+comment5.params=h
+comment5.target=void\ setHeight(double)
+comment6.params=w
+comment6.target=void\ setWidth(double)
+comment7.params=
+comment7.target=java.lang.String\ toString()
+comment8.params=o
+comment8.target=boolean\ equals(java.lang.Object)
+numComments=9
