@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Queue
+comment1.params=
+comment1.target=Queue()
+comment2.params=o
+comment2.target=void\ enqueue(java.lang.Object)
+comment3.params=
+comment3.target=void\ dequeue()
+comment4.params=
+comment4.target=java.lang.Object\ first()
+comment5.params=
+comment5.target=java.lang.Object\ last()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7
