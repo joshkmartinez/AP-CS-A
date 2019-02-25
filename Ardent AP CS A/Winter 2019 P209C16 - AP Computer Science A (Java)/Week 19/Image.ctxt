@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Image
+comment1.params=
+comment1.target=Image()
+comment2.params=w\ h
+comment2.target=Image(int,\ int)
+comment3.params=newI
+comment3.target=void\ setImage(Pixel[][])
+comment4.params=x\ y
+comment4.target=void\ setSize(int,\ int)
+comment5.params=x\ y\ p
+comment5.target=void\ setPixel(int,\ int,\ Pixel)
+numComments=6

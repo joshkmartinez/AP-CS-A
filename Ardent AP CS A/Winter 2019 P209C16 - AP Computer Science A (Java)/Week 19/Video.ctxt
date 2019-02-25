@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Video
+comment1.params=fps\ length
+comment1.target=Video(int,\ int)
+comment2.params=
+comment2.target=int\ getFPS()
+numComments=3
