@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Person
+comment1.params=
+comment1.target=Person()
+comment2.params=c
+comment2.target=Person(double)
+comment3.params=
+comment3.target=boolean\ getInfected()
+comment4.params=
+comment4.target=double\ getChance()
+comment5.params=d
+comment5.target=void\ changeChance(double)
+comment6.params=b
+comment6.target=void\ changeInfected(boolean)
+comment7.params=
+comment7.target=java.lang.String\ toString()
+numComments=8

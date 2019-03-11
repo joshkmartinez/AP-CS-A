@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Population
+comment1.params=n
+comment1.target=Population(int)
+comment2.params=
+comment2.target=void\ infection()
+comment3.params=
+comment3.target=int\ size()
+comment4.params=
+comment4.target=java.lang.String\ toString()
+numComments=5
