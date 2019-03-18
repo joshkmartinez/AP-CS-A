@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e016c799-9163-4be6-b80e-413574e798db" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../Ardent AP CS A/Spring 2019 P209D16 - AP Computer Science A (Java)/Week 21/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Ardent AP CS A/Spring 2019 P209D16 - AP Computer Science A (Java)/Week 21/package.bluej" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_One.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_One.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Three.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Three.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Two.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/Lesson3/Lesson_3_Activity_Two.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/T1_L3_Template.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 1 - Introduction to Java/ Lesson 3 - User Input and Variables/t1_lesson03_template.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Term 1/Unit 3 - Strings and One Dimensional Arrays/Assignment 5 - Pivot Strings/doc/logfile.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="e016c799-9163-4be6-b80e-413574e798db" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +14,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Dashboard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="108" column="14" selection-start-line="108" selection-start-column="14" selection-end-line="108" selection-end-column="14" />
+            <state relative-caret-position="417">
+              <caret line="120" column="8" lean-forward="true" selection-end-line="195" selection-end-column="1" />
               <folding>
                 <element signature="e#0#2117#0" expanded="true" />
                 <element signature="e#1904#1905#0" expanded="true" />
@@ -60,10 +49,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="410" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="720" />
     <option name="y" value="23" />
-    <option name="width" value="1440" />
+    <option name="width" value="720" />
     <option name="height" value="837" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -95,7 +84,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552860780871" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552861001296" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -140,10 +129,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="837" extended-state="6" />
-    <editor active="true" />
+    <frame x="720" y="23" width="720" height="837" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17739628" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.36578172" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -152,13 +140,13 @@
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32885906" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32885906" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -179,8 +167,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Dashboard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="108" column="14" selection-start-line="108" selection-start-column="14" selection-end-line="108" selection-end-column="14" />
+        <state relative-caret-position="417">
+          <caret line="120" column="8" lean-forward="true" selection-end-line="195" selection-end-column="1" />
           <folding>
             <element signature="e#0#2117#0" expanded="true" />
             <element signature="e#1904#1905#0" expanded="true" />

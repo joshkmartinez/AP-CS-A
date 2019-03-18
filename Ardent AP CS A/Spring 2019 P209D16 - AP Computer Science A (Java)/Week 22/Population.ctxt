@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Population
+comment1.params=numPeople
+comment1.target=Population(int)
+comment2.params=
+comment2.target=int\ size()
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment4.params=
+comment4.target=void\ infection()
+comment4.text=\n\ infection()\ -\ this\ method\ traverses\ the\ entire\ array\ and\ exposes\ \n\ each\ person\ to\ the\ disease.\ Change\ their\ infection\ state\ based\ on\n\ their\ susceptibility.\n
+comment5.params=
+comment5.target=double\ checkInfected()
+comment5.text=\n\ checkInfected()\ \=\ traverse\ the\ array\ and\ calculate\ the\ percentage\n\ of\ the\ population\ that\ has\ the\ disease.\n
+comment6.params=
+comment6.target=void\ timeIteration()
+comment6.text=\n\ timeIteration()\ -\ this\ method\ simulates\ the\ passage\ of\ a\ single\ time\n\ cycle\ in\ the\ world,\ and\ causes\ people\ who\ have\ the\ disease\ to\ potentially\n\ infect\ the\ people\ they\ are\ next\ to.\n\ \n\ There\ are\ many\ ways\ to\ implement\ this...for\ our\ experiment,\ let's\ say\ that\n\ people\ who\ are\ next\ to\ one\ infected\ person\ have\ a\ 50%\ chance\ of\ being\ infected,\n\ and\ people\ who\ are\ next\ to\ TWO\ infected\ persons\ have\ a\ 99%\ chance\ of\ being\ infected.\n
+numComments=7

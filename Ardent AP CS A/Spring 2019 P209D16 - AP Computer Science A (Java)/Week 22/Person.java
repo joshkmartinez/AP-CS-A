@@ -36,8 +36,13 @@ public class Person
     public String toString()
     {
         String personString = "";
-        personString += "This person is infected: " + infected() + "\n";
-        personString += "Their vulnerability rating is: " + getVulnerability();
+        if(infected){
+            personString+="X";
+        } else{
+             personString+="0";
+        }
+        //personString += "This person is infected: " + infected() + "\n";
+        //personString += "Their vulnerability rating is: " + getVulnerability();
         return personString;
     }
     
