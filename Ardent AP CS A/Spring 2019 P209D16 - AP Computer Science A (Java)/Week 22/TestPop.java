@@ -15,7 +15,11 @@ public class TestPop
         System.out.println( "Running a single time cycle..." );
         world.timeIteration();
         System.out.println(world);
+        System.out.println( world.checkInfected() + "% of people infected.");
         
+        for (int i = 0; i < 1000000; i++){
+            world.timeIteration();
+        }
         System.out.println( world.checkInfected() + "% of people infected.");
     }
 }

@@ -4,7 +4,7 @@ import java.util.Random;
 public class Population
 {
     // variables
-    private double baseVulnerability = 0.5;
+    private double baseVulnerability = 0.6; //about this amount of people will not contract the disease
     private Person[][] data;
     private Random gen = new Random();
     
@@ -81,7 +81,7 @@ public class Population
             }   
         }
         
-        return (double) i / data.length;
+        return ((double) i / (double)(data.length*data[0].length))*100.0;
     }
     
     /**
