@@ -5,10 +5,14 @@ public class Person
     private double vulnerability;   // from 0.0 (immune) to 1.0 (insta-death)
     
     // constructor
-    public Person( double vulnerability )
+    public Person( double v )
     {
         infected = false;
-        this.vulnerability = vulnerability;
+        if(!(v>1)){
+            this.vulnerability = v;
+        } else {
+            this.vulnerability = 1;
+        }
     }
     
     // methods

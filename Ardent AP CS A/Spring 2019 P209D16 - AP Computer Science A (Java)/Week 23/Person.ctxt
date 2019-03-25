@@ -1,15 +1,15 @@
 #BlueJ class context
 comment0.target=Person
-comment1.params=v
+comment1.params=immunity
 comment1.target=Person(double)
 comment2.params=
 comment2.target=boolean\ infected()
 comment3.params=state
 comment3.target=void\ setInfected(boolean)
 comment4.params=
-comment4.target=double\ getVulnerability()
+comment4.target=double\ getImmunity()
 comment5.params=value
-comment5.target=void\ setVulnerability(double)
+comment5.target=void\ setImmunity(double)
 comment6.params=
 comment6.target=java.lang.String\ toString()
 numComments=7

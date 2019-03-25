@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Population
+comment1.params=worldSizeX\ worldSizeY\ infectionLimit
+comment1.target=Population(int,\ int,\ double)
+comment10.params=temp
+comment10.target=void\ processLeftColumn(Person[][])
+comment11.params=temp
+comment11.target=void\ processRightColumn(Person[][])
+comment12.params=temp
+comment12.target=void\ processMiddle(Person[][])
+comment2.params=
+comment2.target=int\ popSize()
+comment3.params=
+comment3.target=void\ printWorld()
+comment4.params=
+comment4.target=void\ infection()
+comment5.params=
+comment5.target=double\ checkInfected()
+comment6.params=
+comment6.target=void\ timeIteration()
+comment7.params=temp
+comment7.target=void\ processCorners(Person[][])
+comment8.params=temp
+comment8.target=void\ processTopRow(Person[][])
+comment9.params=temp
+comment9.target=void\ processBottomRow(Person[][])
+numComments=13

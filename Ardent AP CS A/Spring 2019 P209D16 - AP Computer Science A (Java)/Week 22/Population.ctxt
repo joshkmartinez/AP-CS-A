@@ -15,4 +15,10 @@ comment5.text=\n\ checkInfected()\ \=\ traverse\ the\ array\ and\ calculate\ the
 comment6.params=
 comment6.target=void\ timeIteration()
 comment6.text=\n\ timeIteration()\ -\ this\ method\ simulates\ the\ passage\ of\ a\ single\ time\n\ cycle\ in\ the\ world,\ and\ causes\ people\ who\ have\ the\ disease\ to\ potentially\n\ infect\ the\ people\ they\ are\ next\ to.\n\ \n\ There\ are\ many\ ways\ to\ implement\ this...for\ our\ experiment,\ let's\ say\ that\n\ people\ who\ are\ next\ to\ one\ infected\ person\ have\ a\ 50%\ chance\ of\ being\ infected,\n\ and\ people\ who\ are\ next\ to\ TWO\ infected\ persons\ have\ a\ 99%\ chance\ of\ being\ infected.\n
-numComments=7
+comment7.params=
+comment7.target=void\ handleCorners()
+comment8.params=
+comment8.target=void\ handleEdges()
+comment9.params=
+comment9.target=void\ handleInnards()
+numComments=10
