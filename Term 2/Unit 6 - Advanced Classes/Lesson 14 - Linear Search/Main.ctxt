@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=list\ letter
+comment1.target=int\ countLetter(java.util.ArrayList,\ java.lang.String)
+comment1.text=\n\ Returns\ the\ number\ of\ Strings\ in\ the\ input\ list\ that\ start\ with\ the\ given\n\ letter.\ Implementation\ should\ use\ linear\ search,\ and\ ignore\ the\ case\ of\n\ the\ input\ letter.\n
+comment2.params=str
+comment2.target=void\ main(java.lang.String[])
+numComments=3

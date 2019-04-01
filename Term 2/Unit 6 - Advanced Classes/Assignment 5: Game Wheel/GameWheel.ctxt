@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=GameWheel
+comment1.params=
+comment1.target=GameWheel()
+comment2.params=
+comment2.target=java.util.ArrayList\ initGameWheel()
+comment3.params=
+comment3.target=java.util.ArrayList\ getPrizeCards()
+comment4.params=
+comment4.target=java.util.ArrayList\ scramble()
+comment5.params=
+comment5.target=PrizeCard\ spinWheel()
+numComments=6

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=PrizeCard
+comment1.params=
+comment1.target=PrizeCard()
+comment2.params=nID\ nColor\ nPrizeAmount
+comment2.target=PrizeCard(int,\ java.lang.String,\ int)
+comment3.params=
+comment3.target=int\ getID()
+comment4.params=
+comment4.target=int\ getPrizeAmount()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
