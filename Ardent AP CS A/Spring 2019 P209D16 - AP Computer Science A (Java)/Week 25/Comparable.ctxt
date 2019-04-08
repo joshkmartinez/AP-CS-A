@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Comparable
+comment1.params=o
+comment1.target=int\ compareTo(java.lang.Object)
+numComments=2

@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=SpaceCraft
+comment1.params=w\ l\ c\ e
+comment1.target=SpaceCraft(int,\ double,\ int,\ int)
+comment2.params=
+comment2.target=int\ getWeight()
+comment3.params=
+comment3.target=double\ getlength()
+comment4.params=
+comment4.target=int\ getCapacity()
+comment5.params=
+comment5.target=int\ getEngines()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+comment7.params=o
+comment7.target=int\ compareTo(java.lang.Object)
+numComments=8
