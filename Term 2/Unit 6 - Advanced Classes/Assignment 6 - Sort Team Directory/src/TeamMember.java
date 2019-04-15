@@ -4,13 +4,12 @@ public class TeamMember {
 
     public TeamMember(String name, String id) {
         name = name.toLowerCase();
-        fullName = "";
-        for (int i = 0; i < name.length(); i++) {
+        //+""string
+        fullName = (name.charAt(0) + "").toUpperCase();
+        for (int i = 1; i < name.length(); i++) {
             String s = name.charAt(i) + "";
             String s2 = Character.toString(name.charAt(i));
-            if (i == 0) {
-                fullName += s2.toUpperCase();
-            } else if (s.equals(" ") || s.equals("	")) //tab
+            if (s.equals(" ") || s.equals("	")) //tab
             {
                 fullName += s;
                 i++;
