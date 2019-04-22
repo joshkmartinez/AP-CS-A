@@ -1,1 +1,0 @@
-Disease Simulation for an array.
