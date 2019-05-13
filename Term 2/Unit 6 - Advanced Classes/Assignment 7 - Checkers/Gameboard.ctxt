@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Gameboard
+comment1.params=setup
+comment1.target=Gameboard(boolean)
+comment2.params=x\ y\ left
+comment2.target=boolean\ move(int,\ int,\ boolean)
+comment3.params=x\ y
+comment3.target=boolean\ jump(int,\ int)
+comment4.params=x\ y
+comment4.target=boolean\ kingMe(int,\ int)
+comment5.params=
+comment5.target=void\ p()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7
