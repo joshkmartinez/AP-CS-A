@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=RandomStringChooser
+comment1.params=s
+comment1.target=RandomStringChooser(java.lang.String[])
+comment2.params=
+comment2.target=java.lang.String\ getNext()
+numComments=3

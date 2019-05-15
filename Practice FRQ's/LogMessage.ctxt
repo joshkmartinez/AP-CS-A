@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=LogMessage
+comment1.params=m
+comment1.target=LogMessage(java.lang.String)
+comment2.params=s
+comment2.target=boolean\ containsWord(java.lang.String)
+numComments=3
